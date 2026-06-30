@@ -1,0 +1,1615 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Příprava na opravnou zkoušku z matematiky</title>
+
+<!-- MathJax -->
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+  svg: { fontCache: 'global' },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" id="MathJax-script" async></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --ink:#16263d;          /* hlavní tmavě modrá – inkoust */
+  --ink-soft:#33476a;
+  --paper:#f7f5ef;        /* papírová */
+  --paper-card:#fffdf8;
+  --line:#e4ddcd;
+  --line-strong:#cdc3ac;
+  --amber:#e07a1f;        /* akcent – pozor na chyby */
+  --amber-soft:#fbe6cf;
+  --amber-line:#f1c98a;
+  --green:#2f8f5b;        /* hotovo */
+  --green-soft:#e3f1e7;
+  --red:#c0392b;          /* chyby */
+  --red-soft:#f9e4e1;
+  --blue-soft:#e7eef7;
+  --shadow:0 1px 2px rgba(22,38,61,.06),0 4px 16px rgba(22,38,61,.07);
+  --shadow-lg:0 8px 40px rgba(22,38,61,.14);
+  --radius:14px;
+  --maxw:1080px;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--paper);
+  color:var(--ink);
+  line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{font-family:'Fraunces',Georgia,serif;line-height:1.2;font-weight:600}
+code,.mono{font-family:'JetBrains Mono',monospace}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+
+/* ---------- HEADER ---------- */
+.topbar{
+  position:sticky;top:0;z-index:50;
+  background:rgba(247,245,239,.88);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.topbar-inner{
+  max-width:var(--maxw);margin:0 auto;padding:10px 20px;
+  display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+}
+.topbar .brand{font-family:'Fraunces',serif;font-weight:700;font-size:1.05rem;display:flex;align-items:center;gap:9px}
+.topbar .brand .dot{width:11px;height:11px;border-radius:3px;background:var(--amber);display:inline-block;transform:rotate(45deg)}
+.topbar nav{margin-left:auto;display:flex;gap:4px;flex-wrap:wrap}
+.topbar nav a{
+  font-size:.82rem;color:var(--ink-soft);text-decoration:none;
+  padding:6px 11px;border-radius:8px;font-weight:500;white-space:nowrap;
+}
+.topbar nav a:hover{background:var(--blue-soft);color:var(--ink)}
+.mini-progress{display:flex;align-items:center;gap:8px;font-size:.8rem;font-weight:600;color:var(--ink-soft)}
+.mini-track{width:84px;height:7px;border-radius:99px;background:var(--line);overflow:hidden}
+.mini-fill{height:100%;width:0;background:linear-gradient(90deg,var(--amber),#f0a04b);border-radius:99px;transition:width .5s ease}
+
+/* ---------- HERO ---------- */
+.hero{
+  background:
+    radial-gradient(1200px 400px at 80% -10%, rgba(224,122,31,.10), transparent 60%),
+    linear-gradient(180deg,#fbf9f3,var(--paper));
+  border-bottom:1px solid var(--line);
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  /* jemný papírový rastr / čtverečkovaný sešit */
+  content:"";position:absolute;inset:0;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:28px 28px;opacity:.35;mask-image:radial-gradient(900px 360px at 75% 0%,#000,transparent 70%);
+}
+.hero-inner{max-width:var(--maxw);margin:0 auto;padding:64px 20px 52px;position:relative}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:.74rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--amber);background:var(--amber-soft);border:1px solid var(--amber-line);
+  padding:6px 12px;border-radius:99px;margin-bottom:22px;
+}
+.hero h1{font-size:clamp(2.1rem,5.2vw,3.5rem);font-weight:700;letter-spacing:-.01em;max-width:16ch}
+.hero .sub{font-size:clamp(1.05rem,2.2vw,1.3rem);color:var(--ink-soft);margin-top:16px;max-width:54ch}
+.hero .deadline{
+  margin-top:28px;display:flex;gap:14px;flex-wrap:wrap;
+}
+.countdown{
+  background:var(--ink);color:#fff;border-radius:var(--radius);padding:16px 22px;display:flex;gap:20px;align-items:center;box-shadow:var(--shadow-lg)
+}
+.countdown .big{font-family:'Fraunces',serif;font-size:2.2rem;font-weight:700;line-height:1}
+.countdown .lbl{font-size:.78rem;color:#b9c6da;letter-spacing:.04em}
+.countdown .date{border-left:1px solid #38496310;padding-left:20px;border-color:#3a4d6e}
+
+/* ---------- SYSTEM STRIP ---------- */
+.system{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:34px;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--paper-card)}
+.system .step{padding:16px 18px;border-right:1px solid var(--line);position:relative}
+.system .step:last-child{border-right:none}
+.system .step .n{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--amber);font-weight:700}
+.system .step p{font-size:.86rem;margin-top:6px;color:var(--ink-soft);line-height:1.45}
+
+/* ---------- SECTION ---------- */
+section{padding:46px 0}
+.section-head{display:flex;align-items:baseline;gap:14px;margin-bottom:8px}
+.section-head .idx{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--amber);font-weight:700;padding-top:4px}
+.section-head h2{font-size:clamp(1.5rem,3.4vw,2.1rem)}
+.section-intro{color:var(--ink-soft);max-width:62ch;margin-bottom:26px}
+
+/* ---------- DASHBOARD ---------- */
+.dash-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.stat{
+  background:var(--paper-card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:18px;box-shadow:var(--shadow);position:relative;overflow:hidden
+}
+.stat .k{font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+.stat .v{font-family:'Fraunces',serif;font-size:2.3rem;font-weight:700;margin-top:4px;line-height:1}
+.stat .v small{font-size:1rem;color:var(--ink-soft);font-weight:500}
+.stat.accent{background:linear-gradient(160deg,#fff,var(--amber-soft));border-color:var(--amber-line)}
+.dash-bottom{display:grid;grid-template-columns:1.4fr 1fr;gap:14px;margin-top:14px}
+.bigbar-card{background:var(--ink);color:#fff;border-radius:var(--radius);padding:22px;box-shadow:var(--shadow-lg)}
+.bigbar-card .top{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:14px}
+.bigbar-card .top .now{font-family:'Fraunces',serif;font-size:2.6rem;font-weight:700;line-height:1}
+.bigbar-card .top .meta{text-align:right;font-size:.82rem;color:#b9c6da}
+.bigbar-card .meta b{color:#fff;font-weight:600;display:block;font-size:.95rem}
+.bigtrack{height:12px;border-radius:99px;background:#2a3c59;overflow:hidden}
+.bigfill{height:100%;width:0;background:linear-gradient(90deg,var(--amber),#f3ab5a);border-radius:99px;transition:width .6s cubic-bezier(.2,.8,.2,1)}
+.bigbar-card .legend{display:flex;gap:16px;margin-top:14px;font-size:.78rem;color:#b9c6da;flex-wrap:wrap}
+.watch{
+  background:var(--amber-soft);border:1px solid var(--amber-line);border-radius:var(--radius);padding:20px;
+}
+.watch h4{color:#9a4e0c;display:flex;align-items:center;gap:8px;font-size:1.05rem;margin-bottom:10px}
+.watch ul{list-style:none;font-size:.88rem}
+.watch li{padding:5px 0 5px 22px;position:relative;color:#7a431a;line-height:1.4}
+.watch li::before{content:"!";position:absolute;left:0;top:5px;width:15px;height:15px;background:var(--amber);color:#fff;border-radius:4px;font-size:.7rem;font-weight:700;display:grid;place-items:center;font-family:'JetBrains Mono',monospace}
+
+/* ---------- GUIDE CARDS (žák/rodič) ---------- */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.guide{background:var(--paper-card);border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}
+.guide.parent{background:linear-gradient(170deg,#fff,var(--green-soft));border-color:#bfe0c9}
+.guide h3{font-size:1.25rem;display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.guide .tag{font-size:.7rem;font-family:'JetBrains Mono',monospace;font-weight:700;padding:3px 8px;border-radius:6px;background:var(--blue-soft);color:var(--ink-soft)}
+.guide.parent .tag{background:#cdead6;color:#1f6b3f}
+.guide ul{list-style:none}
+.guide li{padding:8px 0 8px 30px;position:relative;border-bottom:1px dashed var(--line);font-size:.92rem}
+.guide li:last-child{border-bottom:none}
+.guide li::before{content:"";position:absolute;left:4px;top:14px;width:8px;height:8px;border-radius:2px;background:var(--amber);transform:rotate(45deg)}
+.guide.parent li::before{background:var(--green)}
+
+/* ---------- WEEK ACCORDION ---------- */
+.weeks{display:flex;flex-direction:column;gap:14px}
+.week{
+  background:var(--paper-card);border:1px solid var(--line);border-radius:var(--radius);
+  box-shadow:var(--shadow);overflow:hidden;scroll-margin-top:80px;
+  transition:border-color .2s, box-shadow .2s;
+}
+.week.is-open{border-color:var(--line-strong);box-shadow:var(--shadow-lg)}
+.week.is-done{border-color:#bfe0c9}
+.week-head{
+  display:flex;align-items:center;gap:18px;padding:18px 22px;cursor:pointer;user-select:none;
+  width:100%;text-align:left;background:none;border:none;font:inherit;color:inherit
+}
+.week-head:hover{background:#fbfaf6}
+.week-num{
+  flex:none;width:50px;height:50px;border-radius:12px;background:var(--ink);color:#fff;
+  display:grid;place-items:center;font-family:'Fraunces',serif;font-weight:700;font-size:1.3rem;position:relative
+}
+.week.is-done .week-num{background:var(--green)}
+.week-head .info{flex:1;min-width:0}
+.week-head .dates{font-family:'JetBrains Mono',monospace;font-size:.74rem;color:var(--amber);font-weight:700;letter-spacing:.03em}
+.week-head .title{font-family:'Fraunces',serif;font-weight:600;font-size:1.18rem;margin-top:1px}
+.week-head .title .rep{font-size:.7rem;background:var(--red-soft);color:var(--red);padding:2px 8px;border-radius:6px;vertical-align:middle;margin-left:8px;font-family:'JetBrains Mono',monospace;font-weight:700}
+.week-prog{flex:none;display:flex;align-items:center;gap:10px;width:160px}
+.week-prog .wtrack{flex:1;height:8px;border-radius:99px;background:var(--line);overflow:hidden}
+.week-prog .wfill{height:100%;width:0;background:linear-gradient(90deg,var(--amber),#f0a04b);border-radius:99px;transition:width .5s}
+.week.is-done .week-prog .wfill{background:linear-gradient(90deg,var(--green),#56b27e)}
+.week-prog .wpct{font-family:'JetBrains Mono',monospace;font-size:.78rem;font-weight:700;width:38px;text-align:right;color:var(--ink-soft)}
+.chev{flex:none;color:var(--line-strong);transition:transform .3s}
+.week.is-open .chev{transform:rotate(180deg)}
+@media (max-width:680px){.week-prog{display:none}}
+
+.week-body{display:none;padding:0 22px 24px;border-top:1px solid var(--line)}
+.week.is-open .week-body{display:block;animation:fade .3s ease}
+@keyframes fade{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+
+.goal-banner{
+  background:var(--blue-soft);border-left:4px solid var(--ink);border-radius:8px;
+  padding:12px 16px;margin:20px 0;font-size:.92rem
+}
+.goal-banner b{font-family:'Fraunces',serif}
+
+.block-label{
+  display:flex;align-items:center;gap:9px;margin:26px 0 12px;
+  font-family:'JetBrains Mono',monospace;font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink)
+}
+.block-label .ic{width:22px;height:22px;border-radius:6px;background:var(--amber-soft);border:1px solid var(--amber-line);display:grid;place-items:center;color:var(--amber);font-size:.8rem}
+
+.explain{font-size:.95rem;color:var(--ink-soft)}
+.explain p{margin-bottom:10px}
+.explain strong{color:var(--ink)}
+
+/* postup krok za krokem */
+.steps{counter-reset:st;list-style:none;margin:6px 0}
+.steps li{counter-increment:st;position:relative;padding:8px 0 8px 40px;border-bottom:1px dashed var(--line);font-size:.92rem}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(st);position:absolute;left:0;top:8px;width:26px;height:26px;background:var(--ink);color:#fff;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.8rem;font-weight:700;display:grid;place-items:center}
+
+/* řešený příklad */
+.worked{background:#fbfaf6;border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:10px 0}
+.worked .wq{font-weight:600;margin-bottom:6px}
+.worked .wtag{font-size:.7rem;font-family:'JetBrains Mono',monospace;color:var(--amber);font-weight:700;letter-spacing:.05em}
+
+/* daný/samostatné příklady – grid */
+.ex-list{list-style:none;counter-reset:ex;display:grid;gap:8px}
+.ex-list li{
+  counter-increment:ex;display:flex;gap:12px;align-items:flex-start;
+  background:#fbfaf6;border:1px solid var(--line);border-radius:10px;padding:11px 14px;font-size:.95rem
+}
+.ex-list li::before{content:counter(ex);flex:none;font-family:'JetBrains Mono',monospace;font-size:.78rem;font-weight:700;color:var(--amber);background:var(--amber-soft);border:1px solid var(--amber-line);width:24px;height:24px;border-radius:7px;display:grid;place-items:center;margin-top:1px}
+.ex-list li .qx{flex:1;min-width:0;overflow-x:auto}
+
+/* tlačítko řešení */
+.solve{margin-top:12px}
+.solve-btn{
+  background:var(--ink);color:#fff;border:none;border-radius:9px;padding:9px 16px;
+  font:inherit;font-size:.84rem;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:8px;
+  transition:background .2s
+}
+.solve-btn:hover{background:#0f1d30}
+.solve-btn .ar{transition:transform .25s}
+.solve-btn.open .ar{transform:rotate(90deg)}
+.solution{
+  display:none;margin-top:10px;background:var(--green-soft);border:1px solid #bfe0c9;border-radius:10px;padding:14px 16px;font-size:.92rem
+}
+.solution.open{display:block;animation:fade .25s ease}
+.solution ol{margin-left:18px}
+.solution li{margin:5px 0}
+.solution .ans{margin-top:10px;padding:8px 12px;background:#fff;border-left:3px solid var(--green);border-radius:6px;font-weight:600}
+
+/* checklist týdne */
+.check-list{list-style:none;display:grid;gap:6px;margin-top:6px}
+.check-item{display:flex;gap:11px;align-items:flex-start;background:#fbfaf6;border:1px solid var(--line);border-radius:10px;padding:11px 14px;cursor:pointer;transition:background .15s;font-size:.93rem}
+.check-item:hover{background:#f3f1ea}
+.check-item input{appearance:none;flex:none;width:22px;height:22px;border:2px solid var(--line-strong);border-radius:7px;cursor:pointer;position:relative;margin-top:1px;transition:.15s;background:#fff}
+.check-item input:checked{background:var(--green);border-color:var(--green)}
+.check-item input:checked::after{content:"";position:absolute;left:7px;top:3px;width:5px;height:10px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
+.check-item input:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+.check-item.done span{text-decoration:line-through;color:var(--ink-soft)}
+.check-item .day{font-family:'JetBrains Mono',monospace;font-size:.68rem;font-weight:700;color:var(--amber);flex:none;width:34px;padding-top:2px}
+
+/* časté chyby */
+.mistakes{background:var(--red-soft);border:1px solid #eebcb4;border-radius:12px;padding:16px 18px;margin-top:8px}
+.mistakes h4{color:var(--red);font-size:.95rem;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.mistakes ul{list-style:none;font-size:.9rem}
+.mistakes li{padding:5px 0 5px 24px;position:relative;color:#8a2c20}
+.mistakes li::before{content:"\00D7";position:absolute;left:4px;top:3px;color:var(--red);font-weight:700;font-size:1.1rem;line-height:1}
+
+/* denní režim mini */
+.regime{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin:10px 0 4px}
+.regime .d{background:#fbfaf6;border:1px solid var(--line);border-radius:9px;padding:9px 6px;text-align:center}
+.regime .d .dn{font-family:'JetBrains Mono',monospace;font-size:.66rem;font-weight:700;color:var(--amber);text-transform:uppercase}
+.regime .d .dt{font-size:.72rem;color:var(--ink-soft);margin-top:3px;line-height:1.25}
+.regime .d.rest{background:var(--blue-soft);border-color:#c9d8ec}
+@media (max-width:680px){.regime{grid-template-columns:repeat(2,1fr)}}
+
+/* ---------- GENERIC CARD ---------- */
+.card{background:var(--paper-card);border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}
+.card + .card{margin-top:16px}
+
+/* chybník */
+.notebook textarea{
+  width:100%;min-height:120px;border:1px solid var(--line);border-radius:10px;padding:14px;
+  font:inherit;font-size:.92rem;background:repeating-linear-gradient(transparent,transparent 31px,var(--line) 31px,var(--line) 32px);
+  line-height:32px;resize:vertical;color:var(--ink)
+}
+.notebook textarea:focus{outline:2px solid var(--amber);outline-offset:1px;border-color:var(--amber-line)}
+.notebook .savebar{display:flex;align-items:center;gap:12px;margin-top:10px}
+.btn-save{background:var(--amber);color:#fff;border:none;border-radius:9px;padding:9px 16px;font:inherit;font-weight:600;font-size:.84rem;cursor:pointer}
+.btn-save:hover{background:#c96a14}
+.saved-msg{font-size:.82rem;color:var(--green);font-weight:600;opacity:0;transition:opacity .3s}
+.saved-msg.show{opacity:1}
+
+/* send-list */
+.send-list{list-style:none;display:grid;gap:8px;margin-top:6px}
+.send-list li{display:flex;gap:11px;align-items:center;background:#fbfaf6;border:1px solid var(--line);border-radius:10px;padding:11px 14px;font-size:.93rem}
+.send-list li .pin{flex:none;width:26px;height:26px;border-radius:8px;background:var(--amber-soft);border:1px solid var(--amber-line);color:var(--amber);display:grid;place-items:center;font-size:.8rem;font-family:'JetBrains Mono',monospace;font-weight:700}
+
+/* reset button */
+.reset-bar{text-align:center;padding:30px 0 10px}
+.btn-reset{background:none;border:1px solid var(--line-strong);color:var(--ink-soft);border-radius:9px;padding:9px 18px;font:inherit;font-size:.82rem;cursor:pointer}
+.btn-reset:hover{border-color:var(--red);color:var(--red)}
+
+/* footer */
+footer{border-top:1px solid var(--line);padding:30px 0 50px;text-align:center;color:var(--ink-soft);font-size:.85rem}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width:900px){
+  .dash-grid{grid-template-columns:repeat(2,1fr)}
+  .dash-bottom{grid-template-columns:1fr}
+  .two-col{grid-template-columns:1fr}
+  .system{grid-template-columns:1fr 1fr}
+  .system .step:nth-child(odd){border-right:1px solid var(--line)}
+}
+@media (max-width:560px){
+  .dash-grid{grid-template-columns:1fr 1fr}
+  .system{grid-template-columns:1fr}
+  .system .step{border-right:none;border-bottom:1px solid var(--line)}
+  .countdown{flex-direction:column;align-items:flex-start;gap:10px}
+  .countdown .date{border-left:none;padding-left:0;border-top:1px solid #3a4d6e;padding-top:10px}
+  .hero-inner{padding:44px 20px 38px}
+  .week-head{gap:12px;padding:15px 16px}
+  .week-body{padding:0 16px 20px}
+}
+
+/* ---------- PRINT ---------- */
+@media print{
+  .topbar,.hero::before,.reset-bar,.solve-btn,.chev,.mini-progress,.notebook .savebar{display:none!important}
+  body{background:#fff;color:#000;font-size:11pt}
+  .hero{background:#fff;border:none}
+  .week-body{display:block!important}
+  .solution{display:block!important;background:#fff;border:1px solid #999}
+  .week,.card,.stat,.guide,.worked,.ex-list li,.check-item{box-shadow:none;break-inside:avoid}
+  .week{border:1px solid #999;margin-bottom:10px}
+  section{padding:14px 0;break-inside:avoid}
+  .chev,.week-prog{display:none}
+  a{color:#000;text-decoration:none}
+  .hero h1{font-size:22pt}
+  .solve{margin-top:6px}
+}
+</style>
+</head>
+<body>
+
+<div id="app"></div>
+<script>
+/* =========================================================
+   DATA — vše v jedné struktuře, snadno upravitelné
+   Každý týden: id, dates, theme, badge(rep?), intro, goal,
+   steps[], worked[], practice[], minitest[], checklist[], mistakes[]
+   regime je společný (denní režim) – stejný pro všechny týdny
+   ========================================================= */
+
+const REGIME = [
+  {d:"Po", t:"Doučování – nové téma"},
+  {d:"Út", t:"Samostatné příklady"},
+  {d:"St", t:"Doučování – procvičení"},
+  {d:"Čt", t:"Mini test (samostatně)"},
+  {d:"Pá", t:"Doučování – oprava testu"},
+  {d:"So", t:"Volno / dodělání oprav", rest:true},
+  {d:"Ne", t:"Volno / lehké opakování", rest:true}
+];
+
+const WEEKS = [
+/* ---------- TÝDEN 1 ---------- */
+{
+  id:1, dates:"30. 6. – 6. 7.", theme:"Diagnostika, základy + mocniny a odmocniny",
+  intro:`<p>Začátek bez stresu: nejdřív si <strong>potvrdíš základy</strong>, které ti jdou (lineární rovnice a nerovnice, soustavy, lehké kvadratické). Pak ale přidáme téma, které na průmce hodně potřebuješ a často zlobí — <strong>počítání s mocninami a odmocninami</strong>.</p>
+  <p>Klíč: odmocnina je mocnina se zlomkovým exponentem (\\(\\sqrt[n]{a^m} = a^{m/n}\\)) a platí pro ni stejná pravidla jako pro mocniny (\\(a^r \\cdot a^s = a^{r+s}\\), \\(\\frac{a^r}{a^s}=a^{r-s}\\), \\((a^r)^s=a^{rs}\\)). Piš <strong>celý postup</strong> a u odmocnin <strong>podmínky</strong>.</p>`,
+  goal:"Potvrdit základní postupy a bezpečně počítat s mocninami a odmocninami (vč. usměrňování).",
+  steps:[
+    "Lineární rovnice/nerovnice: roznásob, převeď neznámé vlevo; u nerovnice <strong>otoč znaménko při dělení záporem</strong>, výsledek intervalem.",
+    "Soustava: dosazovací (vyjádři a dosaď) nebo sčítací (vynásob a odečti).",
+    "Mocniny: použij pravidla \\(a^r a^s = a^{r+s}\\), \\(\\tfrac{a^r}{a^s}=a^{r-s}\\), \\((a^r)^s=a^{rs}\\), \\(a^{-n}=\\tfrac{1}{a^n}\\).",
+    "Odmocnina → mocnina: \\(\\sqrt[n]{a^m}=a^{m/n}\\); pak počítej se zlomkovými exponenty.",
+    "Částečné odmocnění: \\(\\sqrt{50}=\\sqrt{25\\cdot 2}=5\\sqrt2\\).",
+    "Usměrnění zlomku: rozšiř vhodným výrazem (u \\(\\sqrt a\\) číslem \\(\\sqrt a\\); u dvojčlenu jeho <strong>sdruženým</strong> tvarem \\(a\\mp b\\))."
+  ],
+  worked:[
+    {tag:"Lineární rovnice", q:`\\(5(x-1)+7x-8 = 3-2x\\)`, sol:`
+      <ol>
+        <li>Roznásob: \\(5x-5+7x-8 = 3-2x\\)</li>
+        <li>Sečti vlevo: \\(12x-13 = 3-2x\\)</li>
+        <li>Neznámé vlevo, čísla vpravo: \\(12x+2x = 3+13\\)</li>
+        <li>\\(14x = 16 \\Rightarrow x = \\dfrac{8}{7}\\)</li>
+      </ol>
+      <div class="ans">Výsledek: \\(x = \\dfrac{8}{7}\\)</div>`},
+    {tag:"Mocniny se zlomkovým exponentem", q:`Zjednodušte: \\(\\dfrac{\\sqrt{a^5} \\cdot \\sqrt[3]{a}}{\\sqrt[3]{a^7} \\cdot a^{-2}}\\) (pro \\(a>0\\))`, sol:`
+      <ol>
+        <li>Přepíšeme na mocniny: \\(\\dfrac{a^{5/2} \\cdot a^{1/3}}{a^{7/3} \\cdot a^{-2}}\\)</li>
+        <li>Čitatel: \\(a^{5/2 + 1/3} = a^{17/6}\\)</li>
+        <li>Jmenovatel: \\(a^{7/3 - 2} = a^{1/3} = a^{2/6}\\)</li>
+        <li>Podíl: \\(a^{17/6 - 2/6} = a^{15/6} = a^{5/2}\\)</li>
+      </ol>
+      <div class="ans">Výsledek: \\(a^{5/2} = \\sqrt{a^5} = a^2\\sqrt a\\)</div>`},
+    {tag:"Usměrnění zlomku (sdružený výraz)", q:`Usměrněte: \\(\\dfrac{1}{2\\sqrt{3} - \\sqrt{11}}\\)`, sol:`
+      <ol>
+        <li>Rozšíříme sdruženým výrazem \\(2\\sqrt3 + \\sqrt{11}\\):</li>
+        <li>\\(\\dfrac{2\\sqrt3 + \\sqrt{11}}{(2\\sqrt3 - \\sqrt{11})(2\\sqrt3 + \\sqrt{11})}\\)</li>
+        <li>Jmenovatel \\((a-b)(a+b)=a^2-b^2\\): \\((2\\sqrt3)^2 - (\\sqrt{11})^2 = 12 - 11 = 1\\)</li>
+      </ol>
+      <div class="ans">Výsledek: \\(2\\sqrt{3} + \\sqrt{11}\\)</div>`}
+  ],
+  practice:[
+    `\\(3(2x-1) - 4 = 2(x+5)\\)`,
+    `\\(4x + 9 \\le 2x - 5\\) (intervalem)`,
+    `\\(\\dfrac{2x-1}{3} > x + 2\\) (intervalem)`,
+    `\\(\\begin{aligned} 3x+2y&=16\\\\ x-y&=2\\end{aligned}\\)`,
+    `\\(\\begin{aligned} 4x+y&=9\\\\ 2x+3y&=7\\end{aligned}\\)`,
+    `\\(x^2 - 5x = 0\\) a \\(2x^2 - 8 = 0\\)`,
+    `Zjednodušte: \\(\\dfrac{a^3 \\cdot a^{-5}}{a^{-1}}\\) (pro \\(a\\neq0\\))`,
+    `Zjednodušte: \\(\\left(\\dfrac{x^2 y^{-3}}{x^{-1} y}\\right)^{2}\\)`,
+    `Zjednodušte: \\(\\sqrt{a^3}\\cdot\\sqrt[3]{a^2}\\) (pro \\(a>0\\))`,
+    `Částečně odmocněte: \\(\\sqrt{72} + \\sqrt{50} - \\sqrt{8}\\)`,
+    `Usměrněte: \\(\\dfrac{6}{\\sqrt{3}}\\) a \\(\\dfrac{2}{\\sqrt5 - 1}\\)`,
+    `Zjednodušte: \\(\\dfrac{\\sqrt[3]{x^4}\\cdot\\sqrt{x}}{x}\\) (pro \\(x>0\\))`
+  ],
+  minitest:[
+    {q:`\\(3(2x-1) - (x+2) = 4x - 5\\)`, sol:`\\(6x-3-x-2 = 4x-5 \\Rightarrow 5x-5 = 4x-5 \\Rightarrow x=0\\)`, ans:`\\(x=0\\)`},
+    {q:`\\(\\dfrac{2x-1}{3} - \\dfrac{x+1}{2} \\le 1\\) (intervalem)`, sol:`×6: \\(2(2x-1) - 3(x+1) \\le 6 \\Rightarrow 4x-2-3x-3 \\le 6 \\Rightarrow x-5 \\le 6 \\Rightarrow x \\le 11\\)`, ans:`\\(x \\in (-\\infty; 11\\rangle\\)`},
+    {q:`Zjednodušte (\\(a>0\\)): \\(\\dfrac{a^3 \\cdot a^{-5}}{a^{-1}}\\)`, sol:`\\(a^{3-5-(-1)} = a^{-1}\\)`, ans:`\\(a^{-1}=\\dfrac{1}{a}\\)`},
+    {q:`Částečně odmocněte: \\(\\sqrt{50} + \\sqrt{18} - \\sqrt{8}\\)`, sol:`\\(5\\sqrt2 + 3\\sqrt2 - 2\\sqrt2 = 6\\sqrt2\\)`, ans:`\\(6\\sqrt{2}\\)`},
+    {q:`Usměrněte: \\(\\dfrac{3}{\\sqrt5 - \\sqrt2}\\)`, sol:`Rozšíříme \\(\\sqrt5+\\sqrt2\\): jmenovatel \\(5-2=3\\), tedy \\(\\dfrac{3(\\sqrt5+\\sqrt2)}{3} = \\sqrt5+\\sqrt2\\)`, ans:`\\(\\sqrt5 + \\sqrt2\\)`}
+  ],
+  checklist:[
+    {day:"Po", t:"Doučování: diagnostika + pravidla mocnin a odmocnin"},
+    {day:"Út", t:"Samostatně: příklady 1–6 (základy) + 7–9 (mocniny)"},
+    {day:"St", t:"Doučování: odmocniny, usměrňování 10–12"},
+    {day:"Čt", t:"Mini test (5 příkladů, samostatně)"},
+    {day:"Pá", t:"Doučování: oprava testu + chybník"},
+    {day:"So", t:"Volno / dodělání oprav"},
+    {day:"Ne", t:"Lehké opakování nebo volno"}
+  ],
+  mistakes:[
+    "Záměna pravidel: \\(a^r\\cdot a^s = a^{r+s}\\) (ne \\(a^{rs}\\)); \\((a^r)^s=a^{rs}\\).",
+    "Špatný převod odmocniny na mocninu (\\(\\sqrt[3]{a^7}=a^{7/3}\\), ne \\(a^{3/7}\\)).",
+    "Při usměrňování dvojčlenu zapomenutý sdružený výraz (rozšíří jen číslem).",
+    "Zapomenuté otočení znaménka při dělení nerovnice záporným číslem.",
+    "U \\(x^2 - 5x = 0\\) zapomenutý kořen \\(x=0\\) (rovnou dělí \\(x\\))."
+  ]
+},
+
+/* ---------- TÝDEN 2 ---------- */
+{
+  id:2, dates:"7. 7. – 13. 7.", theme:"Lomené výrazy, rovnice a podmínky",
+  intro:`<p>Dvě dovednosti: <strong>úprava (zjednodušení) lomeného výrazu</strong> a <strong>řešení lomené rovnice</strong>. U obou je neznámá ve jmenovateli, takže u obou se na začátku píšou <strong>podmínky</strong> (jmenovatel \\(\\neq 0\\)).</p>
+  <p>U <em>výrazu</em> výsledkem je jednodušší zlomek (nic se „nerovná"). U <em>rovnice</em> hledáš \\(x\\) a na konci <strong>kontroluješ</strong>, jestli neporušuje podmínku. Klíč u obou: <strong>rozkládat jmenovatele na součin</strong> (vytýkání, \\(a^2-b^2\\), trojčlen) a krátit jen <strong>společný činitel</strong>, nikdy ne sčítance.</p>`,
+  goal:"Zjednodušit složený lomený výraz s podmínkami a bezpečně vyřešit lomenou rovnici.",
+  steps:[
+    "Každý jmenovatel <strong>rozlož na součin</strong> (\\(x^2+2x=x(x+2)\\), \\(x^2-9=(x-3)(x+3)\\)).",
+    "Napiš <strong>podmínky</strong> ze všech jmenovatelů (i těch, co vzniknou rozkladem).",
+    "Výraz: převeď na společný jmenovatel, slož čitatele, nakonec <strong>zkrať společný činitel</strong>.",
+    "Rovnice: vynásob <strong>celou</strong> rovnici společným jmenovatelem (zbav se zlomků).",
+    "Vyřeš vzniklou rovnici a u rovnice udělej <strong>kontrolu</strong> proti podmínkám.",
+    "Složený zlomek (zlomek ve zlomku): „hlavní lomítko“ = dělení → násob převrácenou hodnotou."
+  ],
+  worked:[
+    {tag:"Úprava výrazu – rozklad a krácení", q:`Zjednodušte a určete podmínky: \\(\\dfrac{c-2}{c} - \\dfrac{c}{c+2} + \\dfrac{c+6}{c^2+2c}\\)`, sol:`
+      <ol>
+        <li>Rozklad jmenovatele: \\(c^2+2c = c(c+2)\\). Podmínky: \\(c \\neq 0,\\ c \\neq -2\\).</li>
+        <li>Společný jmenovatel \\(c(c+2)\\). Převedeme:</li>
+        <li>\\(\\dfrac{(c-2)(c+2)}{c(c+2)} - \\dfrac{c\\cdot c}{c(c+2)} + \\dfrac{c+6}{c(c+2)}\\)</li>
+        <li>Čitatel: \\((c^2-4) - c^2 + (c+6) = c + 2\\)</li>
+        <li>\\(\\dfrac{c+2}{c(c+2)} = \\dfrac{1}{c}\\) (zkrátíme \\((c+2)\\))</li>
+      </ol>
+      <div class="ans">Výsledek: \\(\\dfrac{1}{c}\\), podmínky \\(c \\neq 0,\\ c \\neq -2\\).</div>`},
+    {tag:"Složený výraz (dělení zlomků)", q:`\\(\\left(y + \\dfrac{3y}{y-3}\\right) \\cdot \\left(\\dfrac{3y}{y+3} - 3\\right) : \\dfrac{9y^2}{y^2-9}\\)`, sol:`
+      <ol>
+        <li>Podmínky: \\(y \\neq 3,\\ y \\neq -3\\) (a \\(y\\neq 0\\) kvůli dělení \\(9y^2\\)).</li>
+        <li>1. závorka: \\(\\dfrac{y(y-3)+3y}{y-3} = \\dfrac{y^2}{y-3}\\)</li>
+        <li>2. závorka: \\(\\dfrac{3y-3(y+3)}{y+3} = \\dfrac{-9}{y+3}\\)</li>
+        <li>Dělení převrátíme: \\(: \\dfrac{9y^2}{y^2-9}\\ \\to\\ \\cdot\\, \\dfrac{(y-3)(y+3)}{9y^2}\\)</li>
+        <li>Spojíme: \\(\\dfrac{y^2}{y-3}\\cdot\\dfrac{-9}{y+3}\\cdot\\dfrac{(y-3)(y+3)}{9y^2}\\)</li>
+        <li>Zkrátíme \\(y^2,\\ 9,\\ (y-3),\\ (y+3)\\): zbyde \\(-1\\).</li>
+      </ol>
+      <div class="ans">Výsledek: \\(-1\\), podmínky \\(y \\neq 0, \\pm 3\\).</div>`},
+    {tag:"Lomená rovnice – falešný kořen", q:`\\(\\dfrac{3}{x-3} + \\dfrac{x+3}{x} = \\dfrac{x}{x-3}\\)`, sol:`
+      <ol>
+        <li>Podmínky: \\(x \\neq 3,\\ x \\neq 0\\).</li>
+        <li>Společný jmenovatel \\(x(x-3)\\), vynásobíme jím celou rovnici:</li>
+        <li>\\(3x + (x+3)(x-3) = x \\cdot x \\Rightarrow 3x + x^2 - 9 = x^2\\)</li>
+        <li>\\(3x - 9 = 0 \\Rightarrow x = 3\\)</li>
+        <li>Kontrola: \\(x=3\\) <strong>porušuje</strong> podmínku \\(x \\neq 3\\)!</li>
+      </ol>
+      <div class="ans">Rovnice <strong>nemá řešení</strong>.</div>`}
+  ],
+  practice:[
+    `Zjednodušte: \\(\\dfrac{4x^2 - 7x - 2}{x^2 + x - 6}\\) (s podmínkami)`,
+    `Zjednodušte: \\(\\dfrac{x^3 - 2x^2 + x - 2}{2 - x}\\) (s podmínkami)`,
+    `Zjednodušte: \\(\\dfrac{a^2-9}{a^2-6a+9} \\cdot \\dfrac{a-3}{a+3}\\)`,
+    `Zjednodušte: \\(\\dfrac{1}{x-2} - \\dfrac{4}{x^2-4}\\)`,
+    `Zjednodušte: \\(\\dfrac{x}{x^2-1} + \\dfrac{1}{x-1}\\)`,
+    `\\(\\dfrac{1}{x} + \\dfrac{1}{x+1} = \\dfrac{3}{2}\\)`,
+    `\\(\\dfrac{5}{x-1} - \\dfrac{2}{x+1} = \\dfrac{1}{x^2-1}\\)`,
+    `\\(\\dfrac{x-1}{x+2} = \\dfrac{x+1}{x-2}\\)`,
+    `\\(\\dfrac{2x}{x-1} - 2 = \\dfrac{3}{x-1}\\)`,
+    `\\(\\dfrac{x}{x-2} + \\dfrac{2}{x+2} = \\dfrac{8}{x^2-4}\\)`,
+    `\\(\\dfrac{3}{x-2} = \\dfrac{4}{x+1}\\)`,
+    `\\(\\dfrac{x+1}{x-1} - \\dfrac{x-1}{x+1} = \\dfrac{4}{x^2-1}\\)`
+  ],
+  minitest:[
+    {q:`Zjednodušte s podmínkami: \\(\\dfrac{x^2-4}{x^2+4x+4}\\)`, sol:`\\(\\dfrac{(x-2)(x+2)}{(x+2)^2} = \\dfrac{x-2}{x+2}\\). Podmínka \\(x\\neq -2\\).`, ans:`\\(\\dfrac{x-2}{x+2},\\ x \\neq -2\\)`},
+    {q:`Zjednodušte: \\(\\dfrac{1}{x-3} + \\dfrac{1}{x+3}\\)`, sol:`Spol. jmenovatel \\(x^2-9\\): \\(\\dfrac{(x+3)+(x-3)}{x^2-9} = \\dfrac{2x}{x^2-9}\\). Podmínky \\(x\\neq\\pm3\\).`, ans:`\\(\\dfrac{2x}{x^2-9}\\)`},
+    {q:`\\(\\dfrac{x}{x-2} + \\dfrac{2}{x+2} = \\dfrac{8}{x^2-4}\\)`, sol:`Podmínky \\(x\\neq\\pm2\\). Spol. jmenovatel \\((x-2)(x+2)\\): \\(x(x+2)+2(x-2)=8 \\Rightarrow x^2+4x-12=0 \\Rightarrow (x+6)(x-2)=0\\). Kořeny \\(-6,2\\); \\(x=2\\) zakázáno.`, ans:`\\(x=-6\\)`},
+    {q:`\\(\\dfrac{2}{x-2} = \\dfrac{x}{x-2}\\)`, sol:`Podmínka \\(x\\neq 2\\). \\(2=x\\), ale \\(x=2\\) zakázané!`, ans:`Bez řešení`},
+    {q:`\\(\\dfrac{4}{x} + \\dfrac{x-3}{x} = \\dfrac{x+1}{x}\\)`, sol:`Podmínka \\(x\\neq0\\). ×\\(x\\): \\(4+x-3=x+1 \\Rightarrow 1=1\\) — platí pro všechna \\(x\\) z podmínky.`, ans:`\\(x \\in \\mathbb{R}\\setminus\\{0\\}\\)`}
+  ],
+  checklist:[
+    {day:"Po", t:"Doučování: rozklad jmenovatele, krácení, podmínky"},
+    {day:"Út", t:"Samostatně: úprava výrazů 1–5 + rovnice 6–8"},
+    {day:"St", t:"Doučování: rovnice 9–12 (vždy podmínky + zkouška)"},
+    {day:"Čt", t:"Mini test (5 příkladů)"},
+    {day:"Pá", t:"Doučování: oprava testu + chybník (podmínky!)"},
+    {day:"So", t:"Volno / dodělání oprav"},
+    {day:"Ne", t:"Lehké opakování / volno"}
+  ],
+  mistakes:[
+    "Krácení součtu místo součinu (\\(\\frac{x+2}{x}\\) nelze „škrtnout \\(x\\)“) – nejčastější chyba u výrazů.",
+    "Zapomenuté podmínky existence (i ty, co vzniknou až rozkladem jmenovatele).",
+    "U rovnice chybí zkouška → ponechaný falešný kořen, který porušuje podmínku.",
+    "Špatný rozklad jmenovatele (přehlédnutý \\(a^2-b^2\\) nebo trojčlen).",
+    "U složeného zlomku se zapomene, že hlavní lomítko znamená dělení (násobit převrácenou hodnotou)."
+  ]
+},
+
+/* ---------- TÝDEN 3 ---------- */
+{
+  id:3, dates:"14. 7. – 20. 7.", theme:"Kvadratické rovnice (vč. Viète a parametru)",
+  intro:`<p>Kvadratická rovnice \\(ax^2+bx+c=0\\). Podle toho, co chybí, volíš metodu: <strong>chybí \\(c\\)</strong> → vytkni \\(x\\); <strong>chybí \\(b\\)</strong> → odmocni; <strong>úplná</strong> → diskriminant \\(D=b^2-4ac\\) nebo rozklad. U vyšších mocnin (\\(x^4,x^6\\)) <strong>substituce</strong>.</p>
+  <p>Navíc dvě věci, co na průmce potřebuješ: <strong>Viètovy vztahy</strong> (\\(x_1+x_2=-\\frac{b}{a}\\), \\(x_1 x_2=\\frac{c}{a}\\)) na rychlou kontrolu a počítání s kořeny, a <strong>rovnice s parametrem</strong> — kdy má rovnice dvě / jedno / žádné řešení podle hodnoty parametru (řídí se znaménkem \\(D\\)).</p>`,
+  goal:"Bezpečně řešit kvadratické rovnice, používat Viètovy vztahy a diskutovat počet řešení podle parametru.",
+  steps:[
+    "Uprav na základní tvar \\(ax^2+bx+c=0\\) (vše na jednu stranu, \\(=0\\)).",
+    "Neúplná bez \\(c\\): \\(x(ax+b)=0\\); bez \\(b\\): \\(x^2=\\tfrac{-c}{a}\\Rightarrow x=\\pm\\sqrt{\\ }\\).",
+    "Úplná: \\(D=b^2-4ac\\); \\(D>0\\) dvě, \\(D=0\\) jedno (dvojnásobné), \\(D<0\\) žádné v \\(\\mathbb{R}\\).",
+    "Kořeny: \\(x_{1,2}=\\dfrac{-b\\pm\\sqrt{D}}{2a}\\).",
+    "Viète: \\(x_1+x_2=-\\dfrac{b}{a}\\), \\(x_1\\cdot x_2=\\dfrac{c}{a}\\) (pozor na znaménka).",
+    "Parametr: dosaď do \\(D\\), vyřeš nerovnici/rovnici v parametru podle požadovaného počtu kořenů.",
+    "Vyšší mocniny: substituce \\(t=x^2\\) (resp. \\(t=x^3\\)), pak zpět k \\(x\\) (nezapomeň \\(\\pm\\))."
+  ],
+  worked:[
+    {tag:"Úplná přes diskriminant", q:`\\(2x^2 - 5x - 3 = 0\\)`, sol:`
+      <ol>
+        <li>\\(a=2,\\ b=-5,\\ c=-3\\). \\(D=(-5)^2-4\\cdot2\\cdot(-3)=25+24=49\\).</li>
+        <li>\\(\\sqrt D = 7\\); \\(x_{1,2}=\\dfrac{5\\pm7}{4}\\)</li>
+        <li>\\(x_1=\\dfrac{12}{4}=3,\\quad x_2=\\dfrac{-2}{4}=-\\tfrac12\\)</li>
+        <li>Viète kontrola: \\(x_1+x_2=\\tfrac52=-\\tfrac{b}{a}\\) ✓, \\(x_1x_2=-\\tfrac32=\\tfrac{c}{a}\\) ✓</li>
+      </ol>
+      <div class="ans">\\(x_1=3,\\ x_2=-\\dfrac{1}{2}\\)</div>`},
+    {tag:"Viètovy vztahy – výpočet s kořeny", q:`Rovnice \\(x^2 - 6x + 4 = 0\\) má kořeny \\(x_1, x_2\\). Urči \\(x_1+x_2\\) a \\(x_1^2 + x_2^2\\) bez řešení rovnice.`, sol:`
+      <ol>
+        <li>Z Viète: \\(x_1+x_2 = 6\\), \\(x_1 x_2 = 4\\).</li>
+        <li>Použijeme vzorec \\(x_1^2+x_2^2 = (x_1+x_2)^2 - 2x_1x_2\\)</li>
+        <li>\\(= 6^2 - 2\\cdot4 = 36 - 8 = 28\\)</li>
+      </ol>
+      <div class="ans">\\(x_1+x_2 = 6,\\quad x_1^2+x_2^2 = 28\\)</div>`},
+    {tag:"Rovnice s parametrem", q:`Pro které \\(p \\in \\mathbb{R}\\) má rovnice \\(x^2 - 4x + p = 0\\) dvojnásobný (jediný) kořen?`, sol:`
+      <ol>
+        <li>Jediný kořen \\(\\Leftrightarrow D = 0\\).</li>
+        <li>\\(D = (-4)^2 - 4\\cdot1\\cdot p = 16 - 4p\\)</li>
+        <li>\\(16 - 4p = 0 \\Rightarrow p = 4\\)</li>
+        <li>(Pro \\(p<4\\) dva kořeny, pro \\(p>4\\) žádný reálný.)</li>
+      </ol>
+      <div class="ans">\\(p = 4\\) (pak \\(x_{1,2}=2\\))</div>`}
+  ],
+  practice:[
+    `\\(x^2 - 7x + 12 = 0\\)`,
+    `\\(3x^2 - 5x - 2 = 0\\)`,
+    `\\(2x^2 - 7x + 3 = 0\\)`,
+    `\\(x^2 + 4 = 0\\) (rozhodni o počtu řešení)`,
+    `\\(4x^2 - 9 = 0\\) a \\(3x^2 + x = 0\\)`,
+    `\\(x^4 - 13x^2 + 36 = 0\\)`,
+    `Bez řešení urči \\(x_1+x_2\\) a \\(x_1 x_2\\) pro \\(2x^2 - 8x + 6 = 0\\).`,
+    `Urči \\(x_1^2 + x_2^2\\) pro \\(x^2 - 5x + 2 = 0\\) (Viète).`,
+    `Pro které \\(m\\) má \\(x^2 - 6x + m = 0\\) dvojnásobný kořen?`,
+    `Pro které \\(k\\) má \\(x^2 + kx + 9 = 0\\) jediný kořen?`,
+    `Sestav kvadratickou rovnici s kořeny \\(x_1=2,\\ x_2=-5\\) (přes Viète).`,
+    `\\(x^4 - 5x^2 + 4 = 0\\)`
+  ],
+  minitest:[
+    {q:`\\(x^2 - 5x + 6 = 0\\)`, sol:`\\(D=25-24=1\\); \\(x=\\tfrac{5\\pm1}{2}\\)`, ans:`\\(x_1=3,\\ x_2=2\\)`},
+    {q:`\\(x^2 + 2x + 5 = 0\\)`, sol:`\\(D=4-20=-16<0\\)`, ans:`Bez reálného řešení`},
+    {q:`Urči \\(x_1+x_2\\) a \\(x_1 x_2\\) pro \\(x^2 - 7x + 10 = 0\\).`, sol:`Viète: \\(x_1+x_2=7\\), \\(x_1 x_2=10\\)`, ans:`\\(7\\) a \\(10\\)`},
+    {q:`Pro které \\(p\\) má \\(x^2 - 2x + p = 0\\) jediný kořen?`, sol:`\\(D=4-4p=0 \\Rightarrow p=1\\)`, ans:`\\(p=1\\)`},
+    {q:`Sestav rovnici s kořeny \\(3\\) a \\(-1\\).`, sol:`\\(x_1+x_2=2\\), \\(x_1x_2=-3\\) → \\(x^2 - 2x - 3 = 0\\)`, ans:`\\(x^2 - 2x - 3 = 0\\)`}
+  ],
+  checklist:[
+    {day:"Po", t:"Doučování: typy kvadratických, diskriminant, Viète"},
+    {day:"Út", t:"Samostatně: rovnice 1–6 + Viète 7,8,11"},
+    {day:"St", t:"Doučování: parametr 9,10 + substituce 12"},
+    {day:"Čt", t:"Mini test (5 příkladů)"},
+    {day:"Pá", t:"Doučování: oprava testu + chybník"},
+    {day:"So", t:"Volno / dodělání oprav"},
+    {day:"Ne", t:"Lehké opakování / volno"}
+  ],
+  mistakes:[
+    "Špatné znaménko v diskriminantu – pozor na \\(-4ac\\), když je \\(c\\) záporné.",
+    "Záměna znamének ve Viètových vztazích (\\(x_1+x_2=-\\frac{b}{a}\\), ne \\(+\\frac{b}{a}\\)).",
+    "U parametru: záměna podmínek (\\(D=0\\) jeden kořen, \\(D>0\\) dva, \\(D<0\\) žádný).",
+    "U neúplné \\(ax^2+bx=0\\) zapomenutý kořen \\(x=0\\).",
+    "U bikvadratické: vyřeší \\(t\\), ale zapomene zpět k \\(x\\) a na \\(\\pm\\)."
+  ]
+},
+
+/* ---------- TÝDEN 4 ---------- */
+{
+  id:4, dates:"21. 7. – 27. 7.", theme:"Součinový a podílový tvar rovnic",
+  intro:`<p>Klíčová myšlenka: <strong>součin je nula právě tehdy, když je nula aspoň jeden činitel</strong>. Místo roznásobování proto necháš rovnici v součinu a každý činitel položíš rovný nule.</p>
+  <p>U <strong>podílu</strong> (\\(\\frac{\\ }{\\ }=0\\)) je zlomek nula, když je nula <em>čitatel</em> – ale jmenovatel musí být různý od nuly (podmínka!).</p>`,
+  goal:"Umět pracovat se součinem, podílem a podmínkami.",
+  steps:[
+    "Rovnici uprav na tvar „součin \\(=0\\)“ nebo „podíl \\(=0\\)“.",
+    "U podílu napiš <strong>podmínku</strong>: jmenovatel \\(\\neq 0\\).",
+    "Součin \\(=0\\): polož každý činitel rovný nule zvlášť.",
+    "Podíl \\(=0\\): polož rovný nule pouze <strong>čitatel</strong>.",
+    "Zkontroluj kořeny proti podmínkám a vyřaď zakázané hodnoty."
+  ],
+  worked:[
+    {tag:"Součinový tvar", q:`\\((x-3)(2x+4) = 0\\)`, sol:`
+      <ol>
+        <li>Součin je nula → jeden z činitelů je nula:</li>
+        <li>\\(x - 3 = 0 \\Rightarrow x = 3\\)</li>
+        <li>\\(2x + 4 = 0 \\Rightarrow x = -2\\)</li>
+      </ol>
+      <div class="ans">\\(x_1 = 3,\\quad x_2 = -2\\)</div>`},
+    {tag:"Podílový tvar", q:`\\(\\dfrac{x^2 - 9}{x - 1} = 0\\)`, sol:`
+      <ol>
+        <li>Podmínka: \\(x - 1 \\neq 0 \\Rightarrow x \\neq 1\\).</li>
+        <li>Zlomek je nula, když je nula čitatel: \\(x^2 - 9 = 0\\)</li>
+        <li>\\(x = \\pm 3\\)</li>
+        <li>Kontrola: ani \\(3\\) ani \\(-3\\) neporušuje podmínku ✓</li>
+      </ol>
+      <div class="ans">\\(x_1 = 3,\\quad x_2 = -3\\)</div>`}
+  ],
+  practice:[
+    `\\((x-1)(x+5) = 0\\)`,
+    `\\((2x-3)(x+2) = 0\\)`,
+    `\\(x(x-4)(x+1) = 0\\)`,
+    `\\((x+3)^2 = 0\\)`,
+    `\\(\\dfrac{x-2}{x+1} = 0\\)`,
+    `\\(\\dfrac{x^2-4}{x-5} = 0\\)`,
+    `\\(\\dfrac{(x-1)(x+2)}{x} = 0\\)`,
+    `\\((3x-6)(x^2-1) = 0\\)`,
+    `\\(\\dfrac{x^2-5x+6}{x+2} = 0\\)`,
+    `\\((x^2-9)(x+4) = 0\\)`
+  ],
+  minitest:[
+    {q:`\\((2x-3)(x+4)=0\\)`, sol:`\\(2x-3=0 \\Rightarrow x=\\tfrac32\\), nebo \\(x+4=0 \\Rightarrow x=-4\\)`, ans:`\\(x_1=\\tfrac32,\\ x_2=-4\\)`},
+    {q:`\\(x(x-3)(x+1)=0\\)`, sol:`Součin tří činitelů: \\(x=0\\), \\(x=3\\), \\(x=-1\\)`, ans:`\\(x_1=0,\\ x_2=3,\\ x_3=-1\\)`},
+    {q:`\\(\\dfrac{x^2-5x+6}{x+2}=0\\)`, sol:`Podmínka \\(x\\neq -2\\). Čitatel \\(x^2-5x+6=0 \\Rightarrow (x-2)(x-3)=0\\)`, ans:`\\(x_1=2,\\ x_2=3\\)`},
+    {q:`\\(\\dfrac{x^2-9}{x-3}=0\\)`, sol:`Podmínka \\(x\\neq 3\\). Čitatel \\(x^2-9=0 \\Rightarrow x=\\pm3\\), ale \\(x=3\\) je zakázané!`, ans:`\\(x=-3\\)`},
+    {q:`\\((3x-6)(x^2-1)=0\\)`, sol:`\\(3x-6=0 \\Rightarrow x=2\\); \\(x^2-1=0 \\Rightarrow x=\\pm1\\)`, ans:`\\(x_1=2,\\ x_2=1,\\ x_3=-1\\)`}
+  ],
+  checklist:[
+    {day:"Po", t:"Doučování: nulový součin + podíl =0"},
+    {day:"Út", t:"Samostatně: součinové 1–4 + podílové 5–7"},
+    {day:"St", t:"Doučování: podílové 8–10 (podmínky!)"},
+    {day:"Čt", t:"Mini test (5 příkladů)"},
+    {day:"Pá", t:"Doučování: oprava testu + chybník"},
+    {day:"So", t:"Volno / dodělání oprav"},
+    {day:"Ne", t:"Lehké opakování / volno"}
+  ],
+  mistakes:[
+    "Roznásobení součinu místo využití nulového součinu (zbytečná práce a chyby).",
+    "U podílu zapomenutá podmínka jmenovatele.",
+    "Položení rovného nule i jmenovatele (nula ve jmenovateli nedává řešení).",
+    "Vynechání kořene \\(x=0\\), když je \\(x\\) jedním z činitelů."
+  ]
+},
+
+/* ---------- TÝDEN 5 ---------- */
+{
+  id:5, dates:"28. 7. – 3. 8.", theme:"Vyjadřování ze vzorce + slovní úlohy",
+  intro:`<p>Dvě dovednosti, které spolu souvisí přes „práci s rovnicí jako se vztahem":</p>
+  <p><strong>Vyjádření ze vzorce</strong> – s neznámou zacházíš jako v rovnici: osamostatníš ji pomocí stejných úprav. <strong>Slovní úloha</strong> – text převedeš na rovnici/soustavu, vyřešíš a <em>napíšeš odpověď větou</em>.</p>`,
+  goal:"Umět převést zadání do rovnice, vyjádřit neznámou ze vzorce a napsat odpověď.",
+  steps:[
+    "Vzorec: označ, kterou proměnnou vyjadřuješ; vše ostatní ber jako „čísla“.",
+    "Zbav se zlomků (vynásob jmenovateli), pak osamostatni hledanou proměnnou.",
+    "Slovní úloha: urči neznámou(é) a označ je \\(x\\) (příp. \\(y\\)).",
+    "Přepiš vztahy ze zadání do rovnice/soustavy.",
+    "Vyřeš a <strong>napiš odpověď celou větou</strong> (včetně jednotek)."
+  ],
+  worked:[
+    {tag:"Vyjádření ze vzorce", q:`Z \\(\\dfrac{1}{R} = \\dfrac{1}{R_1} + \\dfrac{1}{R_2}\\) vyjádři \\(R_1\\).`, sol:`
+      <ol>
+        <li>Osamostatníme \\(\\frac{1}{R_1}\\): \\(\\dfrac{1}{R_1} = \\dfrac{1}{R} - \\dfrac{1}{R_2}\\)</li>
+        <li>Pravou stranu na společný jmenovatel: \\(\\dfrac{1}{R_1} = \\dfrac{R_2 - R}{R\\,R_2}\\)</li>
+        <li>Převrátíme: \\(R_1 = \\dfrac{R\\,R_2}{R_2 - R}\\)</li>
+      </ol>
+      <div class="ans">\\(R_1 = \\dfrac{R\\,R_2}{R_2 - R}\\)</div>`},
+    {tag:"Slovní úloha – soustava", q:`2 kg prvního a 3 kg druhého zboží stojí 540 Kč. 3 kg prvního a 2,5 kg druhého stojí 640 Kč. Urči cenu 1 kg každého druhu.`, sol:`
+      <ol>
+        <li>Označíme \\(x\\) = cena 1 kg prvního, \\(y\\) = cena 1 kg druhého.</li>
+        <li>\\(2x + 3y = 540\\)</li>
+        <li>\\(3x + 2{,}5y = 640\\)</li>
+        <li>První ×3, druhou ×2: \\(6x+9y=1620\\), \\(6x+5y=1280\\)</li>
+        <li>Odečteme: \\(4y = 340 \\Rightarrow y = 85\\)</li>
+        <li>Dosadíme: \\(2x + 255 = 540 \\Rightarrow x = 142{,}5\\)</li>
+      </ol>
+      <div class="ans">1 kg prvního zboží stojí 142,50 Kč, 1 kg druhého 85 Kč.</div>`}
+  ],
+  practice:[
+    `Z \\(o = 2(a+b)\\) vyjádři \\(b\\).`,
+    `Z \\(S = \\dfrac{a \\cdot v}{2}\\) vyjádři \\(v\\).`,
+    `Z \\(\\dfrac{1}{f} = (n-1)\\left(\\dfrac{1}{r_1}+\\dfrac{1}{r_2}\\right)\\) vyjádři \\(n\\).`,
+    `Z \\(v = v_0 + at\\) vyjádři \\(t\\).`,
+    `Z \\(\\dfrac{p}{q} = \\dfrac{r}{s}\\) vyjádři \\(q\\).`,
+    `Číslo zvětšené o svou třetinu je 48. Urči ho.`,
+    `Otec je 3× starší než syn, dohromady mají 48 let. Kolik je každému?`,
+    `Obvod obdélníku je 54 cm, délka je o 7 cm větší než šířka. Urči rozměry.`,
+    `Dvě čísla mají součet 30 a rozdíl 8. Urči je.`,
+    `Z \\(c^2 = a^2 + b^2\\) vyjádři \\(b\\).`
+  ],
+  minitest:[
+    {q:`Z \\(v = v_0 + at\\) vyjádři \\(t\\).`, sol:`\\(at = v - v_0 \\Rightarrow t = \\dfrac{v - v_0}{a}\\) (podmínka \\(a\\neq0\\))`, ans:`\\(t = \\dfrac{v - v_0}{a}\\)`},
+    {q:`Z \\(\\dfrac{1}{R} = \\dfrac{1}{R_1} + \\dfrac{1}{R_2}\\) vyjádři \\(R_1\\).`, sol:`\\(\\dfrac{1}{R_1} = \\dfrac{1}{R} - \\dfrac{1}{R_2} = \\dfrac{R_2 - R}{R R_2} \\Rightarrow R_1 = \\dfrac{R R_2}{R_2 - R}\\)`, ans:`\\(R_1 = \\dfrac{R R_2}{R_2 - R}\\)`},
+    {q:`Obvod obdélníku je 38 cm, délka je o 5 cm větší než šířka. Urči rozměry.`, sol:`Šířka \\(x\\), délka \\(x+5\\). \\(2(x + x+5)=38 \\Rightarrow 4x+10=38 \\Rightarrow x=7\\).`, ans:`Šířka 7 cm, délka 12 cm.`},
+    {q:`2 sešity a 3 pera stojí 90 Kč, 4 sešity a 1 pero stojí 110 Kč. Urči ceny.`, sol:`\\(2x+3y=90\\), \\(4x+y=110\\). Z druhé \\(y=110-4x\\), dosadíme: \\(2x+3(110-4x)=90 \\Rightarrow -10x=-240 \\Rightarrow x=24\\), \\(y=14\\).`, ans:`Sešit 24 Kč, pero 14 Kč.`},
+    {q:`Z \\(S = \\pi r^2\\) vyjádři \\(r\\) (pro \\(r>0\\)).`, sol:`\\(r^2 = \\dfrac{S}{\\pi} \\Rightarrow r = \\sqrt{\\dfrac{S}{\\pi}}\\)`, ans:`\\(r = \\sqrt{\\dfrac{S}{\\pi}}\\)`}
+  ],
+  checklist:[
+    {day:"Po", t:"Doučování: úpravy vzorců + převod slovní úlohy"},
+    {day:"Út", t:"Samostatně: vzorce 1–5 + slovní úlohy 6,7"},
+    {day:"St", t:"Doučování: slovní úlohy 8–10 (odpověď větou!)"},
+    {day:"Čt", t:"Mini test (5 příkladů)"},
+    {day:"Pá", t:"Doučování: oprava testu + chybník"},
+    {day:"So", t:"Volno / dodělání oprav"},
+    {day:"Ne", t:"Lehké opakování / volno"}
+  ],
+  mistakes:[
+    "U slovní úlohy chybí odpověď větou (a jednotky).",
+    "Špatné označení neznámé – nejasné, co je \\(x\\) a co \\(y\\).",
+    "Při vyjadřování ze vzorce zapomenutá podmínka u dělení proměnnou.",
+    "Chyba ve znaménku při přenášení členu na druhou stranu."
+  ]
+},
+
+/* ---------- TÝDEN 6 ---------- */
+{
+  id:6, dates:"4. 8. – 10. 8.", theme:"Kvadratické a součinové nerovnice",
+  intro:`<p>Nerovnice typu \\(ax^2+bx+c \\lessgtr 0\\) nebo součin \\((x-a)(x-b)\\lessgtr 0\\) se řeší přes <strong>nulové body a znaménkovou tabulku</strong>.</p>
+  <p>Najdeš, kde se výraz rovná nule, body rozdělí osu na intervaly, a v každém zjistíš znaménko. Vybereš intervaly podle požadovaného znaménka. Výsledek <strong>vždy intervalem</strong>.</p>`,
+  goal:"Zvládnout znaménkovou tabulku a správně zapsat intervaly.",
+  steps:[
+    "Uprav na tvar „výraz \\(\\lessgtr 0\\)“ (vše na jednu stranu).",
+    "Najdi <strong>nulové body</strong> (kde se výraz rovná nule) – rozlož na součin.",
+    "Vyznač body na ose; rozdělí ji na intervaly.",
+    "V každém intervalu urči znaménko výrazu (dosaď testovací číslo).",
+    "Vyber intervaly podle znaménka v zadání; <strong>pozor na ostrou/neostrou</strong> nerovnost u krajních bodů."
+  ],
+  worked:[
+    {tag:"Kvadratická nerovnice", q:`\\(x^2 + 5x < 0\\)`, sol:`
+      <ol>
+        <li>Rozložíme: \\(x(x+5) < 0\\)</li>
+        <li>Nulové body: \\(x = 0\\) a \\(x = -5\\)</li>
+        <li>Intervaly: \\((-\\infty;-5),\\ (-5;0),\\ (0;\\infty)\\)</li>
+        <li>Znaménka součinu: \\(+\\,/\\,-\\,/\\,+\\). Hledáme \\(<0\\) → prostřední.</li>
+        <li>Body nepatří dovnitř (ostrá nerovnost).</li>
+      </ol>
+      <div class="ans">\\(x \\in (-5;\\,0)\\)</div>`},
+    {tag:"Součinová nerovnice po úpravě", q:`\\((x-3)(x+4) < 8\\)`, sol:`
+      <ol>
+        <li>Roznásobíme a převedeme na nulu: \\(x^2 + x - 12 - 8 < 0\\)</li>
+        <li>\\(x^2 + x - 20 < 0\\)</li>
+        <li>Rozklad: \\((x+5)(x-4) < 0\\), nulové body \\(-5,\\ 4\\)</li>
+        <li>Znaménka: \\(+\\,/\\,-\\,/\\,+\\); hledáme \\(<0\\) → prostřední interval.</li>
+      </ol>
+      <div class="ans">\\(x \\in (-5;\\,4)\\)</div>`}
+  ],
+  practice:[
+    `\\(x^2 - 4 > 0\\)`,
+    `\\(x^2 - 3x \\le 0\\)`,
+    `\\((x-2)(x+1) > 0\\)`,
+    `\\(x^2 + 2x - 3 < 0\\)`,
+    `\\(x^2 - 6x + 8 \\ge 0\\)`,
+    `\\((x+2)(x-5) \\le 0\\)`,
+    `\\(x^2 + x - 6 > 0\\)`,
+    `\\(2x^2 - x + 5 \\ge 0\\) (pozor na diskriminant)`,
+    `\\(x^2 - 9 \\le 0\\)`,
+    `\\(x^2 + 4x \\ge 0\\)`,
+    `\\((x-1)(x-4) < 0\\)`,
+    `\\(x^2 - 2x - 8 > 0\\)`
+  ],
+  minitest:[
+    {q:`\\(x^2 - 1 < 0\\)`, sol:`\\((x-1)(x+1)<0\\), body \\(\\pm1\\), znaménka \\(+/-/+\\), hledáme \\(-\\)`, ans:`\\(x \\in (-1;1)\\)`},
+    {q:`\\(x^2 - 4x \\ge 0\\)`, sol:`\\(x(x-4)\\ge0\\), body \\(0,4\\), znaménka \\(+/-/+\\), hledáme \\(+\\) i body`, ans:`\\(x \\in (-\\infty;0\\rangle \\cup \\langle4;\\infty)\\)`},
+    {q:`\\((x-2)(x+5) \\le 8\\)`, sol:`Roznásobíme: \\(x^2+3x-10 \\le 8 \\Rightarrow x^2+3x-18 \\le 0 \\Rightarrow (x+6)(x-3)\\le0\\), body \\(-6,3\\), hledáme \\(-\\) i body`, ans:`\\(x \\in \\langle-6;3\\rangle\\)`},
+    {q:`\\(x^2 + 2x - 8 \\le 0\\)`, sol:`\\((x+4)(x-2)\\le0\\), body \\(-4,2\\), hledáme \\(-\\) i body`, ans:`\\(x \\in \\langle-4;2\\rangle\\)`},
+    {q:`\\(x^2 + 1 > 0\\)`, sol:`\\(D<0\\), parabola nad osou pro všechna \\(x\\)`, ans:`\\(x \\in \\mathbb{R}\\)`}
+  ],
+  checklist:[
+    {day:"Po", t:"Doučování: nulové body + znaménková tabulka"},
+    {day:"Út", t:"Samostatně: příklady 1–6"},
+    {day:"St", t:"Doučování: 7–12 + speciální případy (8) a kraje"},
+    {day:"Čt", t:"Mini test (5 příkladů)"},
+    {day:"Pá", t:"Doučování: oprava testu + chybník"},
+    {day:"So", t:"Volno / dodělání oprav"},
+    {day:"Ne", t:"Lehké opakování / volno"}
+  ],
+  mistakes:[
+    "Záměna otevřeného a uzavřeného krajního bodu (\\(<\\) vs. \\(\\le\\)).",
+    "Špatně určená znaménka v tabulce (nedosadí testovací číslo).",
+    "U \\(D<0\\) snaha „rozložit“, místo úvahy o znaménku celé paraboly.",
+    "Špatně zapsaný interval – přehozené hranice nebo špatné sjednocení \\(\\cup\\)."
+  ]
+},
+
+/* ---------- TÝDEN 7 ---------- */
+{
+  id:7, dates:"11. 8. – 17. 8.", theme:"Lomené nerovnice + iracionální rovnice",
+  intro:`<p>Nejčastější záměna na zkoušce: <strong>lomená rovnice ≠ lomená nerovnice ≠ iracionální rovnice</strong>. Každá má jiný postup.</p>
+  <p><strong>Lomená nerovnice</strong>: nikdy nenásob výrazem s neznámým znaménkem! Převeď na jednu stranu, na společný zlomek, a urči znaménka přes tabulku. <strong>Iracionální rovnice</strong> (neznámá pod odmocninou): podmínky → umocni → <em>ověř kořeny</em>. Ověřit jde dvěma způsoby: buď <strong>zkouškou</strong> dosazením (vždy funguje), nebo <strong>podmínkou, že pravá strana je</strong> \\(\\ge 0\\) (odmocnina nemůže být záporná) — pak je umocnění ekvivalentní a falešné kořeny padnou na podmínce. Ukázky obou cest máš v řešených příkladech.</p>`,
+  goal:"Neplést si lomené rovnice, lomené nerovnice a iracionální rovnice.",
+  steps:[
+    "Lomená nerovnice: vše na jednu stranu, sečti do <strong>jednoho zlomku</strong> \\(\\frac{\\ }{\\ } \\lessgtr 0\\).",
+    "Napiš podmínku (jmenovatel \\(\\neq 0\\)); nulové body čitatele i jmenovatele.",
+    "Znaménková tabulka; jmenovatelové body jsou <strong>vždy vyloučené</strong> (kroužek).",
+    "Iracionální: napiš podmínku (výraz pod sudou odmocninou \\(\\ge 0\\)).",
+    "Osamostatni odmocninu a <strong>umocni</strong> celou rovnici; vyřeš.",
+    "<strong>Ověř kořeny</strong>: zkouškou dosazením, <em>nebo</em> podmínkou „pravá strana \\(\\ge 0\\)“ (pak je umocnění ekvivalentní a falešný kořen padne na podmínce)."
+  ],
+  worked:[
+    {tag:"Lomená nerovnice", q:`\\(\\dfrac{3x+5}{x+1} \\ge 0\\)`, sol:`
+      <ol>
+        <li>Podmínka: \\(x + 1 \\neq 0 \\Rightarrow x \\neq -1\\).</li>
+        <li>Nulové body: čitatel \\(3x+5=0 \\Rightarrow x=-\\tfrac{5}{3}\\); jmenovatel \\(x=-1\\).</li>
+        <li>Intervaly a znaménka zlomku: \\(+\\) na \\((-\\infty;-\\tfrac53)\\), \\(-\\) na \\((-\\tfrac53;-1)\\), \\(+\\) na \\((-1;\\infty)\\).</li>
+        <li>Hledáme \\(\\ge 0\\): kladné intervaly. Bod \\(-\\tfrac53\\) patří (čitatel =0 je povoleno), bod \\(-1\\) ne (jmenovatel).</li>
+      </ol>
+      <div class="ans">\\(x \\in (-\\infty;\\,-\\tfrac{5}{3}\\rangle \\cup (-1;\\,\\infty)\\)</div>`},
+    {tag:"Lomená nerovnice s kvadratickým trojčlenem", q:`\\(\\dfrac{x^2 - x - 6}{x - 1} \\le 0\\)`, sol:`
+      <ol>
+        <li>Podmínka: \\(x - 1 \\neq 0 \\Rightarrow x \\neq 1\\).</li>
+        <li>Rozložíme čitatel: \\(x^2 - x - 6 = (x-3)(x+2)\\). Nerovnice je \\(\\dfrac{(x-3)(x+2)}{x-1} \\le 0\\).</li>
+        <li>Nulové body (čitatel i jmenovatel): \\(x = -2,\\ 1,\\ 3\\). Rozdělí osu na 4 intervaly.</li>
+        <li>Znaménka zlomku (dosaď testovací číslo do každého úseku): \\(-\\) na \\((-\\infty;-2)\\), \\(+\\) na \\((-2;1)\\), \\(-\\) na \\((1;3)\\), \\(+\\) na \\((3;\\infty)\\).</li>
+        <li>Hledáme \\(\\le 0\\): záporné úseky. Body \\(-2\\) a \\(3\\) patří (čitatel =0 povoleno), bod \\(1\\) <strong>ne</strong> (jmenovatel).</li>
+      </ol>
+      <div class="ans">\\(x \\in (-\\infty;\\,-2\\rangle \\cup (1;\\,3\\rangle\\)</div>`},
+    {tag:"Iracionální rovnice", q:`\\(\\sqrt{x-1} + x = 3\\)`, sol:`
+      <ol>
+        <li>Podmínka: \\(x - 1 \\ge 0 \\Rightarrow x \\ge 1\\).</li>
+        <li>Osamostatníme odmocninu: \\(\\sqrt{x-1} = 3 - x\\) (nutně \\(3-x \\ge 0\\)).</li>
+        <li>Umocníme: \\(x - 1 = (3-x)^2 = 9 - 6x + x^2\\)</li>
+        <li>\\(x^2 - 7x + 10 = 0 \\Rightarrow (x-2)(x-5)=0 \\Rightarrow x=2\\) nebo \\(x=5\\)</li>
+        <li><strong>Zkouška:</strong> \\(x=2\\): \\(\\sqrt1 + 2 = 3\\) ✓. \\(x=5\\): \\(\\sqrt4 + 5 = 7 \\neq 3\\) ✗.</li>
+      </ol>
+      <div class="ans">\\(x = 2\\) (kořen \\(x=5\\) je falešný)</div>`},
+    {tag:"Iracionální rovnice se dvěma odmocninami", q:`\\(\\sqrt{x+7} - \\sqrt{x} = 1\\)`, sol:`
+      <ol>
+        <li>Podmínky: \\(x+7\\ge0\\) a \\(x\\ge0\\) → dohromady \\(x \\ge 0\\).</li>
+        <li>Osamostatníme jednu odmocninu: \\(\\sqrt{x+7} = 1 + \\sqrt{x}\\).</li>
+        <li>Umocníme: \\(x+7 = 1 + 2\\sqrt{x} + x\\)</li>
+        <li>\\(6 = 2\\sqrt{x} \\Rightarrow \\sqrt{x} = 3\\)</li>
+        <li>Umocníme znovu: \\(x = 9\\).</li>
+        <li><strong>Zkouška:</strong> \\(\\sqrt{16} - \\sqrt{9} = 4 - 3 = 1\\) ✓</li>
+      </ol>
+      <div class="ans">\\(x = 9\\)</div>`},
+    {tag:"Iracionální rovnice – cesta bez zkoušky", q:`\\(\\sqrt{x-1} = x - 3\\) (řešení přes podmínku, ne zkouškou)`, sol:`
+      <ol>
+        <li>Odmocnina je vždy \\(\\ge 0\\), takže <strong>pravá strana musí být taky</strong> \\(\\ge 0\\): \\(x - 3 \\ge 0 \\Rightarrow x \\ge 3\\).</li>
+        <li>(Podmínka výrazu pod odmocninou \\(x-1\\ge0\\) je slabší, splní se sama.)</li>
+        <li>Za podmínky \\(x \\ge 3\\) je umocnění <strong>ekvivalentní úprava</strong>: \\(x - 1 = (x-3)^2\\)</li>
+        <li>\\(x - 1 = x^2 - 6x + 9 \\Rightarrow x^2 - 7x + 10 = 0 \\Rightarrow (x-2)(x-5) = 0\\)</li>
+        <li>Kořeny \\(x = 2\\) a \\(x = 5\\). Podmínka \\(x \\ge 3\\) <strong>rovnou vyřadí</strong> \\(x = 2\\) — bez dosazování.</li>
+      </ol>
+      <div class="ans">\\(x = 5\\). Pozn.: tahle cesta nahrazuje zkoušku — falešný kořen padá na podmínce \\(x \\ge 3\\).</div>`}
+  ],
+  practice:[
+    `\\(\\dfrac{x-1}{x+3} < 1\\)`,
+    `\\(\\dfrac{x-1}{x+3} \\ge 2\\)`,
+    `\\(\\dfrac{x+2}{x-3} \\le 0\\)`,
+    `\\(\\dfrac{x-4}{x} \\ge 0\\)`,
+    `\\(\\dfrac{1}{x-2} \\le 3\\) (převeď na nulu, nenásob!)`,
+    `\\(\\dfrac{x^2-4}{x+1} \\ge 0\\) (kvadratický čitatel)`,
+    `\\(\\dfrac{x-2}{x^2-9} < 0\\) (kvadratický jmenovatel)`,
+    `\\(\\sqrt{2x-1} = x - 2\\)`,
+    `\\(\\sqrt{x+4} = x - 2\\)`,
+    `\\(\\sqrt{x} + 2 = x\\)`,
+    `\\(\\sqrt{x+5} - \\sqrt{x} = 1\\) (dvě odmocniny)`,
+    `\\(\\sqrt{x+3} + \\sqrt{x-2} = 5\\) (dvě odmocniny)`,
+    `Urči podmínky: \\(\\sqrt{m+1} - \\sqrt{5-m}\\)`,
+    `Urči podmínky: \\(\\dfrac{\\sqrt{2a-6}}{a-4}\\)`
+  ],
+  minitest:[
+    {q:`\\(\\dfrac{x-2}{x+1} > 0\\)`, sol:`Body \\(2,-1\\); znaménka \\(+/-/+\\); hledáme \\(+\\); \\(-1\\) vyloučeno`, ans:`\\(x \\in (-\\infty;-1)\\cup(2;\\infty)\\)`},
+    {q:`\\(\\sqrt{x-3} = 2\\)`, sol:`Podmínka \\(x\\ge3\\). Umocníme: \\(x-3=4 \\Rightarrow x=7\\). Zkouška ✓`, ans:`\\(x=7\\)`},
+    {q:`\\(\\sqrt{x+1} = x - 1\\)`, sol:`Podmínka \\(x\\ge1\\). \\(x+1=(x-1)^2 \\Rightarrow x^2-3x=0 \\Rightarrow x=0,3\\). Zkouška: \\(x=3\\) ✓, \\(x=0\\) ✗`, ans:`\\(x=3\\)`},
+    {q:`\\(\\sqrt{x+4} - \\sqrt{x-1} = 1\\)`, sol:`Podmínka \\(x\\ge1\\). \\(\\sqrt{x+4}=1+\\sqrt{x-1}\\), umocníme: \\(x+4=1+2\\sqrt{x-1}+x-1 \\Rightarrow 4=2\\sqrt{x-1} \\Rightarrow \\sqrt{x-1}=2 \\Rightarrow x=5\\). Zkouška: \\(3-2=1\\) ✓`, ans:`\\(x=5\\)`},
+    {q:`Podmínky pro \\(\\sqrt{2a-6}\\):`, sol:`\\(2a-6\\ge0 \\Rightarrow a\\ge3\\)`, ans:`\\(a \\ge 3\\)`}
+  ],
+  checklist:[
+    {day:"Po", t:"Doučování: lomená nerovnice + iracionální rovnice"},
+    {day:"Út", t:"Samostatně: lomené nerovnice 1–7 (i s trojčlenem)"},
+    {day:"St", t:"Doučování: iracionální 8–12 (zkouška nebo podmínka!)"},
+    {day:"Čt", t:"Mini test (5 příkladů)"},
+    {day:"Pá", t:"Doučování: oprava testu + chybník"},
+    {day:"So", t:"Volno / dodělání oprav"},
+    {day:"Ne", t:"Lehké opakování / volno"}
+  ],
+  mistakes:[
+    "Násobení lomené nerovnice výrazem s neznámým znaménkem (mění smysl nerovnosti!).",
+    "Zapomenutá zkouška u iracionální rovnice → ponechaný falešný kořen.",
+    "U odmocniny chybí podmínka (výraz pod sudou odmocninou \\(\\ge 0\\)).",
+    "Záměna postupu: lomenou nerovnici řeší jako rovnici (odstraní jmenovatel)."
+  ]
+},
+
+/* ---------- TÝDEN 8 ---------- */
+{
+  id:8, dates:"18. 8. – 23. 8.", theme:"Funkce + cvičný reparát", badge:"reparát",
+  intro:`<p>Poslední „učební" týden. Propojíš rovnice s <strong>grafy</strong>: lineární funkce = přímka, kvadratická = parabola. Naučíš se číst vlastnosti (definiční obor, obor hodnot, monotonii) a hledat průsečíky.</p>
+  <p>Na konci týdne si napíšeš <strong>cvičný reparát</strong> – kompletní test ve formátu opravné zkoušky (najdeš ho v sekci na konci webu).</p>`,
+  goal:"Propojit rovnice s grafy, číst vlastnosti funkcí a zvládnout cvičný reparát.",
+  steps:[
+    "Lineární \\(y=ax+b\\): \\(a\\) = směrnice (růst/pokles), \\(b\\) = průsečík s osou \\(y\\).",
+    "Přímku narýsuješ ze dvou bodů; rovnici z bodů dopočítáš dosazením.",
+    "Kvadratická \\(y=ax^2+bx+c\\): vrchol a osa souměrnosti; \\(a>0\\) parabola nahoru, \\(a<0\\) dolů.",
+    "Vrcholový tvar \\(y=a(x-m)^2+n\\) → vrchol \\([m;n]\\). Součinový \\(y=a(x-x_1)(x-x_2)\\) → průsečíky s osou \\(x\\).",
+    "Průsečíky s osami: s \\(x\\) polož \\(y=0\\); s \\(y\\) dosaď \\(x=0\\).",
+    "Průsečík dvou grafů: polož \\(f(x)=g(x)\\) a vyřeš.",
+    "Definiční obor: u odmocniny \\(\\ge0\\), u zlomku jmenovatel \\(\\neq0\\)."
+  ],
+  worked:[
+    {tag:"Rovnice přímky ze dvou bodů", q:`Urči rovnici přímky procházející body \\(A[-1;-3]\\), \\(B[2;5]\\).`, sol:`
+      <ol>
+        <li>Hledáme \\(y = ax + b\\). Dosadíme oba body:</li>
+        <li>\\(A:\\ -3 = -a + b\\)</li>
+        <li>\\(B:\\ 5 = 2a + b\\)</li>
+        <li>Odečteme: \\(8 = 3a \\Rightarrow a = \\tfrac{8}{3}\\)</li>
+        <li>Dosadíme: \\(-3 = -\\tfrac{8}{3} + b \\Rightarrow b = -\\tfrac{1}{3}\\)</li>
+      </ol>
+      <div class="ans">\\(y = \\dfrac{8}{3}x - \\dfrac{1}{3}\\)</div>`},
+    {tag:"Vrcholový a součinový tvar", q:`\\(f: y = x^2 - 2x - 3\\). Přepiš do vrcholového a součinového tvaru, popiš graf.`, sol:`
+      <ol>
+        <li><strong>Vrcholový</strong> (doplnění na čtverec): \\(y = (x^2-2x+1)-1-3 = (x-1)^2 - 4\\). Vrchol \\([1;-4]\\).</li>
+        <li><strong>Součinový</strong>: kořeny \\(x^2-2x-3=0 \\Rightarrow (x-3)(x+1)=0\\), tedy \\(x=3,\\ x=-1\\). Takže \\(y=(x-3)(x+1)\\).</li>
+        <li>Průsečíky s osou \\(x\\): \\([-1;0]\\) a \\([3;0]\\); s osou \\(y\\): \\([0;-3]\\).</li>
+        <li>Parabola otevřená nahoru (\\(a=1>0\\)), vrchol \\([1;-4]\\).</li>
+      </ol>
+      <div class="ans">Vrcholový: \\(y=(x-1)^2-4\\); součinový: \\(y=(x-3)(x+1)\\); vrchol \\([1;-4]\\).</div>`},
+    {tag:"Průsečíky dvou grafů", q:`Najdi průsečíky \\(f: y = x^2 - 2\\) a \\(g: y = 3x - 2\\).`, sol:`
+      <ol>
+        <li>Položíme \\(f(x)=g(x)\\): \\(x^2 - 2 = 3x - 2\\)</li>
+        <li>\\(x^2 - 3x = 0 \\Rightarrow x(x-3)=0 \\Rightarrow x=0\\) nebo \\(x=3\\)</li>
+        <li>Dopočítáme \\(y\\): pro \\(x=0\\): \\(y=-2\\); pro \\(x=3\\): \\(y=7\\)</li>
+      </ol>
+      <div class="ans">Průsečíky: \\([0;-2]\\) a \\([3;7]\\)</div>`}
+  ],
+  practice:[
+    `Načrtni \\(y = x^2 + 1\\).`,
+    `Načrtni \\(y = (x+1)^2\\).`,
+    `Načrtni \\(y = (x+1)^2 - 2\\).`,
+    `Načrtni \\(y = -(x+1)^2 - 2\\).`,
+    `Načrtni \\(y = 4x - 1\\) pro \\(x \\in (-1;\\,2\\rangle\\) a urči obor hodnot.`,
+    `Načrtni \\(y = x^2 + 1\\) pro \\(x \\in (-1;\\,2\\rangle\\) a urči obor hodnot.`,
+    `Načrtni \\(y = -x^2 + 1\\) pro \\(x \\in (-2;\\,2\\rangle\\).`,
+    `Urči rovnici přímky body \\(A[0;2]\\), \\(B[3;-1]\\).`,
+    `\\(f: y = x^2 - 4x + 3\\): vrcholový a součinový tvar, vrchol, průsečíky s osami.`,
+    `Najdi průsečíky \\(f: y = x^2\\) a \\(g: y = x + 2\\).`,
+    `Urči definiční obor \\(y = \\sqrt{\\dfrac{x+5}{x}}\\).`,
+    `Urči definiční obor \\(y = \\dfrac{1}{\\sqrt{x-3}}\\).`
+  ],
+  minitest:[
+    {q:`Urči vrchol paraboly \\(y = x^2 - 4x + 1\\) (doplněním na čtverec).`, sol:`\\(y = (x^2-4x+4) - 4 + 1 = (x-2)^2 - 3\\). Vrchol \\([2;-3]\\).`, ans:`Vrchol \\([2;-3]\\)`},
+    {q:`Urči průsečíky paraboly \\(y = x^2 - 2x - 3\\) s osami.`, sol:`S osou \\(x\\): \\(x^2-2x-3=0 \\Rightarrow (x-3)(x+1)=0 \\Rightarrow x=3,-1\\). S osou \\(y\\): \\(x=0 \\Rightarrow y=-3\\).`, ans:`\\([3;0],[-1;0],[0;-3]\\)`},
+    {q:`Rovnice přímky body \\(A[-1;2]\\), \\(B[3;-6]\\).`, sol:`\\(2=-a+b\\), \\(-6=3a+b\\). Odečteme: \\(-8=4a \\Rightarrow a=-2\\); \\(b=0\\).`, ans:`\\(y=-2x\\)`},
+    {q:`Definiční obor \\(y = \\dfrac{1}{\\sqrt{x-3}}\\).`, sol:`Pod odmocninou \\(>0\\) (ne =0, je ve jmenovateli): \\(x-3>0\\)`, ans:`\\(D(f)=(3;\\infty)\\)`},
+    {q:`Najdi průsečíky grafů \\(y=x^2-1\\) a \\(y=2x+2\\).`, sol:`\\(x^2-1=2x+2 \\Rightarrow x^2-2x-3=0 \\Rightarrow x=3,-1\\). Dopočítáme \\(y\\): \\(x=3\\to8\\), \\(x=-1\\to0\\).`, ans:`\\([3;8]\\) a \\([-1;0]\\)`}
+  ],
+  checklist:[
+    {day:"Po", t:"Doučování: lineární a kvadratická funkce, grafy"},
+    {day:"Út", t:"Samostatně: grafy 1–7 + vrcholový tvar (9)"},
+    {day:"St", t:"Doučování: průsečíky + def. obor 8,10,11,12"},
+    {day:"Čt", t:"Mini test z funkcí (5 příkladů, samostatně)"},
+    {day:"Pá", t:"Doučování: cvičný reparát (sekce na konci) + rozbor"},
+    {day:"So", t:"Volno / dodělání oprav"},
+    {day:"Ne", t:"Lehké opakování / volno"}
+  ],
+  mistakes:[
+    "Chybné čtení grafu (záměna os, špatně odečtený vrchol).",
+    "U omezeného definičního oboru špatně určený obor hodnot (krajní body).",
+    "Záměna vrcholového a součinového tvaru.",
+    "Při hledání průsečíků dvou grafů zapomenutý dopočet \\(y\\)-ové souřadnice."
+  ]
+}
+];
+
+/* ---------- REZERVA ---------- */
+const RESERVE = {
+  dates:"24. 8. – reparát",
+  intro:`<p>Poslední týden = <strong>žádné nové učivo</strong>. Jen dolaďování: projít chybník, zopakovat slabá místa a napsat dva cvičné testy nanečisto. Poslední den před reparátem jen krátké, lehké opakování – ať jdeš na zkoušku odpočatý.</p>`,
+  goal:"Žádné nové učivo, jen doladění a klid před zkouškou.",
+  checklist:[
+    {day:"—", t:"Projít celý chybník a opravit každou zapsanou chybu"},
+    {day:"—", t:"Zopakovat 2–3 nejslabší témata podle chybníku"},
+    {day:"—", t:"Napsat 1 lehčí cvičný test (nanečisto, na čas)"},
+    {day:"—", t:"Napsat 1 těžší cvičný test (formát reparátu)"},
+    {day:"—", t:"Opravit oba testy a probrat chyby s doučujícím"},
+    {day:"—", t:"Poslední den: jen krátké opakování, sbalit pomůcky, jít spát včas"}
+  ]
+};
+
+
+/* =========================================================
+   STATICKÝ OBSAH závěrečných sekcí + CVIČNÝ REPARÁT
+   ========================================================= */
+
+const GLOBAL_MISTAKES = [
+  "Zapomenuté podmínky u lomených výrazů, rovnic a nerovnic.",
+  "Špatné znaménko při převádění členu na druhou stranu.",
+  "Násobení jen části rovnice místo celé rovnice.",
+  "Krácení součtu místo součinu.",
+  "Zapomenutá zkouška u iracionální rovnice.",
+  "Násobení lomené nerovnice výrazem s neznámým znaménkem.",
+  "Špatně zapsané intervaly.",
+  "Záměna otevřeného a uzavřeného krajního bodu.",
+  "Chybné čtení grafu.",
+  "Neúplná odpověď u slovní úlohy (chybí věta nebo jednotky)."
+];
+
+const PRE_CHECK = [
+  "Umím vyřešit lineární rovnici a zapsat celý postup.",
+  "U lomené rovnice automaticky píšu podmínky a dělám zkoušku.",
+  "Poznám, kterou metodu použít u kvadratické rovnice (vytknutí / odmocnění / diskriminant).",
+  "Umím použít nulový součin a vyřešit rovnici v součinovém i podílovém tvaru.",
+  "Vyjádřím neznámou ze vzorce i se zlomky.",
+  "Slovní úlohu přepíšu do rovnice/soustavy a napíšu odpověď větou.",
+  "Sestavím znaménkovou tabulku a zapíšu výsledek nerovnice intervalem.",
+  "Rozliším lomenou rovnici, lomenou nerovnici a iracionální rovnici.",
+  "U odmocnin píšu podmínky a u iracionální rovnice dělám zkoušku.",
+  "Načrtnu graf přímky i paraboly a najdu průsečíky s osami.",
+  "Určím definiční obor funkce se zlomkem i odmocninou.",
+  "Mám projitý a opravený celý chybník."
+];
+
+const SEND_LIST = [
+  "Vyfocené samostatné příklady z daného týdne (úterní sada).",
+  "Vyfocený vypracovaný mini test (i s případnými chybami).",
+  "Seznam příkladů, u kterých sis nebyl jistý.",
+  "Aktuální stav chybníku (co nového přibylo).",
+  "Konkrétní dotaz: u kterého kroku ses zasekl."
+];
+
+/* Cvičný reparát – 13 úloh dle zadání */
+const REPARAT = [
+  {n:1, label:"Lineární rovnice", q:`\\(4(x-2) + 3 = 2x - 5\\)`,
+    sol:`\\(4x-8+3=2x-5 \\Rightarrow 4x-5=2x-5 \\Rightarrow 2x=0 \\Rightarrow x=0\\)`, ans:`\\(x=0\\)`},
+  {n:2, label:"Lomená rovnice", q:`\\(\\dfrac{2}{x-1} + \\dfrac{3}{x} = \\dfrac{5}{x-1}\\)`,
+    sol:`Podmínky \\(x\\neq1,\\ x\\neq0\\). ×\\(x(x-1)\\): \\(2x + 3(x-1) = 5x \\Rightarrow 2x+3x-3=5x \\Rightarrow -3=0\\) — spor.`, ans:`Bez řešení`},
+  {n:3, label:"Kvadratická rovnice", q:`\\(x^2 - x - 6 = 0\\)`,
+    sol:`\\(D = 1+24 = 25\\); \\(x = \\dfrac{1\\pm5}{2}\\)`, ans:`\\(x_1=3,\\ x_2=-2\\)`},
+  {n:4, label:"Iracionální rovnice", q:`\\(\\sqrt{x+1} = x - 1\\)`,
+    sol:`Podmínka \\(x\\ge1\\). Umocníme: \\(x+1=(x-1)^2=x^2-2x+1 \\Rightarrow x^2-3x=0 \\Rightarrow x(x-3)=0\\). Kořeny \\(0,3\\). Zkouška: \\(x=3\\) ✓, \\(x=0\\) ✗.`, ans:`\\(x=3\\)`},
+  {n:5, label:"Soustava rovnic", q:`\\(\\begin{aligned} x+y+z &= 6\\\\ 2x-5y-2z &= -1\\\\ 3x+2y+z &= 9 \\end{aligned}\\)`,
+    sol:`Z 1. rovnice \\(z = 6-x-y\\). Dosadíme do 2. a 3.:<br>
+    2.: \\(2x-5y-2(6-x-y) = -1 \\Rightarrow 4x-3y = 11\\)<br>
+    3.: \\(3x+2y+(6-x-y) = 9 \\Rightarrow 2x+y = 3\\)<br>
+    Z poslední \\(y = 3-2x\\), dosadíme: \\(4x-3(3-2x)=11 \\Rightarrow 10x-9=11 \\Rightarrow x=2\\).<br>
+    Pak \\(y=3-4=-1\\), \\(z=6-2-(-1)=5\\).`, ans:`\\([x;y;z]=[2;-1;5]\\)`},
+  {n:6, label:"Vyjádření ze vzorce", q:`Z \\(\\dfrac{1}{R} = \\dfrac{1}{R_1} + \\dfrac{1}{R_2}\\) vyjádři \\(R_2\\).`,
+    sol:`\\(\\dfrac{1}{R_2} = \\dfrac{1}{R} - \\dfrac{1}{R_1} = \\dfrac{R_1 - R}{R\\,R_1} \\Rightarrow R_2 = \\dfrac{R\\,R_1}{R_1 - R}\\)`, ans:`\\(R_2 = \\dfrac{R\\,R_1}{R_1 - R}\\)`},
+  {n:7, label:"Lineární nerovnice", q:`\\(\\dfrac{4x-7}{2} - \\dfrac{x-4}{6} \\ge 2x - 3\\)`,
+    sol:`×6: \\(3(4x-7) - (x-4) \\ge 6(2x-3) \\Rightarrow 12x-21-x+4 \\ge 12x-18 \\Rightarrow 11x-17 \\ge 12x-18 \\Rightarrow -x \\ge -1 \\Rightarrow x \\le 1\\)`, ans:`\\(x \\in (-\\infty;\\,1\\rangle\\)`},
+  {n:8, label:"Kvadratická nerovnice", q:`\\(x^2 + 5x < 0\\)`,
+    sol:`\\(x(x+5)<0\\), nulové body \\(0,-5\\), znaménka \\(+/-/+\\), hledáme \\(<0\\) → prostřední interval, body nepatří.`, ans:`\\(x \\in (-5;\\,0)\\)`},
+  {n:9, label:"Lomená nerovnice", q:`\\(\\dfrac{x-1}{x+3} \\ge 2\\)`,
+    sol:`Podmínka \\(x\\neq-3\\). Převedeme: \\(\\dfrac{x-1}{x+3}-2 \\ge 0 \\Rightarrow \\dfrac{x-1-2(x+3)}{x+3}\\ge0 \\Rightarrow \\dfrac{-x-7}{x+3}\\ge0\\).<br>
+    Nulové body: čitatel \\(x=-7\\), jmenovatel \\(x=-3\\). Znaménka zlomku \\(\\dfrac{-x-7}{x+3}\\): \\(-\\) / \\(+\\) / \\(-\\). Hledáme \\(\\ge0\\) → prostřední; \\(-7\\) patří, \\(-3\\) ne.`, ans:`\\(x \\in \\langle-7;\\,-3)\\)`},
+  {n:10, label:"Slovní úloha", q:`2 kg prvního a 3 kg druhého zboží stojí 540 Kč; 3 kg prvního a 2,5 kg druhého stojí 640 Kč. Urči cenu 1 kg každého druhu.`,
+    sol:`\\(2x+3y=540\\), \\(3x+2{,}5y=640\\). První ×3, druhou ×2: \\(6x+9y=1620\\), \\(6x+5y=1280\\). Odečteme: \\(4y=340 \\Rightarrow y=85\\); pak \\(2x+255=540 \\Rightarrow x=142{,}5\\).`, ans:`1 kg prvního 142,50 Kč, 1 kg druhého 85 Kč.`},
+  {n:11, label:"Lineární funkce", q:`Urči rovnici přímky procházející body \\(A[-1;-3]\\), \\(B[2;5]\\) a její průsečík s osou \\(y\\).`,
+    sol:`\\(y=ax+b\\): \\(-3=-a+b\\), \\(5=2a+b\\). Odečteme: \\(8=3a \\Rightarrow a=\\tfrac83\\); \\(b=-\\tfrac13\\). Průsečík s osou \\(y\\) je \\([0;b]\\).`, ans:`\\(y=\\tfrac83 x - \\tfrac13\\); průsečík \\([0;-\\tfrac13]\\)`},
+  {n:12, label:"Kvadratická funkce", q:`\\(f: y = x^2 - 2x - 3\\). Urči vrchol, průsečíky s osami a načrtni graf.`,
+    sol:`Vrcholový tvar \\(y=(x-1)^2-4\\) → vrchol \\([1;-4]\\). Průsečíky s osou \\(x\\): \\((x-3)(x+1)=0 \\Rightarrow [-1;0],[3;0]\\). S osou \\(y\\): \\([0;-3]\\). Parabola nahoru.`, ans:`Vrchol \\([1;-4]\\); průsečíky \\([-1;0],[3;0],[0;-3]\\)`},
+  {n:13, label:"Definiční obor funkce", q:`Urči definiční obor \\(y = \\sqrt{\\dfrac{x+5}{x}}\\).`,
+    sol:`Pod odmocninou musí být \\(\\ge0\\) a \\(x\\neq0\\). Řešíme \\(\\dfrac{x+5}{x}\\ge0\\): nulové body \\(-5,0\\), znaménka \\(+/-/+\\) → kladné na \\((-\\infty;-5\\rangle\\) a \\((0;\\infty)\\); \\(x=0\\) vyloučeno, \\(x=-5\\) povoleno (zlomek =0).`, ans:`\\(D(f) = (-\\infty;\\,-5\\rangle \\cup (0;\\,\\infty)\\)`}
+];
+
+/* =========================================================
+   RENDER
+   ========================================================= */
+const $ = (s,el=document)=>el.querySelector(s);
+const $$ = (s,el=document)=>[...el.querySelectorAll(s)];
+
+/* spočítá celkový počet checkboxů (týdny + rezerva + pre-check) */
+function buildHTML(){
+  const app = $('#app');
+
+  /* ---- topbar ---- */
+  const nav = `
+  <div class="topbar">
+    <div class="topbar-inner">
+      <span class="brand"><span class="dot"></span> Reparát z matematiky</span>
+      <div class="mini-progress" title="Celkový postup">
+        <span id="miniPct">0 %</span>
+        <span class="mini-track"><span class="mini-fill" id="miniFill"></span></span>
+      </div>
+      <nav>
+        <a href="#dashboard">Dashboard</a>
+        <a href="#zak">Pro žáka</a>
+        <a href="#rodice">Pro rodiče</a>
+        <a href="#plan">Týdny</a>
+        <a href="#reparat">Cvičný reparát</a>
+        <a href="#chybnik">Chybník</a>
+      </nav>
+    </div>
+  </div>`;
+
+  /* ---- hero ---- */
+  const hero = `
+  <header class="hero">
+    <div class="hero-inner">
+      <span class="eyebrow">Plán přípravy · konec srpna</span>
+      <h1>Příprava na opravnou zkoušku z matematiky</h1>
+      <p class="sub">Týdenní plán, vysvětlení látky, domácí práce, mini testy a oprava chyb. Systematicky a v klidu až do reparátu.</p>
+      <div class="deadline">
+        <div class="countdown">
+          <div><div class="big" id="cdDays">–</div><div class="lbl">dní do reparátu</div></div>
+          <div class="date"><div class="big" style="font-size:1.4rem">24. 8.</div><div class="lbl">termín opravné zkoušky</div></div>
+        </div>
+      </div>
+      <div class="system">
+        <div class="step"><div class="n">3×/týden</div><p>Doučování Po, St, Pá – nové téma, procvičení, oprava.</p></div>
+        <div class="step"><div class="n">Út a Čt</div><p>Samostatná práce a mini test, 20–40 min.</p></div>
+        <div class="step"><div class="n">každý čtvrtek</div><p>Mini test z látky daného týdne.</p></div>
+        <div class="step"><div class="n">průběžně</div><p>Posílání práce ke kontrole + chybník.</p></div>
+        <div class="step"><div class="n">poslední týden</div><p>Rezerva – opakování a cvičné testy, žádné nové učivo.</p></div>
+      </div>
+    </div>
+  </header>`;
+
+  /* ---- dashboard ---- */
+  const dash = `
+  <section id="dashboard" class="wrap">
+    <div class="section-head"><span class="idx">01</span><h2>Dashboard</h2></div>
+    <p class="section-intro">Přehled, jak příprava postupuje. Čísla se počítají z odškrtaných úkolů a aktualizují se samy.</p>
+    <div class="dash-grid">
+      <div class="stat accent"><div class="k">Celkový postup</div><div class="v" id="sPct">0<small>%</small></div></div>
+      <div class="stat"><div class="k">Hotové týdny</div><div class="v" id="sWeeks">0<small>/8</small></div></div>
+      <div class="stat"><div class="k">Splněné úkoly</div><div class="v" id="sTasks">0<small id="sTasksTot">/0</small></div></div>
+      <div class="stat"><div class="k">Aktuální týden</div><div class="v" id="sCur" style="font-size:1.5rem;padding-top:8px">–</div></div>
+    </div>
+    <div class="dash-bottom">
+      <div class="bigbar-card">
+        <div class="top">
+          <div><div class="now" id="bigPct">0 %</div></div>
+          <div class="meta">Hlavní téma týdne<b id="bigTheme">–</b></div>
+        </div>
+        <div class="bigtrack"><div class="bigfill" id="bigFill"></div></div>
+        <div class="legend"><span id="bigDates">–</span><span id="bigTasks">0 z 0 úkolů</span></div>
+      </div>
+      <div class="watch">
+        <h4>⚠ Na co si dát pozor</h4>
+        <ul id="watchList"></ul>
+      </div>
+    </div>
+  </section>`;
+
+  /* ---- pokyny žák / rodič ---- */
+  const guides = `
+  <section class="wrap">
+    <div class="two-col">
+      <div class="guide" id="zak">
+        <h3><span class="tag">ŽÁK</span> Pokyny pro tebe</h3>
+        <ul>
+          <li>Počítej <strong>samostatně</strong> – nejdřív zkus, pak kontroluj.</li>
+          <li>Piš <strong>celý postup</strong>, ne jen výsledek.</li>
+          <li>U lomených výrazů a rovnic <strong>vždy napiš podmínky</strong>.</li>
+          <li>U nerovnic piš výsledek <strong>intervalem</strong>.</li>
+          <li>U slovních úloh napiš <strong>odpověď větou</strong>.</li>
+          <li>Po dokončení práci <strong>vyfoť a pošli ke kontrole</strong>.</li>
+          <li>Chyby zapisuj do <strong>chybníku</strong> (sekce na konci).</li>
+        </ul>
+      </div>
+      <div class="guide parent" id="rodice">
+        <h3><span class="tag">RODIČ</span> Pokyny pro rodiče</h3>
+        <ul>
+          <li>Cílem <strong>není</strong> sedět nad matematikou celý den.</li>
+          <li>Lepší je <strong>pravidelná práce 20–40 minut</strong> denně.</li>
+          <li>Nejdůležitější je <strong>opravovat chyby</strong>, ne jen počítat dál.</li>
+          <li>Plán je rozdělený <strong>po týdnech</strong> – stačí držet tempo.</li>
+          <li>Poslední týden je <strong>rezerva</strong>, prostor na klidné doladění.</li>
+        </ul>
+      </div>
+    </div>
+  </section>`;
+
+  /* ---- denní režim (společný) ---- */
+  const regime = `
+  <section class="wrap">
+    <div class="section-head"><span class="idx">02</span><h2>Denní režim v týdnu</h2></div>
+    <p class="section-intro">Stejný rytmus se opakuje každý týden. Denní práce má být realistická: <strong>20–40 minut</strong>.</p>
+    <div class="card">
+      <div class="regime">
+        ${REGIME.map(r=>`<div class="d${r.rest?' rest':''}"><div class="dn">${r.d}</div><div class="dt">${r.t}</div></div>`).join('')}
+      </div>
+    </div>
+  </section>`;
+
+  /* ---- týdny ---- */
+  const weeksHTML = WEEKS.map(w=>weekCard(w)).join('');
+  const reserveHTML = reserveCard(RESERVE);
+  const plan = `
+  <section id="plan" class="wrap">
+    <div class="section-head"><span class="idx">03</span><h2>Týdenní plán</h2></div>
+    <p class="section-intro">Osm pracovních týdnů od konce června do 23. 8., pak rezerva. Každý týden má vysvětlení, řešené příklady, samostatné sady, mini test, checklist a časté chyby. Klikni na týden pro rozbalení.</p>
+    <div class="weeks">${weeksHTML}${reserveHTML}</div>
+  </section>`;
+
+  /* ---- časté chyby (globální) ---- */
+  const mistakes = `
+  <section class="wrap">
+    <div class="section-head"><span class="idx">04</span><h2>Časté chyby — čti pořád dokola</h2></div>
+    <p class="section-intro">Tohle jsou chyby, které stojí nejvíc bodů. Než odevzdáš jakýkoli příklad, projeď si je.</p>
+    <div class="mistakes" style="margin-top:0">
+      <h4>✕ Nejčastější chyby u reparátu</h4>
+      <ul>${GLOBAL_MISTAKES.map(m=>`<li>${m}</li>`).join('')}</ul>
+    </div>
+  </section>`;
+
+  /* ---- checklist před reparátem ---- */
+  const preCheck = `
+  <section id="pred" class="wrap">
+    <div class="section-head"><span class="idx">05</span><h2>Checklist před reparátem</h2></div>
+    <p class="section-intro">Než půjdeš ke zkoušce, mělo by platit všechno z tohohle seznamu. Co ještě nezvládáš, dolaď v rezervě.</p>
+    <div class="card">
+      <ul class="check-list" id="preCheckList">
+        ${PRE_CHECK.map((t,i)=>checkItemHTML('pre',i,'',t)).join('')}
+      </ul>
+    </div>
+  </section>`;
+
+  /* ---- cvičný reparát ---- */
+  const reparat = `
+  <section id="reparat" class="wrap">
+    <div class="section-head"><span class="idx">06</span><h2>Cvičný reparát</h2></div>
+    <p class="section-intro">Kompletní test ve formátu opravné zkoušky — 13 úloh napříč všemi tématy. Napiš ho samostatně a na čas, řešení si zkontroluj až nakonec.</p>
+    <div class="card">
+      <ul class="ex-list" style="counter-reset:none">
+        ${REPARAT.map(r=>`
+          <li style="flex-direction:column;align-items:stretch;gap:8px">
+            <div style="display:flex;gap:12px;align-items:flex-start">
+              <span style="flex:none;font-family:'JetBrains Mono',monospace;font-size:.78rem;font-weight:700;color:var(--amber);background:var(--amber-soft);border:1px solid var(--amber-line);min-width:24px;height:24px;padding:0 6px;border-radius:7px;display:grid;place-items:center">${r.n}</span>
+              <span class="qx" style="flex:1"><strong style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--ink-soft);display:block;margin-bottom:3px;font-weight:700">${r.label.toUpperCase()}</strong>${r.q}</span>
+            </div>
+            <div class="solve" style="margin-top:2px">
+              <button class="solve-btn" data-sol="rep-${r.n}"><span class="ar">▸</span> Zobrazit řešení</button>
+              <div class="solution" id="rep-${r.n}"><div>${r.sol}</div><div class="ans">${r.ans}</div></div>
+            </div>
+          </li>`).join('')}
+      </ul>
+    </div>
+  </section>`;
+
+  /* ---- chybník + co poslat + domácí práce ---- */
+  const closing = `
+  <section id="chybnik" class="wrap">
+    <div class="section-head"><span class="idx">07</span><h2>Chybník</h2></div>
+    <p class="section-intro">Sem zapisuj každou chybu, kterou uděláš: co bylo špatně a jak to má být správně. Před reparátem se k tomu vrátíš. Text se ukládá v prohlížeči.</p>
+    <div class="card notebook">
+      <textarea id="chybnikText" placeholder="Příklad zápisu:&#10;Lomená rovnice — zapomněl jsem podmínku x ≠ 0, vyšel mi zakázaný kořen.&#10;Správně: nejdřív podmínky, na konci zkouška."></textarea>
+      <div class="savebar">
+        <button class="btn-save" id="saveChybnik">Uložit chybník</button>
+        <span class="saved-msg" id="chybnikSaved">Uloženo ✓</span>
+      </div>
+    </div>
+
+    <div class="two-col" style="margin-top:30px">
+      <div class="card">
+        <h3 style="font-size:1.2rem;margin-bottom:6px">Co poslat ke kontrole</h3>
+        <p style="color:var(--ink-soft);font-size:.9rem;margin-bottom:12px">Na konci každého týdne pošli:</p>
+        <ul class="send-list">
+          ${SEND_LIST.map((t,i)=>`<li><span class="pin">${i+1}</span><span>${t}</span></li>`).join('')}
+        </ul>
+      </div>
+      <div class="card">
+        <h3 style="font-size:1.2rem;margin-bottom:6px">Pokyny pro domácí práci</h3>
+        <ul class="guide" style="list-style:none;padding:0;border:none;box-shadow:none;background:none">
+          <li>Pracuj <strong>každý den krátce</strong> (20–40 min), ne nárazově.</li>
+          <li>Nejdřív si přečti <strong>vysvětlení a řešený příklad</strong>, pak počítej.</li>
+          <li>Když se zasekneš na 10 minut, <strong>označ to a jdi dál</strong> – vyřešíš s doučujícím.</li>
+          <li>Po každé sadě si <strong>zkontroluj řešení</strong> a chyby zapiš do chybníku.</li>
+          <li>Před mini testem <strong>nekoukej na řešení</strong> – piš samostatně.</li>
+        </ul>
+      </div>
+    </div>
+  </section>`;
+
+  const resetBar = `
+  <div class="reset-bar wrap">
+    <button class="btn-reset" id="resetAll">Vymazat veškerý postup a začít znovu</button>
+  </div>`;
+
+  const footer = `<footer class="wrap">Plán přípravy na opravnou zkoušku z matematiky · postup se ukládá ve tvém prohlížeči · vytištěno přes Ctrl/Cmd + P</footer>`;
+
+  app.innerHTML = nav + hero + dash + guides + regime + plan + mistakes + preCheck + reparat + closing + resetBar + footer;
+}
+
+/* ---- HTML jednoho týdne ---- */
+function weekCard(w){
+  const repBadge = w.badge ? `<span class="rep">${w.badge}</span>` : '';
+  return `
+  <article class="week" id="tyden-${w.id}" data-week="${w.id}">
+    <button class="week-head" data-toggle="${w.id}" aria-expanded="false">
+      <span class="week-num" data-num="${w.id}">${w.id}</span>
+      <span class="info">
+        <span class="dates">${w.dates}</span>
+        <span class="title">${w.theme}${repBadge}</span>
+      </span>
+      <span class="week-prog">
+        <span class="wtrack"><span class="wfill" id="wfill-${w.id}"></span></span>
+        <span class="wpct" id="wpct-${w.id}">0 %</span>
+      </span>
+      <span class="chev">▾</span>
+    </button>
+    <div class="week-body">
+      <div class="goal-banner"><b>Cíl týdne:</b> ${w.goal}</div>
+
+      <div class="block-label"><span class="ic">📖</span> Vysvětlení látky</div>
+      <div class="explain">${w.intro}</div>
+
+      <div class="block-label"><span class="ic">→</span> Postup krok za krokem</div>
+      <ol class="steps">${w.steps.map(s=>`<li>${s}</li>`).join('')}</ol>
+
+      <div class="block-label"><span class="ic">✓</span> Řešené vzorové příklady</div>
+      ${w.worked.map((ex,i)=>`
+        <div class="worked">
+          <div class="wtag">${ex.tag}</div>
+          <div class="wq">${ex.q}</div>
+          <div class="solve">
+            <button class="solve-btn" data-sol="w${w.id}-worked-${i}"><span class="ar">▸</span> Zobrazit řešení</button>
+            <div class="solution" id="w${w.id}-worked-${i}">${ex.sol}</div>
+          </div>
+        </div>`).join('')}
+
+      <div class="block-label"><span class="ic">✎</span> Samostatné příklady</div>
+      <ul class="ex-list">${w.practice.map(p=>`<li><span class="qx">${p}</span></li>`).join('')}</ul>
+
+      <div class="block-label"><span class="ic">★</span> Mini test (čtvrtek)</div>
+      <ul class="ex-list" style="counter-reset:ex">${w.minitest.map((m,i)=>`
+        <li style="flex-direction:column;align-items:stretch;gap:8px">
+          <div style="display:flex;gap:12px;align-items:flex-start">
+            <span style="flex:none;font-family:'JetBrains Mono',monospace;font-size:.78rem;font-weight:700;color:var(--amber);background:var(--amber-soft);border:1px solid var(--amber-line);width:24px;height:24px;border-radius:7px;display:grid;place-items:center">${i+1}</span>
+            <span class="qx" style="flex:1">${m.q}</span>
+          </div>
+          <div class="solve" style="margin-top:2px">
+            <button class="solve-btn" data-sol="w${w.id}-mt-${i}"><span class="ar">▸</span> Zobrazit řešení</button>
+            <div class="solution" id="w${w.id}-mt-${i}"><div>${m.sol}</div><div class="ans">${m.ans}</div></div>
+          </div>
+        </li>`).join('')}</ul>
+
+      <div class="block-label"><span class="ic">☑</span> Checklist týdne</div>
+      <ul class="check-list">${w.checklist.map((c,i)=>checkItemHTML('w'+w.id,i,c.day,c.t)).join('')}</ul>
+
+      <div class="block-label"><span class="ic">!</span> Časté chyby tohoto týdne</div>
+      <div class="mistakes" style="margin-top:0"><ul>${w.mistakes.map(m=>`<li>${m}</li>`).join('')}</ul></div>
+    </div>
+  </article>`;
+}
+
+/* ---- rezerva ---- */
+function reserveCard(r){
+  return `
+  <article class="week" id="rezerva" data-week="rez">
+    <button class="week-head" data-toggle="rez" aria-expanded="false">
+      <span class="week-num" data-num="rez" style="background:var(--amber);font-size:.8rem;line-height:1.05">REZ</span>
+      <span class="info">
+        <span class="dates">${r.dates}</span>
+        <span class="title">Rezerva — opakování a cvičné testy</span>
+      </span>
+      <span class="week-prog">
+        <span class="wtrack"><span class="wfill" id="wfill-rez"></span></span>
+        <span class="wpct" id="wpct-rez">0 %</span>
+      </span>
+      <span class="chev">▾</span>
+    </button>
+    <div class="week-body">
+      <div class="goal-banner"><b>Cíl:</b> ${r.goal}</div>
+      <div class="block-label"><span class="ic">📖</span> Jak na poslední týden</div>
+      <div class="explain">${r.intro}</div>
+      <div class="block-label"><span class="ic">☑</span> Checklist rezervy</div>
+      <ul class="check-list">${r.checklist.map((c,i)=>checkItemHTML('wrez',i,c.day,c.t)).join('')}</ul>
+    </div>
+  </article>`;
+}
+
+/* ---- jeden checkbox ---- */
+function checkItemHTML(group,i,day,text){
+  const id = `chk-${group}-${i}`;
+  const dayHTML = day ? `<span class="day">${day}</span>` : `<span class="day"></span>`;
+  return `<li><label class="check-item" data-group="${group}">
+    <input type="checkbox" id="${id}" data-key="${id}">
+    ${dayHTML}<span>${text}</span>
+  </label></li>`;
+}
+
+/* =========================================================
+   LOGIKA — localStorage, progress, accordion, řešení
+   ========================================================= */
+const LS_PREFIX = 'reparat_mat_';
+
+function lsGet(k){ try{ return localStorage.getItem(LS_PREFIX+k); }catch(e){ return null; } }
+function lsSet(k,v){ try{ localStorage.setItem(LS_PREFIX+k,v); }catch(e){} }
+function lsDel(k){ try{ localStorage.removeItem(LS_PREFIX+k); }catch(e){} }
+
+/* skupiny checklistů, které se počítají do postupu (týdny 1–8 + rezerva). pre-check se počítá zvlášť, ne do týdnů */
+const WEEK_GROUPS = [...WEEKS.map(w=>'w'+w.id), 'wrez'];
+
+function initCheckboxes(){
+  $$('.check-item input[type=checkbox]').forEach(cb=>{
+    const key = cb.dataset.key;
+    if(lsGet(key)==='1'){ cb.checked = true; cb.closest('.check-item').classList.add('done'); }
+    cb.addEventListener('change',()=>{
+      lsSet(key, cb.checked?'1':'0');
+      cb.closest('.check-item').classList.toggle('done', cb.checked);
+      updateProgress();
+    });
+  });
+}
+
+function groupStats(group){
+  const boxes = $$(`.check-item[data-group="${group}"] input`);
+  const done = boxes.filter(b=>b.checked).length;
+  return {done, total:boxes.length};
+}
+
+function updateProgress(){
+  /* celkový postup = jen týdenní skupiny (vč. rezervy) */
+  let done=0, total=0, weeksDone=0;
+  WEEK_GROUPS.forEach(g=>{
+    const s = groupStats(g);
+    done += s.done; total += s.total;
+    if(s.total>0 && s.done===s.total) weeksDone++;
+    /* týdenní bar */
+    const pct = s.total? Math.round(s.done/s.total*100):0;
+    const fill = $('#wfill-'+g.replace('w',''));
+    const lbl = $('#wpct-'+g.replace('w',''));
+    if(fill) fill.style.width = pct+'%';
+    if(lbl) lbl.textContent = pct+' %';
+    const card = $('#tyden-'+g.replace('w','')) || (g==='wrez'?$('#rezerva'):null);
+    if(card) card.classList.toggle('is-done', s.total>0 && s.done===s.total);
+  });
+
+  const pct = total? Math.round(done/total*100):0;
+
+  /* dashboard */
+  setText('#sPct', pct, '%');
+  setHTML('#sPct', pct+'<small>%</small>');
+  setHTML('#sWeeks', weeksDone+'<small>/8</small>');
+  setHTML('#sTasks', done+`<small>/${total}</small>`);
+  $('#bigPct') && ($('#bigPct').textContent = pct+' %');
+  $('#bigFill') && ($('#bigFill').style.width = pct+'%');
+
+  /* topbar mini */
+  $('#miniPct') && ($('#miniPct').textContent = pct+' %');
+  $('#miniFill') && ($('#miniFill').style.width = pct+'%');
+}
+
+function setText(sel,val,suf=''){ const el=$(sel); if(el) el.textContent = val+suf; }
+function setHTML(sel,html){ const el=$(sel); if(el) el.innerHTML = html; }
+
+/* aktuální týden podle data + dashboard texty */
+function initCurrentWeek(){
+  const ranges = [
+    {id:1, from:'2026-06-30', to:'2026-07-06'},
+    {id:2, from:'2026-07-07', to:'2026-07-13'},
+    {id:3, from:'2026-07-14', to:'2026-07-20'},
+    {id:4, from:'2026-07-21', to:'2026-07-27'},
+    {id:5, from:'2026-07-28', to:'2026-08-03'},
+    {id:6, from:'2026-08-04', to:'2026-08-10'},
+    {id:7, from:'2026-08-11', to:'2026-08-17'},
+    {id:8, from:'2026-08-18', to:'2026-08-23'},
+  ];
+  const today = new Date();
+  let cur = null;
+  for(const r of ranges){
+    const f=new Date(r.from+'T00:00'), t=new Date(r.to+'T23:59');
+    if(today>=f && today<=t){ cur=r.id; break; }
+  }
+  /* před startem → týden 1; po 23.8. → rezerva */
+  let curWeek, watchSource, themeText, datesText;
+  if(cur===null){
+    if(today < new Date('2026-06-30')) cur = 1;
+    else cur = 8;
+  }
+  const w = WEEKS.find(x=>x.id===cur) || WEEKS[0];
+  curWeek = 'Týden '+w.id;
+  themeText = w.theme;
+  datesText = w.dates;
+
+  setText('#sCur', curWeek);
+  $('#bigTheme') && ($('#bigTheme').textContent = themeText);
+  $('#bigDates') && ($('#bigDates').textContent = datesText);
+
+  /* watch list = časté chyby aktuálního týdne (max 4) */
+  const wl = $('#watchList');
+  if(wl){ wl.innerHTML = w.mistakes.slice(0,4).map(m=>`<li>${m}</li>`).join(''); }
+
+  /* big tasks text */
+  const updateBigTasks=()=>{
+    const s = groupStats('w'+w.id);
+    $('#bigTasks') && ($('#bigTasks').textContent = `${s.done} z ${s.total} úkolů týdne`);
+  };
+  updateBigTasks();
+  document.addEventListener('change',e=>{ if(e.target.matches('.check-item input')) updateBigTasks(); });
+
+  /* automaticky rozbal aktuální týden */
+  const card = $('#tyden-'+w.id);
+  if(card){ openWeek(card); }
+
+  /* countdown */
+  const rep = new Date('2026-08-24T08:00');
+  const diff = Math.ceil((rep - today)/(1000*60*60*24));
+  $('#cdDays') && ($('#cdDays').textContent = diff>0? diff : '0');
+}
+
+/* accordion */
+function openWeek(card){
+  card.classList.add('is-open');
+  const btn = card.querySelector('.week-head');
+  btn && btn.setAttribute('aria-expanded','true');
+}
+function initAccordion(){
+  $$('.week-head').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const card = btn.closest('.week');
+      const open = card.classList.contains('is-open');
+      card.classList.toggle('is-open', !open);
+      btn.setAttribute('aria-expanded', String(!open));
+    });
+  });
+}
+
+/* řešení – toggle + typeset MathJax na první otevření */
+function initSolutions(){
+  $$('.solve-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const id = btn.dataset.sol;
+      const box = document.getElementById(id);
+      if(!box) return;
+      const open = box.classList.contains('open');
+      box.classList.toggle('open', !open);
+      btn.classList.toggle('open', !open);
+      btn.querySelector('.ar') && (btn.firstChild); // ponech šipku
+      btn.innerHTML = (!open?'<span class="ar" style="transform:rotate(90deg)">▸</span> Skrýt řešení':'<span class="ar">▸</span> Zobrazit řešení');
+      if(!open && window.MathJax && MathJax.typesetPromise){ MathJax.typesetPromise([box]); }
+    });
+  });
+}
+
+/* chybník */
+function initChybnik(){
+  const ta = $('#chybnikText');
+  if(ta){
+    const saved = lsGet('chybnik');
+    if(saved!==null) ta.value = saved;
+    /* autosave on input (debounce) */
+    let t;
+    ta.addEventListener('input',()=>{ clearTimeout(t); t=setTimeout(()=>lsSet('chybnik',ta.value),400); });
+  }
+  const btn = $('#saveChybnik');
+  if(btn){
+    btn.addEventListener('click',()=>{
+      lsSet('chybnik', ta.value);
+      const msg = $('#chybnikSaved');
+      msg.classList.add('show');
+      setTimeout(()=>msg.classList.remove('show'),1600);
+    });
+  }
+}
+
+/* reset */
+function initReset(){
+  const btn = $('#resetAll');
+  if(!btn) return;
+  btn.addEventListener('click',()=>{
+    if(!confirm('Opravdu vymazat všechny odškrtané úkoly a chybník? Tahle akce se nedá vrátit.')) return;
+    /* smaž všechny klíče prefixu */
+    try{
+      const keys=[];
+      for(let i=0;i<localStorage.length;i++){ const k=localStorage.key(i); if(k && k.startsWith(LS_PREFIX)) keys.push(k); }
+      keys.forEach(k=>localStorage.removeItem(k));
+    }catch(e){}
+    /* odškrtni UI */
+    $$('.check-item input').forEach(cb=>{ cb.checked=false; cb.closest('.check-item').classList.remove('done'); });
+    const ta=$('#chybnikText'); if(ta) ta.value='';
+    updateProgress();
+  });
+}
+
+/* init */
+document.addEventListener('DOMContentLoaded',()=>{
+  buildHTML();
+  initCheckboxes();
+  initAccordion();
+  initSolutions();
+  initChybnik();
+  initReset();
+  initCurrentWeek();
+  updateProgress();
+  if(window.MathJax && MathJax.typesetPromise){ MathJax.typesetPromise(); }
+});
+
+</script>
+</body>
+</html>
