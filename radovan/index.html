@@ -1,0 +1,2562 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Matematika – trénink na písemku | Radovan</title>
+<meta name="description" content="Procvičování: determinanty, Gaussova eliminace, lomené rovnice a nerovnice, výrazy, lineární a kvadratické funkce.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Semi+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<script>
+window.MathJax={
+  tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},
+  svg:{fontCache:'global'},
+  options:{enableMenu:false},
+  startup:{pageReady(){return MathJax.startup.defaultPageReady().then(()=>{window.__mjReady&&window.__mjReady();});}}
+};
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<style>
+:root{
+  --paper:#F2F5F1; --grid:#E1E8E0; --card:#FCFDFB; --ink:#17233A; --ink2:#4B5970; --line:#C8D2CA;
+  --teorie:#2456A6; --teorie-bg:#E8EFFA;
+  --priklad:#6A45B8; --priklad-bg:#F0EBFB;
+  --ok:#1D7748; --ok-bg:#E3F3E9;
+  --bad:#B3261E; --bad-bg:#FBE8E6;
+  --warn:#9A5800; --warn-bg:#FFF1D4;
+  --hard:#8C1D5A; --hard-bg:#F8E4EE;
+  --pencil:#F2C230;
+  --r:8px;
+  --ff:'Barlow',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --fh:'Barlow Semi Condensed','Barlow',system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:calc(60px + env(safe-area-inset-top,0px))}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;font-family:var(--ff);font-size:17px;line-height:1.55;color:var(--ink);
+  background-color:var(--paper);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:24px 24px;background-attachment:fixed}
+h1,h2,h3,h4{font-family:var(--fh);line-height:1.15;margin:0 0 .5em}
+a{color:var(--teorie)}
+p{margin:.4em 0 .8em}
+:focus-visible{outline:3px solid var(--pencil);outline-offset:2px;border-radius:4px}
+[hidden]{display:none!important}
+
+/* ---------- horní lišta ---------- */
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--ink);color:#fff}
+.topbar-in{max-width:1120px;margin:0 auto;padding:0 16px;display:flex;align-items:center;gap:18px;min-height:52px}
+.brand{font-family:var(--fh);font-weight:700;font-size:1.05rem;color:#fff;text-decoration:none;white-space:nowrap;display:flex;align-items:center;gap:8px}
+.brand i{display:inline-block;width:14px;height:14px;border-left:3px solid var(--pencil);border-bottom:3px solid var(--pencil)}
+.nav{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;margin-left:auto}
+.nav::-webkit-scrollbar{display:none}
+.nav a{color:#C9D3E6;text-decoration:none;padding:8px 11px;border-radius:6px;font-weight:500;font-size:.93rem;white-space:nowrap}
+.nav a:hover{color:#fff;background:rgba(255,255,255,.08)}
+.nav a.on{color:var(--ink);background:var(--pencil)}
+
+main{max-width:1120px;margin:0 auto;padding:22px 16px 60px}
+.crumbs{margin-bottom:10px}.crumbs a{text-decoration:none;font-weight:600;color:var(--ink2)}
+
+/* ---------- tlačítka ---------- */
+.btn{font:inherit;font-weight:600;font-size:.95rem;display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  padding:9px 15px;border-radius:7px;border:1.5px solid var(--ink);background:var(--card);color:var(--ink);cursor:pointer;text-decoration:none;line-height:1.2}
+.btn:hover{background:#fff;box-shadow:0 2px 0 var(--ink)}
+.btn:disabled{opacity:.45;cursor:default;box-shadow:none}
+.btn.primary{background:var(--ink);color:#fff}
+.btn.primary:hover{background:#22314f}
+.btn.ghost{border-color:var(--line);color:var(--ink2)}
+.btn.ghost:hover{border-color:var(--ink2);color:var(--ink)}
+.btn.warn{border-color:#E6C48A;color:var(--warn)}
+.btn.ok{border-color:var(--ok);color:var(--ok)}
+.btn.small{padding:6px 11px;font-size:.85rem}
+.btn.big{padding:13px 22px;font-size:1.05rem}
+.btn.next{width:100%;padding:16px;font-family:var(--fh);font-size:1.2rem;font-weight:700;letter-spacing:.02em;background:var(--pencil);border-color:var(--ink);color:var(--ink);margin-top:10px}
+.btn.next:hover{box-shadow:0 3px 0 var(--ink)}
+.btn.next.pulse{animation:pulse 1.2s ease 2}
+@keyframes pulse{50%{transform:translateY(-2px);box-shadow:0 4px 0 var(--ink)}}
+@media (prefers-reduced-motion:reduce){.btn.next.pulse{animation:none}}
+
+/* ---------- úvod ---------- */
+.hero{display:grid;grid-template-columns:1.35fr 1fr;gap:28px;align-items:center;margin:6px 0 26px}
+.hero h1{font-size:clamp(2.1rem,5.2vw,3.6rem);font-weight:700;letter-spacing:-.01em;margin-bottom:.25em}
+.lead{font-size:1.15rem;color:var(--ink2);margin:0 0 18px}
+.reco{background:var(--card);border:1.5px solid var(--ink);border-radius:var(--r);padding:14px 18px;max-width:520px}
+.reco h2{font-size:1.15rem;margin-bottom:6px}
+.reco ol{margin:0;padding-left:1.4em}.reco li{padding:2px 0;font-weight:600}
+.reco li a{color:var(--ink);text-decoration-color:var(--pencil);text-decoration-thickness:3px;text-underline-offset:3px}
+.why{font-size:.9rem;color:var(--ink2);margin:6px 0 0}
+.cta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.hero-svg{width:100%;max-width:400px;display:block;margin:0 auto}
+.hero-svg text{font-family:var(--fh);font-size:30px;font-weight:600;fill:var(--ink)}
+.hero-svg text.z{fill:#9AA8A0;font-weight:500}
+.hero-svg .pv{fill:var(--pencil);opacity:.85}
+.hero-svg .brk,.hero-svg .bar{fill:none;stroke:var(--ink);stroke-width:3}
+.hero-svg .stair{fill:none;stroke:var(--hard);stroke-width:3.5;stroke-linejoin:round;stroke-dasharray:420;stroke-dashoffset:420;animation:draw 1.6s .3s ease forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+@media (prefers-reduced-motion:reduce){.hero-svg .stair{animation:none;stroke-dashoffset:0}}
+
+/* ---------- dashboard ---------- */
+.dash{background:var(--card);border:1.5px solid var(--ink);border-radius:var(--r);padding:18px 20px;margin-bottom:28px}
+.dash-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.dash-head h2{font-size:1.4rem;margin:0}
+.stats{display:grid;grid-template-columns:repeat(6,1fr);border-top:1.5px solid var(--line);border-bottom:1.5px solid var(--line)}
+.stat{padding:12px 10px;border-right:1px solid var(--line)}
+.stat:last-child{border-right:0}
+.stat .v{font-family:var(--fh);font-size:1.9rem;font-weight:700;line-height:1}
+.stat .v.ok{color:var(--ok)}.stat .v.bad{color:var(--bad)}
+.stat .k{font-size:.85rem;color:var(--ink2);margin-top:4px}
+.stat .s{font-size:.78rem;color:var(--ink2)}
+.bars{display:grid;grid-template-columns:1fr 1fr;gap:6px 34px;margin-top:16px}
+.bar{display:grid;grid-template-columns:150px 1fr 48px;align-items:center;gap:10px;text-decoration:none;color:var(--ink);padding:3px 0}
+.bar:hover .bl{text-decoration:underline}
+.bl{font-weight:500;font-size:.93rem}
+.bt{height:10px;background:#E3E9E3;border-radius:5px;overflow:hidden;display:block}
+.bf{display:block;height:100%;background:var(--ink);border-radius:5px;transition:width .4s}
+.bf.lo{background:var(--bad)}.bf.mid{background:var(--warn)}.bf.hi{background:var(--ok)}
+.bv{font-family:var(--fh);font-weight:600;text-align:right;font-size:.95rem}
+.fine{font-size:.82rem;color:var(--ink2);margin:10px 0 0}
+
+/* ---------- dlaždice ---------- */
+.tiles-sec h2{font-size:1.4rem}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(205px,1fr));gap:12px}
+.tile{display:flex;flex-direction:column;gap:6px;background:var(--card);border:1.5px solid var(--line);border-radius:var(--r);padding:14px 15px 13px;text-decoration:none;color:var(--ink);min-height:128px}
+.tile:hover{border-color:var(--ink);box-shadow:0 3px 0 var(--ink)}
+.tile .g{font-family:var(--fh);font-weight:700;font-size:1.25rem;color:var(--teorie);letter-spacing:.02em}
+.tile .n{font-family:var(--fh);font-weight:700;font-size:1.12rem;line-height:1.15}
+.tile .d{font-size:.85rem;color:var(--ink2);margin-top:auto}
+.tile.special{border-color:var(--ink);background:#fff}
+.tile.special .g{color:var(--hard)}
+
+/* ---------- stránka tématu ---------- */
+.tp-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.tp-head h1{font-size:clamp(1.7rem,4vw,2.4rem)}
+.tglyph{font-family:var(--fh);font-weight:700;color:var(--teorie);font-size:1.3rem}
+.tabs{display:flex;gap:4px;border-bottom:2px solid var(--ink);margin:4px 0 16px;overflow-x:auto}
+.tab{padding:9px 14px;text-decoration:none;color:var(--ink2);font-weight:600;border:1.5px solid transparent;border-bottom:0;border-radius:7px 7px 0 0;white-space:nowrap}
+.tab.on{background:var(--ink);color:#fff}
+.tab:hover:not(.on){color:var(--ink);background:rgba(23,35,58,.06)}
+
+.box{border-radius:var(--r);margin:0 0 12px;border:1.5px solid}
+.box>summary{cursor:pointer;padding:11px 16px;font-family:var(--fh);font-weight:700;font-size:1.12rem;list-style:none;display:flex;align-items:center;gap:8px}
+.box>summary::-webkit-details-marker{display:none}
+.box>summary::before{content:'+';display:inline-grid;place-items:center;width:22px;height:22px;border-radius:5px;border:1.5px solid currentColor;font-size:1rem;line-height:1}
+.box[open]>summary::before{content:'−'}
+.box-in{padding:2px 18px 16px;overflow-x:auto}
+.box.teorie{background:var(--teorie-bg);border-color:#B7C9EA}.box.teorie>summary{color:var(--teorie)}
+.box.priklad{background:var(--priklad-bg);border-color:#CFC0EE}.box.priklad>summary{color:var(--priklad)}
+.box-in h4{font-size:1.08rem;margin:16px 0 4px}
+.twocol{display:grid;grid-template-columns:260px 1fr;gap:18px;align-items:center}
+.sarrus{width:100%;max-width:260px}
+.sarrus text{font-family:var(--fh);font-size:24px;font-weight:600;fill:var(--ink)}
+.sarrus text.rep{fill:#8C99B0}
+.sarrus .dg{stroke-width:2.4;opacity:.8}.sarrus .plus{stroke:var(--ok)}.sarrus .minus{stroke:var(--bad);stroke-dasharray:5 4}
+.sarrus .sep{stroke:var(--ink2);stroke-width:1.2;stroke-dasharray:3 3}
+.tag-plus{color:var(--ok);font-weight:700}.tag-minus{color:var(--bad);font-weight:700}
+.stairs{border-collapse:collapse;font-family:var(--fh);font-size:1.15rem}
+.stairs td{width:42px;height:38px;text-align:center;border:1px solid #C9D6EA;background:#fff}
+.stairs td.z{background:#DCE6F5;color:#7E8DA6}
+.stairs td.pv{background:var(--pencil);font-weight:700}
+ul.ops,ol.proc{padding-left:1.3em;margin:.3em 0 .8em}
+ul.ops li,ol.proc li{margin:3px 0}
+.cases{border-collapse:collapse;width:100%;background:#fff;font-size:.95rem}
+.cases th,.cases td{border:1px solid #C9D6EA;padding:8px 10px;text-align:left;vertical-align:middle}
+.cases th{background:#DCE6F5;font-family:var(--fh)}
+
+.practice{margin-top:20px}
+.pr-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.pr-head h2{font-size:1.4rem;margin:0}
+.diffsel{display:inline-flex;border:1.5px solid var(--ink);border-radius:8px;overflow:hidden}
+.diffsel button{font:inherit;font-weight:600;font-size:.9rem;padding:7px 13px;border:0;background:var(--card);color:var(--ink);cursor:pointer;border-right:1.5px solid var(--ink)}
+.diffsel button:last-child{border-right:0}
+.diffsel button.on{background:var(--ink);color:#fff}
+.diffsel button.on.d3{background:var(--hard)}
+
+/* ---------- úloha ---------- */
+.prob{background:var(--card);border:1.5px solid var(--ink);border-radius:var(--r);padding:18px 20px 20px;position:relative}
+.prob.is-hard{border-top:6px solid var(--hard)}
+.ph{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.ph h3{font-size:1.3rem;margin:0 0 0 4px;flex-basis:100%}
+.chip{font-size:.78rem;font-weight:600;padding:3px 9px;border-radius:20px;background:#E6EBE6;color:var(--ink2)}
+.chip.d1{background:var(--ok-bg);color:var(--ok)}.chip.d2{background:var(--teorie-bg);color:var(--teorie)}.chip.d3{background:var(--hard-bg);color:var(--hard)}
+.stmt{font-size:1.05rem;padding:4px 0 6px;overflow-x:auto}
+.tq{font-size:1.2rem;font-weight:600}
+.parts{display:flex;flex-direction:column;gap:14px;margin:12px 0 14px;padding-top:14px;border-top:1.5px dashed var(--line)}
+.part{padding:10px 12px;border-radius:7px;border:1.5px solid transparent;background:#F6F8F5}
+.part.ok{background:var(--ok-bg);border-color:#A9D8BC}
+.part.bad{background:var(--bad-bg);border-color:#EDB5AF}
+.part.inv{background:var(--warn-bg);border-color:#EED29B}
+.pl{display:block;font-weight:600;margin-bottom:6px}
+fieldset{border:0;margin:0;padding:0;min-width:0}
+legend{padding:0}
+.pin{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.in{font:inherit;font-size:1.05rem;padding:8px 11px;border:1.5px solid var(--ink2);border-radius:6px;background:#fff;color:var(--ink);max-width:100%}
+.in:focus{border-color:var(--ink);outline:3px solid var(--pencil);outline-offset:0}
+.in.w-s{width:150px}.in.w-l{width:min(420px,100%)}
+textarea.in{width:100%;resize:vertical}
+select{font:inherit;font-size:1rem;padding:8px 8px;border:1.5px solid var(--ink2);border-radius:6px;background:#fff;color:var(--ink)}
+.fb{font-size:.95rem;margin-top:6px}
+.part.ok .fb{color:var(--ok);font-weight:600}
+.part.bad .fb{color:var(--bad)}
+.part.inv .fb{color:var(--warn)}
+.opts{display:flex;flex-direction:column;gap:6px}
+.opt{display:flex;gap:9px;align-items:flex-start;padding:7px 10px;border:1.5px solid var(--line);border-radius:6px;background:#fff;cursor:pointer}
+.opt:hover{border-color:var(--ink2)}
+.opt input{margin-top:5px;accent-color:var(--ink)}
+.k-choice .opts{flex-direction:row;flex-wrap:wrap}
+.k-choice .opt{flex:1 1 200px}
+.mgrid-wrap{overflow-x:auto}
+.mgrid{border-collapse:separate;border-spacing:4px;border-left:3px solid var(--ink);border-right:3px solid var(--ink);border-radius:4px;padding:2px 2px}
+.mgrid input{width:56px;font:inherit;font-size:1.05rem;text-align:center;padding:7px 4px;border:1.5px solid var(--ink2);border-radius:5px;background:#fff}
+.mgrid td.rhs{border-left:2.5px solid var(--ink);padding-left:8px}
+.mgrid td.wrong input{border-color:var(--bad);background:var(--bad-bg)}
+.lockmsg{color:var(--ink2);font-size:.92rem;margin:0}
+.signpick,.signtab{border-collapse:collapse;background:#fff}
+.signpick th,.signpick td,.signtab th,.signtab td{border:1px solid var(--line);padding:6px 10px;text-align:center;white-space:nowrap}
+.signpick th,.signtab th{background:#EEF2EE;font-weight:600;font-size:.92rem}
+.sgn{font:inherit;font-size:1.3rem;font-weight:700;width:48px;height:40px;border-radius:6px;border:1.5px dashed var(--ink2);background:#fff;cursor:pointer;color:var(--ink2)}
+.sgn.plus{border-style:solid;border-color:var(--ok);color:var(--ok);background:var(--ok-bg)}
+.sgn.minus{border-style:solid;border-color:var(--bad);color:var(--bad);background:var(--bad-bg)}
+.signpick td.wrong{background:var(--bad-bg);outline:2px solid var(--bad)}
+.signtab td.sp{color:var(--ok);font-weight:700}.signtab td.sm{color:var(--bad);font-weight:700}
+.signtab tr.tot td{border-top:2.5px solid var(--ink);font-size:1.1rem}
+.signtab tr.tp td{color:var(--ink2);font-size:.9rem}
+.tscroll{overflow-x:auto;max-width:100%}
+.pickline{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.pk{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border:1.5px solid var(--line);border-radius:6px;background:#fff;cursor:pointer}
+.pk.pt{border-style:dashed;background:#FAFBF9}
+.pk:has(input:checked){border-color:var(--ink);background:#FFF8DB}
+.pickres{margin-top:8px;font-size:1rem}
+.selfrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.model{margin-top:10px;padding:10px 12px;background:var(--teorie-bg);border-radius:6px}
+
+.acts{display:flex;flex-wrap:wrap;gap:8px}
+.cap{font-size:.85rem;color:var(--ink2);margin:8px 0 0}
+.hintbox{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.hint{background:var(--teorie-bg);border-left:4px solid var(--teorie);padding:9px 13px;border-radius:0 6px 6px 0;overflow-x:auto}
+.steps{list-style:none;counter-reset:st;padding:0;margin:12px 0 0;display:flex;flex-direction:column;gap:10px}
+.steps:empty{display:none}
+.steps>li{counter-increment:st;background:var(--priklad-bg);border-left:4px solid var(--priklad);padding:10px 14px;border-radius:0 6px 6px 0;overflow-x:auto}
+.steps>li>h4{font-size:1.02rem;margin:0 0 4px;color:var(--priklad)}
+.steps>li>h4::before{content:counter(st) '. ';}
+.res{margin-top:12px;border-radius:7px}
+.res:empty{display:none}
+.res.ok{background:var(--ok-bg);border:1.5px solid var(--ok);padding:11px 14px;color:var(--ok)}
+.res.bad{background:var(--bad-bg);border:1.5px solid var(--bad);padding:11px 14px;color:var(--bad)}
+.res.bad-soft{background:var(--warn-bg);border:1.5px solid #E5C27E;padding:10px 14px;color:var(--warn)}
+.res.info{background:var(--teorie-bg);border:1.5px solid var(--teorie);padding:10px 14px;color:var(--teorie)}
+.sum{margin-top:6px;color:var(--ink)}
+.nextwrap{margin-top:6px}
+
+.cond,.warnbox{background:var(--warn-bg);border-left:4px solid var(--warn);padding:8px 12px;border-radius:0 6px 6px 0;margin:6px 0;color:#5A3800}
+.okbox{background:var(--ok-bg);border-left:4px solid var(--ok);padding:8px 12px;border-radius:0 6px 6px 0;margin:6px 0}
+.ok-line{color:var(--ok);font-weight:500}
+.bad-line{color:var(--bad);font-weight:500}
+.note{color:var(--ink2);font-size:.9rem;margin:2px 0 0}
+.mscroll{overflow-x:auto}
+mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;padding:2px 0}
+
+/* grafy */
+.plot{width:100%;max-width:420px;display:block;background:#fff;border:1px solid var(--line);border-radius:6px;margin:6px 0}
+.plot .g{stroke:#EDF1ED;stroke-width:1}
+.plot .ax{stroke:var(--ink);stroke-width:1.6}
+.plot .axl,.plot .tk,.plot .ptl,.plot .vlt,.plot .fnl{font-family:var(--ff);font-size:11px;fill:var(--ink2)}
+.plot .axl{font-size:13px;font-style:italic;fill:var(--ink)}
+.plot .ptl{font-size:12px;font-weight:600;fill:var(--ink)}
+.plot .fn{fill:none;stroke-width:2.6}
+.plot .f0{stroke:var(--teorie);fill:var(--teorie)}.plot .f1{stroke:var(--hard);fill:var(--hard)}
+.plot polyline.f0,.plot polyline.f1{fill:none}
+.plot .vl{stroke:var(--warn);stroke-width:1.4;stroke-dasharray:5 4}
+.plot .vlt{fill:var(--warn);font-weight:600}
+.plot .pt{fill:var(--ink);stroke:#fff;stroke-width:1.5}
+.plot .pt.alt{fill:var(--ok)}
+.nline{width:100%;max-width:520px;display:block;margin:8px 0}
+.nline .ax{stroke:var(--ink);stroke-width:1.6}
+.nline .sol{stroke:var(--ok);stroke-width:7;stroke-linecap:round;opacity:.55}
+.nline .np{stroke:var(--ink);stroke-width:2}
+.nline .np.full{fill:var(--ink)}.nline .np.hollow{fill:#fff}
+.nline .np.den{stroke:var(--bad)}
+.nline .nl{font-family:var(--fh);font-size:14px;font-weight:600;fill:var(--ink)}
+.nline .sg{font-family:var(--fh);font-size:19px;font-weight:700}
+.nline .plus{fill:var(--ok)}.nline .minus{fill:var(--bad)}
+
+/* najdi chybu */
+.ferr{list-style:none;padding:0;margin:10px 0;display:flex;flex-direction:column;gap:6px}
+.fl{font:inherit;width:100%;text-align:left;padding:8px 12px;border:1.5px solid var(--line);border-radius:6px;background:#fff;cursor:pointer;overflow-x:auto;color:var(--ink)}
+.fl:hover{border-color:var(--ink)}
+.fl.right{border-color:var(--ok);background:var(--ok-bg)}
+.fl.wrong{border-color:var(--bad);background:var(--bad-bg)}
+
+/* relace, písemka, dril, souhrny */
+.panel{background:var(--card);border:1.5px solid var(--ink);border-radius:var(--r);padding:18px 20px;margin-bottom:16px}
+.panel h2{font-size:1.35rem}
+.choicerow{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 14px}
+.choicerow label{display:inline-flex;gap:7px;align-items:center;padding:8px 14px;border:1.5px solid var(--line);border-radius:7px;background:#fff;cursor:pointer;font-weight:600}
+.choicerow label:has(input:checked){border-color:var(--ink);background:#FFF8DB}
+.sess-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.sess-head h1{font-size:1.8rem;margin:0}
+.sess-prog{display:flex;align-items:center;gap:10px;min-width:240px;font-weight:600}
+.sess-prog .bt{flex:1}
+.exam-bar{position:sticky;top:52px;z-index:15;display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:var(--ink);color:#fff;padding:10px 16px;border-radius:var(--r);margin-bottom:14px}
+.timer{font-family:var(--fh);font-size:1.6rem;font-weight:700;font-variant-numeric:tabular-nums;margin-left:auto}
+.timer.low{color:var(--pencil)}
+.exam-q{margin-bottom:18px}
+.exam-q>h2{font-size:1.25rem}
+.exam-q>h2 small{color:var(--ink2);font-weight:500}
+.exam-q .pts{font-family:var(--fh);font-weight:700;font-size:1.1rem;margin:8px 0}
+.gradebox{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1.5px solid var(--ink);border-radius:var(--r);overflow:hidden;background:#fff;margin:10px 0}
+.gradebox div{padding:12px 14px;border-right:1px solid var(--line)}
+.gradebox div:last-child{border-right:0}
+.gradebox .v{font-family:var(--fh);font-size:2rem;font-weight:700;line-height:1}
+.gradebox .k{font-size:.85rem;color:var(--ink2)}
+.errlist{padding-left:1.2em}.errlist li{margin:4px 0}
+.drill{max-width:720px;margin:0 auto}
+.drill-top{display:flex;align-items:center;gap:14px;margin-bottom:12px;background:var(--ink);color:#fff;padding:10px 16px;border-radius:var(--r)}
+.drill-top .timer{margin-left:0}
+.drill-top .sc{font-weight:600;margin-left:auto}
+.drill-card{background:var(--card);border:1.5px solid var(--ink);border-radius:var(--r);padding:20px}
+.drill-card .q{font-size:1.15rem;margin-bottom:12px;overflow-x:auto}
+.drill-card .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.drill-card .fb{margin-top:12px;font-size:1rem}
+.drill-card .fb.ok{color:var(--ok);font-weight:600}.drill-card .fb.bad{color:var(--bad)}
+.tbl{border-collapse:collapse;width:100%;background:#fff}
+.tbl th,.tbl td{border:1px solid var(--line);padding:7px 10px;text-align:left}
+.tbl th{background:#EEF2EE;font-family:var(--fh)}
+.errbars{display:flex;flex-direction:column;gap:8px;margin:10px 0 16px}
+.empty{padding:20px;text-align:left;color:var(--ink2)}
+footer{max-width:1120px;margin:0 auto;padding:0 16px 30px;color:var(--ink2);font-size:.82rem}
+
+/* ---------- mobil ---------- */
+@media (max-width:860px){
+  .hero{grid-template-columns:1fr}
+  .hero-art{order:-1;max-width:300px}
+  .stats{grid-template-columns:repeat(3,1fr)}
+  .stat:nth-child(3){border-right:0}
+  .stat:nth-child(-n+3){border-bottom:1px solid var(--line)}
+  .bars{grid-template-columns:1fr}
+  .twocol{grid-template-columns:1fr}
+  .gradebox{grid-template-columns:repeat(2,1fr)}
+  .gradebox div:nth-child(2){border-right:0}
+}
+@media (max-width:520px){
+  body{font-size:16px}
+  main{padding:14px 10px 50px}
+  .prob,.dash,.panel{padding:14px 13px}
+  .bar{grid-template-columns:118px 1fr 40px;gap:8px}
+  .brand span{display:none}
+  .mgrid input{width:44px}
+  .exam-bar{top:52px}
+}
+
+/* ---------- tisk ---------- */
+#printArea{display:none}
+@media print{
+  body{background:#fff;font-size:12pt}
+  .topbar,footer,.acts,.nextwrap,.tabs,.diffsel,.crumbs,.cta-row{display:none!important}
+  body.printing>*:not(#printArea){display:none!important}
+  body.printing #printArea{display:block!important}
+  #printArea h1{font-size:18pt}
+  .pa-meta{display:flex;justify-content:space-between;border-bottom:1.5px solid #000;padding-bottom:4px;margin-bottom:10px}
+  .pa-item{margin:0 0 8mm}
+  .pa-item:not(.pa-sol){break-inside:avoid;page-break-inside:avoid}
+  .pa-sol .steps>li,.pa-item h3,.pa-sol .stmt{break-inside:avoid;page-break-inside:avoid}
+  .pa-item h3{break-after:avoid}
+  .pa-item h3{font-size:13pt;margin:0 0 2mm}
+  .pa-space{height:50mm;border:1px dashed #999;border-radius:4px;margin-top:3mm}
+  .pa-sol .steps>li{background:none;border-left:2px solid #555}
+  .pa-sol .steps>li>h4{color:#000}
+  .cond,.warnbox,.okbox{background:none;border-left:2px solid #555;color:#000}
+  .plot{max-width:60mm}
+}
+</style>
+</head>
+<body>
+<header class="topbar"><div class="topbar-in">
+  <a class="brand" href="#"><i aria-hidden="true"></i><span>Trénink na písemku</span></a>
+  <nav class="nav" aria-label="Hlavní menu">
+    <a href="#">Přehled</a><a href="#dnes">Dnešní trénink</a><a href="#pisemka">Písemka</a><a href="#dril">Dril</a><a href="#teorie">Teorie</a><a href="#chyby">Moje chyby</a><a href="#tisk">Tisk</a>
+  </nav>
+</div></header>
+<main id="app"></main>
+<footer>Technické lyceum – procvičování podle písemky. Pokrok se ukládá jen v tomto prohlížeči. Matematické vzorce vyžadují připojení k internetu.</footer>
+<div id="printArea" aria-hidden="true"></div>
+<script>
+'use strict';
+/* =====================================================================
+   ENGINE – matematika bez DOM: přesné zlomky, parsování, polynomy,
+   intervaly, grafy (SVG jako text). Vše ostatní staví na tomhle.
+   ===================================================================== */
+
+/* ---------- náhoda ---------- */
+function mulberry32(a){return function(){a|=0;a=(a+0x6D2B79F5)|0;let t=Math.imul(a^(a>>>15),1|a);t=(t+Math.imul(t^(t>>>7),61|t))^t;return((t^(t>>>14))>>>0)/4294967296;};}
+class Rng{
+  constructor(seed){this.seed=(seed===undefined?Math.floor(Math.random()*2147483646)+1:seed)>>>0;this.f=mulberry32(this.seed);}
+  next(){return this.f();}
+  int(a,b){return a+Math.floor(this.f()*(b-a+1));}
+  nz(a,b){let v;do{v=this.int(a,b);}while(v===0);return v;}
+  pick(arr){return arr[Math.floor(this.f()*arr.length)];}
+  chance(p){return this.f()<p;}
+  shuffle(arr){const a=arr.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(this.f()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+}
+
+/* ---------- zlomky ---------- */
+function gcd(a,b){a=Math.abs(a);b=Math.abs(b);while(b){const t=a%b;a=b;b=t;}return a;}
+function lcm(a,b){return a/gcd(a,b)*b;}
+class F{
+  constructor(n,d=1){
+    if(!Number.isInteger(n)||!Number.isInteger(d)) throw new Error('F: neceločíselné '+n+'/'+d);
+    if(d===0) throw new Error('F: dělení nulou');
+    if(d<0){n=-n;d=-d;}
+    const g=gcd(n,d)||1; this.n=n/g+0; this.d=d/g;
+  }
+  static of(x){return x instanceof F?x:new F(x,1);}
+  add(o){o=F.of(o);return new F(this.n*o.d+o.n*this.d,this.d*o.d);}
+  sub(o){o=F.of(o);return new F(this.n*o.d-o.n*this.d,this.d*o.d);}
+  mul(o){o=F.of(o);return new F(this.n*o.n,this.d*o.d);}
+  div(o){o=F.of(o);if(o.n===0) throw new Error('F: dělení nulou');return new F(this.n*o.d,this.d*o.n);}
+  neg(){return new F(-this.n,this.d);}
+  abs(){return new F(Math.abs(this.n),this.d);}
+  eq(o){o=F.of(o);return this.n===o.n&&this.d===o.d;}
+  cmp(o){o=F.of(o);return Math.sign(this.n*o.d-o.n*this.d);}
+  lt(o){return this.cmp(o)<0;}
+  gt(o){return this.cmp(o)>0;}
+  isZero(){return this.n===0;}
+  isInt(){return this.d===1;}
+  sign(){return Math.sign(this.n);}
+  val(){return this.n/this.d;}
+  tex(){if(this.d===1) return String(this.n);return (this.n<0?'-':'')+'\\frac{'+Math.abs(this.n)+'}{'+this.d+'}';}
+  str(){return this.d===1?String(this.n):this.n+'/'+this.d;}
+}
+const fr=(n,d=1)=>new F(n,d);
+/* záporné číslo do závorky */
+function pT(x){x=F.of(x);return x.sign()<0?'('+x.tex()+')':x.tex();}
+/* koeficient před proměnnou: 1 → '', -1 → '-' */
+function coefTex(k){k=F.of(k);return k.eq(1)?'':k.eq(-1)?'-':k.tex();}
+/* koeficient před násobením číslem: 1 → '', -1 → '-', jinak 'k\cdot ' */
+function coefMulTex(k){k=F.of(k);return k.eq(1)?'':k.eq(-1)?'-':k.tex()+'\\cdot ';}
+/* desetinné číslo s českou čárkou, jinak zlomek */
+function fmtDec(x,tex=true){
+  x=F.of(x); let dd=x.d; while(dd%2===0) dd/=2; while(dd%5===0) dd/=5;
+  if(dd!==1) return tex?x.tex():x.str().replace('-','−');
+  let k=0; while(Math.pow(10,k)%x.d!==0) k++;
+  const s=(x.n/x.d).toFixed(k);
+  return tex? s.replace('.','{,}') : s.replace('.',',').replace('-','−');
+}
+/* spojí členy se znaménky: ['x','-3','2y'] → 'x - 3 + 2y' */
+function joinTex(list){
+  let s='';
+  for(const t0 of list){
+    if(t0===''||t0==null) continue; const t=String(t0);
+    if(s===''){s=t;continue;}
+    if(t[0]==='-') s+=' - '+t.slice(1).trim(); else s+=' + '+t;
+  }
+  return s===''?'0':s;
+}
+
+/* ---------- parsování vstupů od žáka ---------- */
+function cleanNum(s){return String(s==null?'':s).trim().replace(/[\u2212\u2013]/g,'-').replace(/\s+/g,'');}
+function parseNum(s){
+  s=cleanNum(s).replace(/^[a-zA-Z][a-zA-Z_0-9{}]*=/,'');
+  if(s==='') return null;
+  let m;
+  if((m=s.match(/^([+-]?\d+)\/([+-]?\d+)$/))){const d=parseInt(m[2],10);if(d===0) return null;return new F(parseInt(m[1],10),d);}
+  if((m=s.match(/^([+-]?)(\d*)[.,](\d{1,9})$/))){const sg=m[1]==='-'?-1:1;return new F(sg*parseInt((m[2]||'0')+m[3],10),Math.pow(10,m[3].length));}
+  if(/^[+-]?\d+$/.test(s)) return new F(parseInt(s,10),1);
+  if((m=s.match(/^([+-]?\d*[.,]?\d+)\/([+-]?\d*[.,]?\d+)$/))){const a=parseNum(m[1]),b=parseNum(m[2]);if(a&&b&&!b.isZero()) return a.div(b);}
+  return null;
+}
+const NONE_RE=/^(∅|\{\s*\}|nem[aá]|ž[aá]dn|zadn|nen[ií]|bez\b|neexist|nejsou|nic\b)/i;
+function parseList(s){
+  let t=String(s==null?'':s).trim().replace(/[\u2212\u2013]/g,'-');
+  if(t==='') return {error:'Nic jsi nevyplnil.'};
+  if(NONE_RE.test(t)) return {vals:[],none:true};
+  t=t.replace(/[{}\[\]()]/g,' ').replace(/[a-zA-Z][\w]*\s*(?:≠|!=|<>|=)\s*/g,' ').replace(/≠/g,' ');
+  t=t.replace(/([+-])\s+(?=\d)/g,'$1').replace(/,(?=\s)/g,';').replace(/\s+(a|nebo)\s+/gi,';');
+  const toks=t.split(/[;\s]+/).filter(x=>x!=='');
+  if(!toks.length) return {error:'Nic jsi nevyplnil.'};
+  const vals=[];
+  for(const tk of toks){
+    const v=parseNum(tk);
+    if(!v) return {error:'Nerozumím zápisu „'+tk+'“. Čísla odděluj středníkem, např. 0; 3'};
+    if(!vals.some(u=>u.eq(v))) vals.push(v);
+  }
+  return {vals};
+}
+/* řádek čísel v pořadí (pro dril s řádkovou úpravou) */
+function parseRow(s){
+  let t=String(s==null?'':s).trim().replace(/[\u2212\u2013]/g,'-').replace(/[\[\]()|]/g,' ');
+  t=t.replace(/([+-])\s+(?=\d)/g,'$1').replace(/,(?=\s)/g,';');
+  const toks=t.split(/[;\s]+/).filter(x=>x!=='');
+  const vals=[];
+  for(const tk of toks){const v=parseNum(tk);if(!v) return {error:'Nerozumím „'+tk+'“. Čísla odděluj středníkem.'};vals.push(v);}
+  if(!vals.length) return {error:'Nic jsi nevyplnil.'};
+  return {vals};
+}
+function parsePoints(s){
+  const t=String(s==null?'':s).trim().replace(/[\u2212\u2013]/g,'-');
+  if(t==='') return {error:'Nic jsi nevyplnil.'};
+  if(NONE_RE.test(t)) return {pts:[],none:true};
+  const re=/[\[(]\s*([^;\])]+?)\s*;\s*([^\])]+?)\s*[\])]/g; let m; const pts=[];
+  while((m=re.exec(t))){
+    const x=parseNum(m[1]),y=parseNum(m[2]);
+    if(!x||!y) return {error:'Nerozumím bodu „'+m[0]+'“. Piš např. [2;-3]'};
+    if(!pts.some(p=>p[0].eq(x)&&p[1].eq(y))) pts.push([x,y]);
+  }
+  if(!pts.length){
+    if(/\d/.test(t)) return {error:'Zadej celé body ve tvaru [x;y], ne jen x. Např. [0;3]; [4;11]'};
+    return {error:'Nerozumím zápisu. Body piš jako [x;y].'};
+  }
+  return {pts};
+}
+/* intervaly: (-inf;-4)∪<0;3> , ⟨2;∞) , R , ∅ */
+function parseIntervals(s){
+  let t=String(s==null?'':s).trim().replace(/[\u2212\u2013]/g,'-').replace(/\s+/g,'');
+  if(t==='') return {error:'Nic jsi nevyplnil.'};
+  if(NONE_RE.test(t)) return {segs:[]};
+  t=t.replace(/[⟨〈<]/g,'[').replace(/[⟩〉>]/g,']').replace(/∞|infinity|inf|oo/gi,'I');
+  if(/^(R|ℝ)$/i.test(t)) return {segs:[{lo:null,loC:false,hi:null,hiC:false}]};
+  const parts=t.split(/∪|U|u|\|/).filter(Boolean);
+  const segs=[];
+  for(const p of parts){
+    let m=p.match(/^\{([^}]+)\}$/);
+    if(m){const v=parseNum(m[1]);if(!v) return {error:'Nerozumím „'+p+'“.'};segs.push({lo:v,loC:true,hi:v,hiC:true});continue;}
+    m=p.match(/^([\[(])([^;]+);([^\])]+)([\])])$/);
+    if(!m) return {error:'Nerozumím intervalu „'+p+'“. Piš např. (-4;0)∪<3;4) – hranice odděluj středníkem.'};
+    const loInf=/^-I$/.test(m[2]), hiInf=/^\+?I$/.test(m[3]);
+    const lo=loInf?null:parseNum(m[2]), hi=hiInf?null:parseNum(m[3]);
+    if((!loInf&&!lo)||(!hiInf&&!hi)) return {error:'Nerozumím hranici v „'+p+'“.'};
+    if((loInf&&m[1]==='[')||(hiInf&&m[4]===']')) return {error:'U nekonečna patří vždy kulatá závorka.'};
+    segs.push({lo,loC:!!lo&&m[1]==='[',hi,hiC:!!hi&&m[4]===']'});
+  }
+  return {segs};
+}
+function segSort(segs){return segs.slice().sort((a,b)=>{if(!a.lo) return -1;if(!b.lo) return 1;return a.lo.cmp(b.lo);});}
+function segsEqual(a,b){
+  if(a.length!==b.length) return false;
+  a=segSort(a);b=segSort(b);
+  const same=(u,v)=>(u===null&&v===null)||(u!==null&&v!==null&&u.eq(v));
+  return a.every((s,i)=>same(s.lo,b[i].lo)&&same(s.hi,b[i].hi)&&(!s.lo||s.loC===b[i].loC)&&(!s.hi||s.hiC===b[i].hiC));
+}
+function segsTex(segs){
+  if(!segs.length) return '\\emptyset';
+  return segs.map(s=>{
+    if(s.lo&&s.hi&&s.lo.eq(s.hi)) return '\\{'+s.lo.tex()+'\\}';
+    if(!s.lo&&!s.hi) return '\\mathbb{R}';
+    const L=s.lo?(s.loC?'\\langle ':'(')+s.lo.tex():'(-\\infty';
+    const R=s.hi?s.hi.tex()+(s.hiC?'\\rangle':')'):'\\infty)';
+    return L+';\\ '+R;
+  }).join(' \\cup ');
+}
+/* body + intervaly → sjednocení úseků */
+function buildSegs(pts,inclI,inclP){
+  const k=pts.length, atoms=[];
+  for(let i=0;i<=k;i++){atoms.push({t:'I',i,inc:inclI[i]});if(i<k) atoms.push({t:'P',i,inc:inclP[i]});}
+  const segs=[]; let cur=null, last=null;
+  const close=()=>{
+    if(last.t==='I'){cur.hi=last.i===k?null:pts[last.i];cur.hiC=false;}
+    else{cur.hi=pts[last.i];cur.hiC=true;}
+    segs.push(cur);cur=null;
+  };
+  for(const a of atoms){
+    if(a.inc){
+      if(!cur) cur=a.t==='I'?{lo:a.i===0?null:pts[a.i-1],loC:false}:{lo:pts[a.i],loC:true};
+      last=a;
+    } else if(cur) close();
+  }
+  if(cur) close();
+  return segs;
+}
+
+/* ---------- polynomy (koeficienty od x^0) ---------- */
+const P={
+  norm(p){p=p.map(F.of);while(p.length>1&&p[p.length-1].isZero()) p.pop();return p.length?p:[fr(0)];},
+  add(a,b){const n=Math.max(a.length,b.length),r=[];for(let i=0;i<n;i++) r.push(F.of(a[i]||0).add(F.of(b[i]||0)));return P.norm(r);},
+  scale(a,k){return P.norm(a.map(c=>F.of(c).mul(k)));},
+  sub(a,b){return P.add(a,P.scale(b,-1));},
+  mul(a,b){const r=[];for(let i=0;i<a.length+b.length-1;i++) r.push(fr(0));a.forEach((x,i)=>b.forEach((y,j)=>{r[i+j]=r[i+j].add(F.of(x).mul(y));}));return P.norm(r);},
+  prod(list){return list.reduce((acc,p)=>P.mul(acc,p),[fr(1)]);},
+  deg(p){p=P.norm(p);return(p.length===1&&p[0].isZero())?-1:p.length-1;},
+  isZero(p){return P.deg(p)===-1;},
+  ev(p,x){x=F.of(x);let r=fr(0);for(let i=p.length-1;i>=0;i--) r=r.mul(x).add(F.of(p[i]));return r;},
+  evf(p,x){let r=0;for(let i=p.length-1;i>=0;i--) r=r*x+F.of(p[i]).val();return r;},
+  lin(a,b){return P.norm([F.of(b),F.of(a)]);},
+  root(r){return P.lin(1,F.of(r).neg());},
+  mono(p){return P.norm(p).filter(c=>!c.isZero()).length===1;},
+  tex(p,v='x'){
+    p=P.norm(p); let s='';
+    for(let i=p.length-1;i>=0;i--){
+      const c=p[i]; if(c.isZero()) continue;
+      const neg=c.sign()<0, a=c.abs();
+      const body=i===0?a.tex():(a.eq(1)?'':a.tex())+(i===1?v:v+'^{'+i+'}');
+      if(s==='') s=(neg?'-':'')+body; else s+=(neg?' - ':' + ')+body;
+    }
+    return s===''?'0':s;
+  },
+  /* hezčí zápis lineárního dvojčlenu: 7 - 3x místo -3x + 7 */
+  texNice(p,v='x'){
+    p=P.norm(p);
+    if(P.deg(p)===1&&p[1].sign()<0&&p[0].sign()>0) return p[0].tex()+' - '+(p[1].abs().eq(1)?'':p[1].abs().tex())+v;
+    return P.tex(p,v);
+  },
+  varTerms(p){return P.norm(p).filter((c,i)=>i>0&&!c.isZero()).length;}
+};
+function sqrtF(x){x=F.of(x);if(x.n<0) return null;const a=Math.round(Math.sqrt(x.n)),b=Math.round(Math.sqrt(x.d));if(a*a===x.n&&b*b===x.d) return new F(a,b);return null;}
+function quadInfo(p){
+  p=P.norm(p); const c=p[0],b=p[1],a=p[2];
+  const D=b.mul(b).sub(fr(4).mul(a).mul(c));
+  if(D.sign()<0) return {D,roots:[],irr:false};
+  const s=sqrtF(D); if(!s) return {D,roots:null,irr:true};
+  const r1=b.neg().sub(s).div(a.mul(2)), r2=b.neg().add(s).div(a.mul(2));
+  const roots=r1.eq(r2)?[r1]:[r1,r2].sort((u,w)=>u.cmp(w));
+  return {D,s,roots,irr:false};
+}
+/* racionální kořeny polynomu stupně ≤ 2 (null = iracionální) */
+function rationalRoots(p){
+  p=P.norm(p); const d=P.deg(p);
+  if(d<=0) return [];
+  if(d===1) return [p[0].neg().div(p[1])];
+  if(d===2) return quadInfo(p).roots;
+  return null;
+}
+/* lineární činitel pro kořen r: (d·x − n) */
+function linFac(r,v='x'){
+  r=F.of(r);
+  if(r.isZero()) return {t:v,mono:true,lead:1,p:[fr(0),fr(1)]};
+  const d=r.d,n=r.n;
+  return {t:'('+(d===1?'':d)+v+(n>0?' - '+n:' + '+(-n))+')',mono:false,lead:d,p:P.lin(d,-n)};
+}
+/* rozklad polynomu stupně ≤ 2 na součin (TeX) */
+function factorTex(p,v='x'){
+  p=P.norm(p); const dg=P.deg(p);
+  if(dg<=0) return p[0].tex();
+  let roots;
+  if(dg===1) roots=[p[0].neg().div(p[1])];
+  else{const q=quadInfo(p);if(!q.roots||!q.roots.length) return P.tex(p,v);roots=q.roots.length===1?[q.roots[0],q.roots[0]]:q.roots;}
+  let c=F.of(p[dg]); const facs=roots.map(r=>linFac(r,v)); facs.forEach(f=>{c=c.div(f.lead);});
+  let body;
+  if(roots.length===2&&roots[0].eq(roots[1])) body=(facs[0].mono?v:facs[0].t)+'^{2}';
+  else{facs.sort((a,b)=>(b.mono?1:0)-(a.mono?1:0));body=facs.map(f=>f.t).join('');}
+  if(facs.length===1&&!facs[0].mono&&c.eq(1)) body=body.slice(1,-1);
+  return coefTex(c)+body;
+}
+/* součin: koeficient × polynomy, např. 2x(x-2) */
+function texProduct(coef,polys,v='x'){
+  coef=F.of(coef); const ps=[];
+  for(const p of polys){if(P.deg(p)<=0) coef=coef.mul(P.norm(p)[0]);else ps.push(P.norm(p));}
+  if(coef.isZero()) return '0';
+  if(!ps.length) return coef.tex();
+  ps.sort((a,b)=>(P.mono(b)?1:0)-(P.mono(a)?1:0));
+  const body=ps.map((p,i)=>(P.mono(p)&&(i===0||P.norm(p)[1]&&P.norm(p)[1].eq(1)&&P.deg(p)===1))?P.tex(p,v):'('+P.tex(p,v)+')').join('');
+  let c=coef.eq(1)?'':coef.eq(-1)?'-':coef.tex();
+  if(c&&coef.d!==1) c+='\\cdot ';
+  return c+body;
+}
+
+/* ---------- matice a soustavy ---------- */
+const VARS3=['x','y','z'], VARS4=['x','y','z','u'];
+function matTex(M,o={}){
+  const m=M[0].length; const spec=o.aug?'r'.repeat(m-1)+'|r':'r'.repeat(m);
+  const body=M.map(r=>r.map(v=>F.of(v).tex()).join(' & ')).join(' \\\\ ');
+  return o.bars?'\\left|\\begin{array}{'+spec+'}'+body+'\\end{array}\\right|':'\\left[\\begin{array}{'+spec+'}'+body+'\\end{array}\\right]';
+}
+function vecTex(b){return matTex(b.map(v=>[v]));}
+function texLinLHS(coefs,vars){const t=[];coefs.forEach((c,i)=>{c=F.of(c);if(c.isZero()) return;t.push(coefTex(c)+vars[i]);});return joinTex(t);}
+function texSystem(A,b,vars){return '\\begin{aligned}'+A.map((r,i)=>texLinLHS(r,vars)+' &= '+F.of(b[i]).tex()).join(' \\\\ ')+'\\end{aligned}';}
+
+/* ---------- grafy (SVG jako text) ---------- */
+let SVG_UID=0;
+function niceStep(r){return r<=12?1:r<=24?2:r<=60?5:r<=120?10:20;}
+function plotSVG(o){
+  const w=o.w||340,h=o.h||300,pad=24,[x0,x1]=o.xr,[y0,y1]=o.yr,id='c'+(++SVG_UID);
+  const X=x=>+(pad+(x-x0)/(x1-x0)*(w-2*pad)).toFixed(2), Y=y=>+(h-pad-(y-y0)/(y1-y0)*(h-2*pad)).toFixed(2);
+  let s='<svg class="plot" viewBox="0 0 '+w+' '+h+'" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Graf">';
+  s+='<defs><clipPath id="'+id+'"><rect x="'+pad+'" y="'+pad+'" width="'+(w-2*pad)+'" height="'+(h-2*pad)+'"/></clipPath></defs>';
+  const sx=niceStep(x1-x0), sy=niceStep(y1-y0);
+  for(let g=Math.ceil(x0/sx)*sx;g<=x1+1e-9;g+=sx){s+='<line class="g" x1="'+X(g)+'" y1="'+pad+'" x2="'+X(g)+'" y2="'+(h-pad)+'"/>';if(g!==0&&y0<=0&&y1>=0) s+='<text class="tk" x="'+X(g)+'" y="'+(Y(0)+13)+'" text-anchor="middle">'+String(g).replace('-','−')+'</text>';}
+  for(let g=Math.ceil(y0/sy)*sy;g<=y1+1e-9;g+=sy){s+='<line class="g" x1="'+pad+'" y1="'+Y(g)+'" x2="'+(w-pad)+'" y2="'+Y(g)+'"/>';if(g!==0&&x0<=0&&x1>=0) s+='<text class="tk" x="'+(X(0)-5)+'" y="'+(Y(g)+4)+'" text-anchor="end">'+String(g).replace('-','−')+'</text>';}
+  if(y0<=0&&y1>=0) s+='<line class="ax" x1="'+pad+'" y1="'+Y(0)+'" x2="'+(w-pad+8)+'" y2="'+Y(0)+'"/><text class="axl" x="'+(w-pad+4)+'" y="'+(Y(0)-6)+'">x</text>';
+  if(x0<=0&&x1>=0) s+='<line class="ax" x1="'+X(0)+'" y1="'+(h-pad)+'" x2="'+X(0)+'" y2="'+(pad-8)+'"/><text class="axl" x="'+(X(0)+6)+'" y="'+(pad-2)+'">y</text>';
+  for(const v of (o.vlines||[])) s+='<line class="vl" x1="'+X(v.x)+'" y1="'+pad+'" x2="'+X(v.x)+'" y2="'+(h-pad)+'"/>'+(v.label?'<text class="vlt" x="'+(X(v.x)+4)+'" y="'+(pad+12)+'">'+v.label+'</text>':'');
+  (o.fns||[]).forEach((fn,k)=>{
+    const pts=[]; const N=240;
+    for(let i=0;i<=N;i++){const x=x0+(x1-x0)*i/N;const y=fn.f(x);if(isFinite(y)) pts.push(X(x)+','+Y(Math.max(y0-50,Math.min(y1+50,y))));}
+    s+='<polyline class="fn f'+(fn.c||k)+'" clip-path="url(#'+id+')" points="'+pts.join(' ')+'"/>';
+    if(fn.label) s+='<text class="fnl f'+(fn.c||k)+'" x="'+(w-pad-4)+'" y="'+(pad+14+k*16)+'" text-anchor="end">'+fn.label+'</text>';
+  });
+  for(const p of (o.pts||[])){
+    if(p.x<x0||p.x>x1||p.y<y0||p.y>y1) continue;
+    s+='<circle class="pt '+(p.c||'')+'" cx="'+X(p.x)+'" cy="'+Y(p.y)+'" r="4.5"/>';
+    if(p.label) s+='<text class="ptl" x="'+(X(p.x)+7)+'" y="'+(Y(p.y)-7)+'">'+p.label+'</text>';
+  }
+  return s+'</svg>';
+}
+function autoWindow(xs,ys,minW=8,minH=8){
+  let x0=Math.min(...xs)-2,x1=Math.max(...xs)+2,y0=Math.min(...ys,0)-2,y1=Math.max(...ys,0)+2;
+  if(x1-x0<minW){const c=(x0+x1)/2;x0=c-minW/2;x1=c+minW/2;}
+  if(y1-y0<minH){const c=(y0+y1)/2;y0=c-minH/2;y1=c+minH/2;}
+  return {xr:[Math.floor(x0),Math.ceil(x1)],yr:[Math.floor(y0),Math.ceil(y1)]};
+}
+/* číselná osa pro nerovnice (body rovnoměrně, ne v měřítku) */
+function numberLineSVG(pts,signs,inclI,inclP,isDen){
+  const k=pts.length, gap=k?Math.min(110,Math.max(70,300/k)):100, w=Math.max(320,gap*(k+1)+40), h=78, y=48;
+  const X=i=>20+gap*(i+0.5)+gap/2;
+  let s='<svg class="nline" viewBox="0 0 '+w+' '+h+'" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Číselná osa">';
+  s+='<line class="ax" x1="8" y1="'+y+'" x2="'+(w-8)+'" y2="'+y+'"/>';
+  for(let i=0;i<=k;i++){
+    const xa=i===0?10:X(i-1), xb=i===k?w-10:X(i);
+    if(inclI[i]) s+='<line class="sol" x1="'+xa+'" y1="'+y+'" x2="'+xb+'" y2="'+y+'"/>';
+    s+='<text class="sg '+(signs[i]>0?'plus':'minus')+'" x="'+((xa+xb)/2)+'" y="'+(y-14)+'" text-anchor="middle">'+(signs[i]>0?'+':'−')+'</text>';
+  }
+  pts.forEach((p,i)=>{
+    s+='<circle class="np '+(inclP[i]?'full':'hollow')+(isDen[i]?' den':'')+'" cx="'+X(i)+'" cy="'+y+'" r="6"/>';
+    s+='<text class="nl" x="'+X(i)+'" y="'+(y+24)+'" text-anchor="middle">'+p.str().replace(/-/g,'−')+'</text>';
+  });
+  return s+'</svg>';
+}
+
+/* =====================================================================
+   SOUSTAVY: determinanty a Cramer, Gaussova eliminace, počet řešení
+   ===================================================================== */
+function det3(M){
+  const m=M.map(r=>r.map(F.of));
+  return m[0][0].mul(m[1][1]).mul(m[2][2]).add(m[0][1].mul(m[1][2]).mul(m[2][0])).add(m[0][2].mul(m[1][0]).mul(m[2][1]))
+    .sub(m[0][2].mul(m[1][1]).mul(m[2][0])).sub(m[0][0].mul(m[1][2]).mul(m[2][1])).sub(m[0][1].mul(m[1][0]).mul(m[2][2]));
+}
+function replaceCol(M,j,b){return M.map((r,i)=>r.map((v,k)=>k===j?F.of(b[i]):F.of(v)));}
+function sarrusTex(M,name){
+  const m=M.map(r=>r.map(F.of));
+  /* řádková varianta: první dva řádky opsané pod matici */
+  const pl=[[m[0][0],m[1][1],m[2][2]],[m[1][0],m[2][1],m[0][2]],[m[2][0],m[0][1],m[1][2]]];
+  const mi=[[m[0][2],m[1][1],m[2][0]],[m[1][2],m[2][1],m[0][0]],[m[2][2],m[0][1],m[1][0]]];
+  const pr=t=>t.map(pT).join('\\cdot ');
+  const val=t=>t[0].mul(t[1]).mul(t[2]);
+  const pv=pl.map(val), mv=mi.map(val);
+  const S1=pv.reduce((a,b)=>a.add(b)), S2=mv.reduce((a,b)=>a.add(b)), D=S1.sub(S2);
+  const ext='\\begin{array}{rrr}'+[0,1,2,0,1].map((i,k)=>(k===3?'\\hline ':'')+m[i].map(v=>v.tex()).join(' & ')).join(' \\\\ ')+'\\end{array}';
+  const tex='\\begin{aligned} '+name+' &= '+matTex(m,{bars:true})+'\\quad\\longrightarrow\\quad '+ext+' \\\\ &= '+pl.map(pr).join(' + ')+' \\\\ &\\quad - '+mi.map(pr).join(' - ')+
+    ' \\\\ &= ('+joinTex(pv.map(x=>x.tex()))+') - ('+joinTex(mv.map(x=>x.tex()))+') \\\\ &= '+S1.tex()+' - '+pT(S2)+' = '+D.tex()+' \\end{aligned}';
+  return {D,tex};
+}
+
+/* ---------- Cramer ---------- */
+function buildCramer(A,b,diff=2,opts={}){
+  A=A.map(r=>r.map(F.of)); b=b.map(F.of);
+  const sD=sarrusTex(A,'D'), D=sD.D;
+  if(D.isZero()) throw new Error('D=0');
+  const Ms=[0,1,2].map(j=>replaceCol(A,j,b));
+  const ss=Ms.map((M,j)=>sarrusTex(M,'D_'+VARS3[j]));
+  const ds=ss.map(s=>s.D), sol=ds.map(d=>d.div(D));
+  const parts=[
+    {id:'D',kind:'num',label:'\\(D=\\)',ans:D,
+     wrong:v=>v.eq(D.neg())?'Máš opačné znaménko. U Sarrusova pravidla se součiny vedlejších diagonál odčítají.':'D nevychází. Zkontroluj šest součinů na diagonálách – hlavně znaménka.'},
+    ...VARS3.map((v,i)=>({id:'D'+v,kind:'num',label:'\\(D_'+v+'=\\)',ans:ds[i],
+      wrong:w=>(w.eq(D)&&!D.eq(ds[i]))?'To je D. U \\(D_'+v+'\\) nahraď '+(i+1)+'. sloupec pravými stranami.':
+        (!ds[i].isZero()&&w.eq(ds[i].neg()))?'Opačné znaménko – zkontroluj odečtení vedlejších diagonál.':
+        '\\(D_'+v+'\\) vznikne tak, že v matici A nahradíš '+(i+1)+'. sloupec (koeficienty u '+v+') sloupcem pravých stran.'})),
+    ...VARS3.map((v,i)=>({id:v,kind:'num',label:'\\('+v+'=\\)',ans:sol[i],
+      wrong:w=>(!D.eq(1)&&w.eq(ds[i])&&!ds[i].isZero())?'To je \\(D_'+v+'\\). Ještě vyděl determinantem D: \\('+v+'=\\frac{D_'+v+'}{D}\\).':
+        (!ds[i].isZero()&&w.eq(D.div(ds[i])))?'Zlomek máš obráceně – správně je \\('+v+'=\\frac{D_'+v+'}{D}\\).':null}))
+  ];
+  const check0=joinTex(A[0].map((c,i)=>c.isZero()?'':coefMulTex(c)+pT(sol[i])));
+  const steps=[
+    {t:'Matice soustavy a pravé strany',h:'\\[A='+matTex(A)+',\\qquad \\vec b='+vecTex(b)+'\\]<p>Matice A obsahuje jen koeficienty u neznámých. Pravé strany jsou zvlášť.</p>'},
+    {t:'Determinant soustavy D (Sarrusovo pravidlo)',h:'\\['+sD.tex+'\\]<p class="ok-line">D ≠ 0, takže soustava má právě jedno řešení a Cramerovo pravidlo lze použít.</p>'},
+    ...VARS3.map((v,i)=>({t:'\\(D_'+v+'\\): '+(i+1)+'. sloupec nahradíme pravými stranami',h:'\\['+ss[i].tex+'\\]'})),
+    {t:'Řešení podle Cramerova pravidla',h:'\\[x=\\frac{D_x}{D}=\\frac{'+ds[0].tex()+'}{'+D.tex()+'}='+sol[0].tex()+',\\quad y=\\frac{D_y}{D}=\\frac{'+ds[1].tex()+'}{'+D.tex()+'}='+sol[1].tex()+',\\quad z=\\frac{D_z}{D}=\\frac{'+ds[2].tex()+'}{'+D.tex()+'}='+sol[2].tex()+'\\]'+
+      '<p>Zkouška v 1. rovnici: \\('+check0+'='+b[0].tex()+'\\) ✓</p>'}
+  ];
+  return {topic:'cramer',diff,title:opts.title||'Soustava tří rovnic – determinanty',
+    statement:'<p>Vyřeš soustavu pomocí determinantů (Cramerovo pravidlo):</p>\\['+texSystem(A,b,VARS3)+'\\]',
+    parts,checkOnly:'D',
+    hints:['Matice koeficientů je \\(A='+matTex(A)+'\\). D spočítej Sarrusovým pravidlem: opiš první dva řádky pod matici, sečti součiny na třech hlavních diagonálách (↘) a odečti součiny na třech vedlejších (↙).',
+      '\\(D_x\\): v matici A nahraď 1. sloupec sloupcem pravých stran \\('+vecTex(b)+'\\), tedy \\(D_x='+matTex(Ms[0],{bars:true})+'\\). Stejně \\(D_y\\) (2. sloupec) a \\(D_z\\) (3. sloupec). Nakonec \\(x=\\frac{D_x}{D}\\) atd.'],
+    steps,summary:'\\(D='+D.tex()+',\\ x='+sol[0].tex()+',\\ y='+sol[1].tex()+',\\ z='+sol[2].tex()+'\\)',
+    printTask:'Urči \\(D,\\ D_x,\\ D_y,\\ D_z\\) a řešení soustavy.',data:{A,b,sol,D,ds}};
+}
+function genCramer(rng,diff=2){
+  const cfg={1:{c:2,s:3,maxD:20,maxB:15},2:{c:4,s:4,maxD:60,maxB:30},3:{c:6,s:5,maxD:160,maxB:60}}[diff];
+  for(let t=0;t<3000;t++){
+    const sol=[0,1,2].map(()=>rng.int(-cfg.s,cfg.s));
+    if(sol.filter(v=>v===0).length>1) continue;
+    const A=[0,1,2].map(()=>[0,1,2].map(()=>diff===1&&rng.chance(0.4)?rng.pick([1,-1,1]):rng.int(-cfg.c,cfg.c)));
+    if(diff===1) A[0][0]=1;
+    if(A.some(r=>r.every(v=>v===0))||[0,1,2].some(j=>A.every(r=>r[j]===0))) continue;
+    const zeros=A.flat().filter(v=>v===0).length;
+    if(zeros>(diff===1?3:diff===2?2:1)) continue;
+    const D=det3(A).val();
+    if(D===0||Math.abs(D)>cfg.maxD||(diff>=2&&Math.abs(D)<2)) continue;
+    const b=A.map(r=>r[0]*sol[0]+r[1]*sol[1]+r[2]*sol[2]);
+    if(b.some(v=>Math.abs(v)>cfg.maxB)) continue;
+    return buildCramer(A,b,diff);
+  }
+  throw new Error('genCramer');
+}
+
+/* ---------- Gaussova eliminace ---------- */
+const rowInt=r=>r.every(v=>v.isInt());
+function gaussEliminate(Aug0){
+  const M=Aug0.map(r=>r.map(F.of)); const n=M.length, m=M[0].length, nv=m-1;
+  const steps=[]; const clone=X=>X.map(row=>row.slice()); const R=i=>'R_{'+(i+1)+'}';
+  let r=0; const piv=[];
+  const reduce=(from)=>{
+    const before=clone(M), ops=[];
+    for(let i=from;i<n;i++){
+      if(!rowInt(M[i])) continue;
+      const g=M[i].reduce((acc,v)=>gcd(acc,v.n),0);
+      if(g>1){M[i]=M[i].map(v=>v.div(g));ops.push(R(i)+' \\to \\frac{1}{'+g+'}'+R(i));}
+    }
+    if(ops.length) steps.push({ops,before,after:clone(M),note:'Řádek vydělíme – počítá se pak s menšími čísly.'});
+  };
+  for(let c=0;c<m&&r<n;c++){
+    reduce(r);
+    let best=-1,bs=Infinity;
+    for(let i=r;i<n;i++){const v=M[i][c];if(v.isZero()) continue;const a=Math.abs(v.val());const sc=(a===1?0:a)+(i===r?-0.5:0)+(v.d!==1?100:0);if(sc<bs){bs=sc;best=i;}}
+    if(best<0) continue;
+    if(best!==r){const before=clone(M);[M[r],M[best]]=[M[best],M[r]];steps.push({ops:[R(r)+' \\leftrightarrow '+R(best)],before,after:clone(M),note:'Prohodíme řádky, aby byl pivot co nejjednodušší.'});}
+    if(M[r][c].eq(-1)){const before=clone(M);M[r]=M[r].map(v=>v.neg());steps.push({ops:[R(r)+' \\to -'+R(r)],before,after:clone(M),note:'Vynásobíme −1, ať je pivot 1.'});}
+    const before=clone(M), ops=[];
+    for(let i=r+1;i<n;i++){
+      const q=M[i][c]; if(q.isZero()) continue; const p=M[r][c]; const k=q.div(p);
+      if(k.isInt()){
+        M[i]=M[i].map((v,j)=>v.sub(k.mul(M[r][j])));
+        ops.push(R(i)+' \\to '+R(i)+(k.sign()>0?' - ':' + ')+coefTex(k.abs())+R(r));
+      } else if(rowInt(M[r])&&rowInt(M[i])){
+        const g=gcd(p.n,q.n), a=Math.abs(p.n)/g, kk=q.n*Math.sign(p.n)/g;
+        M[i]=M[i].map((v,j)=>v.mul(a).sub(fr(kk).mul(M[r][j])));
+        ops.push(R(i)+' \\to '+(a===1?'':a)+R(i)+(kk>0?' - ':' + ')+(Math.abs(kk)===1?'':Math.abs(kk))+R(r));
+      } else {
+        M[i]=M[i].map((v,j)=>v.sub(k.mul(M[r][j])));
+        ops.push(R(i)+' \\to '+R(i)+(k.sign()>0?' - ':' + ')+coefTex(k.abs())+R(r));
+      }
+    }
+    if(ops.length) steps.push({ops,before,after:clone(M)});
+    piv.push(c); r++;
+  }
+  reduce(0);
+  const zr=(row,upto)=>row.slice(0,upto).every(v=>v.isZero());
+  return {steps,M,rankA:M.filter(row=>!zr(row,nv)).length,rankAug:M.filter(row=>!zr(row,m)).length,piv,nv};
+}
+function backSub(M,vars){
+  const n=vars.length, sol=Array(n), lines=[];
+  for(let i=n-1;i>=0;i--){
+    const row=M[i]; const eq=texLinLHS(row.slice(0,n),vars)+' = '+row[n].tex();
+    let rhs=row[n]; const subs=[];
+    for(let j=i+1;j<n;j++){if(row[j].isZero()) continue;rhs=rhs.sub(row[j].mul(sol[j]));subs.push(coefMulTex(row[j])+pT(sol[j]));}
+    const a=row[i]; sol[i]=rhs.div(a);
+    let line=eq;
+    if(subs.length){line+=' \\;\\Rightarrow\\; '+joinTex([coefTex(a)+vars[i],...subs])+' = '+row[n].tex();line+=' \\;\\Rightarrow\\; '+coefTex(a)+vars[i]+' = '+rhs.tex();}
+    if(!a.eq(1)) line+=' \\;\\Rightarrow\\; '+vars[i]+' = '+sol[i].tex();
+    lines.push(line);
+  }
+  return {sol,lines};
+}
+function gaussStepsHtml(steps){
+  return steps.map((s,k)=>({t:'Úprava '+(k+1)+': \\('+s.ops.join(',\\;\\; ')+'\\)',
+    h:'<div class="mscroll">\\['+matTex(s.before,{aug:true})+'\\;\\sim\\;'+matTex(s.after,{aug:true})+'\\]</div>'+(s.note?'<p class="note">'+s.note+'</p>':'')}));
+}
+function buildGauss(A,b,diff=2,opts={}){
+  const n=A.length, vars=n===4?VARS4:VARS3;
+  const Aug=A.map((r,i)=>[...r.map(F.of),F.of(b[i])]);
+  const res=gaussEliminate(Aug);
+  if(res.rankA<n) throw new Error('singular');
+  const bs=backSub(res.M,vars);
+  const parts=[
+    {id:'aug',kind:'matrix',rows:n,cols:n+1,aug:true,ans:Aug,label:'Zapiš rozšířenou matici soustavy:'},
+    ...vars.map((v,i)=>({id:v,kind:'num',label:'\\('+v+'=\\)',ans:bs.sol[i]}))
+  ];
+  const steps=[
+    {t:'Rozšířená matice',h:'\\['+matTex(Aug,{aug:true})+'\\]<p>Vlevo od čáry koeficienty, vpravo pravé strany. Chybějící neznámá = 0.</p>'},
+    ...gaussStepsHtml(res.steps),
+    {t:'Schodový tvar',h:'<div class="mscroll">\\['+matTex(res.M,{aug:true})+'\\]</div><p>Pod každým pivotem jsou nuly. Pivotů je '+n+' = počet neznámých, takže soustava má právě jedno řešení.</p>'},
+    {t:'Zpětný chod (odspodu nahoru)',h:bs.lines.map(l=>'<div class="mscroll">\\['+l+'\\]</div>').join('')},
+    {t:'Výsledek',h:'\\[['+bs.sol.map(s=>s.tex()).join(';\\ ')+']\\]'}
+  ];
+  return {topic:'gauss',diff,title:opts.title||(n===4?'Bonus: soustava 4 × 4 – Gauss':'Soustava rovnic – Gaussova eliminace'),
+    statement:'<p>Vyřeš soustavu Gaussovou eliminační metodou:</p>\\['+texSystem(A,b,vars)+'\\]',
+    parts,
+    hints:['Rozšířená matice: každý řádek = jedna rovnice, za svislou čáru pravá strana. Pak vytvoř nuly pod pivotem v 1. sloupci, potom pod pivotem ve 2. sloupci.',
+      res.steps.length?'Začni úpravou \\('+res.steps[0].ops.join(',\\;')+'\\). Cílem je schodový tvar – pod pivoty nuly. Jednotkovou matici dělat nemusíš.':'Matice už je ve schodovém tvaru – rovnou dopočítej zpětným chodem.'],
+    steps,summary:'\\(['+bs.sol.map(s=>s.tex()).join(';\\ ')+']\\)',
+    printTask:'Zapiš rozšířenou matici, převeď ji do schodového tvaru a dopočítej neznámé.',
+    data:{A:A.map(r=>r.map(F.of)),b:b.map(F.of),sol:bs.sol,res}};
+}
+function genGauss(rng,diff=2,n=3){
+  const cfg=n===4?{c:3,s:3,max:150,maxB:40}:{1:{c:3,s:3,max:30,maxB:20},2:{c:5,s:4,max:60,maxB:35},3:{c:6,s:5,max:130,maxB:60}}[diff];
+  for(let t=0;t<4000;t++){
+    const sol=Array.from({length:n},()=>rng.int(-cfg.s,cfg.s));
+    const A=Array.from({length:n},()=>Array.from({length:n},()=>rng.int(-cfg.c,cfg.c)));
+    if(n===3&&diff===1){A[0][0]=1;}
+    if(n===3&&diff===3&&A.some(r=>Math.abs(r[0])===1)) continue;
+    if(A.some(r=>r.every(v=>v===0))) continue;
+    if(A.flat().filter(v=>v===0).length>(n===4?5:diff===1?3:2)) continue;
+    const b=A.map(r=>r.reduce((s,v,j)=>s+v*sol[j],0));
+    if(b.some(v=>Math.abs(v)>cfg.maxB)) continue;
+    const res=gaussEliminate(A.map((r,i)=>[...r,b[i]]));
+    if(res.rankA<n) continue;
+    const mx=Math.max(...res.steps.flatMap(s=>s.after.flat().map(v=>Math.abs(v.val()))),0);
+    if(mx>cfg.max||res.M.flat().some(v=>!v.isInt())) continue;
+    if(res.steps.length>(n===4?9:6)) continue;
+    return buildGauss(A,b,n===4?3:diff);
+  }
+  throw new Error('genGauss');
+}
+
+/* ---------- počet řešení ---------- */
+function isEchelon(M){
+  let last=-1, zero=false;
+  for(const row of M){
+    const lead=row.findIndex(v=>!F.of(v).isZero());
+    if(lead===-1){zero=true;continue;}
+    if(zero||lead<=last) return false;
+    last=lead;
+  }
+  return true;
+}
+function buildPocet(Aug,diff=2){
+  const M=Aug.map(r=>r.map(F.of)); const nv=M[0].length-1;
+  const ech=isEchelon(M);
+  const res=gaussEliminate(M);
+  const h=res.rankA, hb=res.rankAug;
+  const type=h<hb?'none':h===nv?'one':'inf';
+  const fin=ech?M:res.M;
+  const badRow=fin.findIndex(r=>r.slice(0,nv).every(v=>v.isZero())&&!r[nv].isZero());
+  const names={one:'právě jedno řešení',none:'žádné řešení',inf:'nekonečně mnoho řešení'};
+  let concl;
+  if(type==='none') concl='<p>Řádek \\(['+fin[badRow].slice(0,nv).map(()=>'0').join('\\;\\;')+'\\mid '+fin[badRow][nv].tex()+']\\) znamená rovnici \\(0='+fin[badRow][nv].tex()+'\\) – to je <b>spor</b>. Hodnost \\(h(A)='+h+'\\neq h(A|b)='+hb+'\\), soustava nemá řešení.</p>';
+  else if(type==='one') concl='<p>Pivotů je '+h+' a neznámých také '+nv+'. \\(h(A)=h(A|b)='+h+'=n\\) → právě jedno řešení.</p>';
+  else concl='<p>Pivotů je jen '+h+', neznámých je '+nv+'. \\(h(A)=h(A|b)='+h+'\\lt n='+nv+'\\) → nekonečně mnoho řešení. Volných proměnných: \\(n-h='+nv+'-'+h+'='+(nv-h)+'\\).</p>';
+  const steps=[
+    ...(ech?[{t:'Matice je už ve schodovém tvaru',h:'<div class="mscroll">\\['+matTex(M,{aug:true})+'\\]</div>'}]:[{t:'Nejdřív převedeme do schodového tvaru',h:'<div class="mscroll">\\['+matTex(M,{aug:true})+'\\]</div>'},...gaussStepsHtml(res.steps),{t:'Schodový tvar',h:'<div class="mscroll">\\['+matTex(res.M,{aug:true})+'\\]</div>'}]),
+    {t:'Rozbor: pivoty a hodnost',h:concl}
+  ];
+  return {topic:'pocet',diff,title:'Kolik má soustava řešení?',
+    statement:'<p>Rozšířená matice soustavy o '+nv+' neznámých ('+Array.from({length:nv},(_,i)=>'\\(x_'+(i+1)+'\\)').join(', ')+'):</p><div class="mscroll">\\['+matTex(M,{aug:true})+'\\]</div>',
+    parts:[{id:'typ',kind:'choice',label:'Kolik má soustava řešení?',options:[{v:'one',l:'právě jedno'},{v:'none',l:'žádné'},{v:'inf',l:'nekonečně mnoho'}],ans:type,
+      wrong:v=>type==='none'?'Podívej se na řádky, které mají vlevo samé nuly – co je za čarou?':type==='inf'?'Spočítej pivoty (nenulové řádky vlevo) a porovnej s počtem neznámých.':'Každá neznámá má svůj pivot a není tu spor – zkontroluj to.'}],
+    hints:['Nejdřív matici převeď do schodového tvaru (pokud v něm není). Pak spočítej pivoty = nenulové řádky v levé části.',
+      'Řádek \\(0\\;0\\;0\\mid c\\) s \\(c\\neq0\\) = spor → žádné řešení. Pivotů méně než neznámých (a žádný spor) → nekonečně mnoho. Pivotů stejně jako neznámých → právě jedno.'],
+    steps,summary:names[type],printTask:'Rozhodni, kolik má soustava řešení, a zdůvodni to.',data:{type,h,hb,nv,M}};
+}
+function genPocet(rng,diff=2){
+  for(let t=0;t<2000;t++){
+    const type=rng.pick(['one','none','inf']);
+    const nv=diff===1?3:rng.pick([3,4]);
+    const rows=nv;
+    let rk=type==='one'?nv:nv-1-(nv===4&&rng.chance(0.35)?1:0);
+    let cols=[0];
+    while(cols.length<rk){const c=rng.int(1,nv-1);if(!cols.includes(c)) cols.push(c);}
+    cols.sort((a,b)=>a-b);
+    if(type==='one') cols=Array.from({length:nv},(_,i)=>i);
+    const M=Array.from({length:rows},()=>Array(nv+1).fill(0));
+    cols.forEach((pc,k)=>{
+      M[k][pc]=diff===1&&rng.chance(0.6)?1:rng.nz(-3,3);
+      for(let j=pc+1;j<nv;j++) M[k][j]=rng.int(-4,4);
+      M[k][nv]=rng.int(-6,6);
+    });
+    if(type==='none') M[rk][nv]=rng.nz(-7,7);
+    if(diff>=2){
+      const ops=diff===2?1:rng.int(2,3);
+      for(let o=0;o<ops;o++){
+        const i=rng.int(0,rows-1), j=rng.int(0,rows-1); if(i===j) continue;
+        const k=rng.pick([1,-1,2,-2]);
+        M[i]=M[i].map((v,c)=>v+k*M[j][c]);
+      }
+      if(rng.chance(0.4)){const i=rng.int(0,rows-2);[M[i],M[i+1]]=[M[i+1],M[i]];}
+      if(diff===2&&isEchelon(M.map(r=>r.map(F.of)))&&rng.chance(0.5)) continue;
+    }
+    if(M.flat().some(v=>Math.abs(v)>15)) continue;
+    const pr=buildPocet(M,diff);
+    if(pr.data.type!==type) continue;
+    return pr;
+  }
+  throw new Error('genPocet');
+}
+
+/* =====================================================================
+   LOMENÉ ROVNICE, LOMENÉ NEROVNICE, ALGEBRAICKÉ VÝRAZY
+   ===================================================================== */
+const X1=[fr(0),fr(1)]; /* polynom x */
+const xp=r=>P.root(r);  /* x − r */
+
+/* ---------- lomené rovnice ---------- */
+/* eq = {v, factors:[lineární polynomy], L:[členy], R:[členy]}, člen = {num, fac:[indexy], show:'exp'|'fac'} */
+function denTexOf(t,eq){
+  const facs=t.fac.map(i=>eq.factors[i]);
+  if(facs.length===1) return P.tex(facs[0],eq.v);
+  if(t.show==='exp') return P.tex(P.prod(facs),eq.v);
+  return facs.map(f=>P.mono(f)?P.tex(f,eq.v):'('+P.tex(f,eq.v)+')').join('');
+}
+function termTex(t,eq){
+  const num=P.norm(t.num);
+  if(!t.fac.length) return P.deg(num)<=0?num[0].tex():P.tex(num,eq.v);
+  const dt=denTexOf(t,eq);
+  if(P.deg(num)<=0){const c=num[0];return (c.sign()<0?'-':'')+'\\frac{'+c.abs().tex()+'}{'+dt+'}';}
+  return '\\frac{'+P.tex(num,eq.v)+'}{'+dt+'}';
+}
+function termVal(t,eq,x){
+  const den=P.prod(t.fac.map(i=>eq.factors[i]));
+  return P.ev(t.num,x).div(P.ev(den,x));
+}
+function solveRov(eq){
+  const v=eq.v, all=[...eq.L,...eq.R];
+  const conds=eq.factors.map(f=>P.norm(f)[0].neg().div(P.norm(f)[1])).sort((a,b)=>a.cmp(b));
+  let Lc=1; for(const t of all) for(const c of P.norm(t.num)) Lc=lcm(Lc,F.of(c).d);
+  const used=[...new Set(all.flatMap(t=>t.fac))].sort((a,b)=>a-b);
+  const mult=t=>used.filter(i=>!t.fac.includes(i)).map(i=>eq.factors[i]);
+  const expand=t=>P.scale(P.mul(t.num,P.prod(mult(t))),Lc);
+  const prodTex=t=>texProduct(fr(Lc),[t.num,...mult(t)],v);
+  const lhs=eq.L.map(expand).reduce((a,b)=>P.add(a,b),[fr(0)]), rhs=eq.R.map(expand).reduce((a,b)=>P.add(a,b),[fr(0)]);
+  const poly=P.sub(lhs,rhs);
+  let norm=poly, divisor=fr(1);
+  if(!P.isZero(poly)){
+    const g=poly.reduce((acc,c)=>gcd(acc,c.n),0)||1; const lead=poly[poly.length-1].sign();
+    divisor=fr(g*lead); norm=P.scale(poly,fr(1).div(divisor));
+  }
+  const deg=P.deg(norm);
+  const qi=deg===2?quadInfo(norm):null;
+  const roots=deg===-1?null:rationalRoots(norm);
+  const lcdTex=(Lc>1?Lc:'')+texProduct(1,used.map(i=>eq.factors[i]),v);
+  const valid=roots?roots.filter(r=>!conds.some(c=>c.eq(r))):[];
+  const excluded=roots?roots.filter(r=>conds.some(c=>c.eq(r))):[];
+  return {conds,Lc,used,lcdTex,prodL:joinTex(eq.L.map(prodTex)),prodR:joinTex(eq.R.map(prodTex)),lhs,rhs,poly,norm,divisor,deg,qi,roots,valid,excluded,identity:deg===-1};
+}
+function eqTex(eq){return joinTex(eq.L.map(t=>termTex(t,eq)))+' = '+joinTex(eq.R.map(t=>termTex(t,eq)));}
+function quadSolveTex(norm,v){
+  const q=quadInfo(norm); const [c,b,a]=P.norm(norm);
+  let s='\\[D=b^2-4ac='+pT(b)+'^2-4\\cdot '+pT(a)+'\\cdot '+pT(c)+'='+q.D.tex()+'\\]';
+  if(q.D.sign()<0) return s+'<p>D &lt; 0 → rovnice nemá reálné kořeny.</p>';
+  if(q.roots.length===1) return s+'\\['+v+'=\\frac{-b}{2a}='+q.roots[0].tex()+'\\quad\\text{(dvojnásobný kořen)}\\]';
+  return s+'\\['+v+'_{1,2}=\\frac{'+b.neg().tex()+'\\pm\\sqrt{'+q.D.tex()+'}}{'+a.mul(2).tex()+'}=\\frac{'+b.neg().tex()+'\\pm '+q.s.tex()+'}{'+a.mul(2).tex()+'}\\]'+
+    '\\['+v+'_1='+q.roots[0].tex()+',\\qquad '+v+'_2='+q.roots[1].tex()+'\\]<p>Kontrola rozkladem: \\('+factorTex(norm,v)+'=0\\)</p>';
+}
+function buildRov(eq,diff=2,opts={}){
+  const v=eq.v||'x'; eq.v=v; const S=solveRov(eq);
+  if(!S.roots&&!S.identity) throw new Error('irrational');
+  const factored=[...eq.L,...eq.R].filter(t=>t.fac.length>1&&t.show==='exp');
+  const condTex=S.conds.map(c=>v+'\\neq '+c.tex()).join(',\\;\\; ');
+  const steps=[];
+  steps.push({t:'Rozklad jmenovatelů',h:factored.length?factored.map(t=>'\\['+P.tex(P.prod(t.fac.map(i=>eq.factors[i])),v)+'='+texProduct(1,t.fac.map(i=>eq.factors[i]),v)+'\\]').join(''):'<p>Jmenovatele jsou už rozložené na součin.</p>'});
+  steps.push({t:'Podmínky',h:'<div class="cond">Žádný jmenovatel nesmí být 0: \\('+condTex+'\\)</div>'});
+  steps.push({t:'Společný jmenovatel',h:'<p>Společný jmenovatel je \\('+S.lcdTex+'\\). Vynásobíme jím <b>celou</b> rovnici – každý člen na obou stranách.</p>'});
+  steps.push({t:'Po vynásobení (zlomky zmizí)',h:'\\['+S.prodL+' = '+S.prodR+'\\]'});
+  let st5='\\['+P.tex(S.lhs,v)+' = '+P.tex(S.rhs,v)+'\\]\\['+P.tex(S.poly,v)+' = 0\\]';
+  if(!S.divisor.eq(1)&&!S.identity) st5+='<p>Vydělíme \\('+pT(S.divisor)+'\\):</p>\\['+P.tex(S.norm,v)+' = 0\\]';
+  steps.push({t:'Roznásobíme a převedeme na jednu stranu',h:st5});
+  let st6;
+  if(S.identity) st6='<p>Vyšlo 0 = 0 – rovnost platí pro každé \\('+v+'\\), které splňuje podmínky.</p>';
+  else if(S.deg===0) st6='<p>Vyšlo \\('+P.tex(S.norm,v)+'=0\\), což neplatí nikdy – rovnice nemá řešení.</p>';
+  else if(S.deg===1) st6='\\['+v+'='+S.roots[0].tex()+'\\]';
+  else st6=quadSolveTex(S.norm,v);
+  steps.push({t:'Vyřešíme vzniklou rovnici',h:st6});
+  const chk=(S.roots||[]).map(r=>{
+    if(S.conds.some(c=>c.eq(r))) return '<p class="bad-line">\\('+v+'='+r.tex()+'\\) ✗ nevyhovuje podmínce – jmenovatel by byl roven nule, kořen vyřadíme.</p>';
+    const Lv=eq.L.reduce((s,t)=>s.add(termVal(t,eq,r)),fr(0)), Rv=eq.R.reduce((s,t)=>s.add(termVal(t,eq,r)),fr(0));
+    return '<p class="ok-line">\\('+v+'='+r.tex()+'\\) ✓ splňuje podmínky. Zkouška: \\(L='+Lv.tex()+',\\ P='+Rv.tex()+'\\)</p>';
+  }).join('');
+  steps.push({t:'Kontrola s podmínkami',h:chk||'<p>Není co kontrolovat.</p>'});
+  const K=S.identity?'\\mathbb{R}\\setminus\\{'+S.conds.map(c=>c.tex()).join(';')+'\\}':S.valid.length?'\\{'+S.valid.map(r=>r.tex()).join(';\\ ')+'\\}':'\\emptyset';
+  steps.push({t:'Výsledek',h:'\\[K='+K+'\\]'});
+  const parts=[
+    {id:'cond',kind:'list',stage:0,condMode:true,v,label:'1) Podmínky – které hodnoty \\('+v+'\\) jsou zakázané?',ans:S.conds,placeholder:'např. 0; 3'},
+    {id:'roots',kind:'list',stage:1,v,label:'2) Řešení rovnice (jen kořeny, které vyhovují podmínkám):',ans:S.valid,excluded:S.conds,placeholder:'např. 2 (nemá-li řešení, napiš ∅)'}
+  ];
+  return {topic:'rovnice',diff,title:opts.title||'Lomená rovnice',
+    statement:'<p>Řeš rovnici v \\(\\mathbb{R}\\):</p>\\['+eqTex(eq)+'\\]',
+    parts,stageUnlock:{1:2},
+    hints:['Nejdřív rozlož všechny jmenovatele na součin (vytýkání, rozdíl čtverců). Každý činitel ve jmenovateli dává jednu podmínku.',
+      'Celou rovnici vynásob společným jmenovatelem \\('+S.lcdTex+'\\). Pak vyřeš vzniklou rovnici a <b>každý kořen porovnej s podmínkami</b>.'],
+    steps,summary:'\\(K='+K+'\\)',printTask:'Urči podmínky a vyřeš rovnici.',data:{eq,S}};
+}
+function genRov(rng,diff=2){
+  const T=(num,fac,show)=>({num,fac,show:show||'fac'});
+  for(let t=0;t<5000;t++){
+    let eq, kind;
+    const r=rng.f();
+    if(diff===1) kind=r<0.5?'A':'B';
+    else if(diff===2) kind=r<0.35?'C':'F1';
+    else kind=r<0.55?'F2':'F1';
+    if(kind==='A'){ /* a/(x-p) = b/(x-q) */
+      const p=rng.int(-5,5),q=rng.int(-5,5),a=rng.nz(-6,6),b=rng.nz(-6,6);
+      if(p===q||a===b) continue;
+      const x=fr(a*q-b*p,a-b); if(!x.isInt()||x.eq(p)||x.eq(q)||Math.abs(x.val())>9) continue;
+      eq={v:'x',factors:[xp(p),xp(q)],L:[T([fr(a)],[0])],R:[T([fr(b)],[1])]};
+    } else if(kind==='B'){ /* (x+α)/(x-p) = c */
+      const p=rng.int(-5,5),al=rng.int(-6,6),c=rng.nz(-4,4); if(c===1||al===-p) continue;
+      const x=fr(-c*p-al,1-c); if(!x.isInt()||x.eq(p)||Math.abs(x.val())>9) continue;
+      eq={v:'x',factors:[xp(p)],L:[T(P.lin(1,al),[0])],R:[T([fr(c)],[])]};
+    } else if(kind==='C'){ /* (x+α)/(x-p) = (x+β)/(x-q) */
+      const p=rng.int(-5,5),q=rng.int(-5,5),al=rng.int(-6,6),be=rng.int(-6,6);
+      if(p===q||al===-p||be===-q) continue;
+      const den=al-q-be+p; if(den===0) continue;
+      const x=fr(al*q-be*p,den); if(!x.isInt()||x.eq(p)||x.eq(q)||Math.abs(x.val())>9) continue;
+      eq={v:'x',factors:[xp(p),xp(q)],L:[T(P.lin(1,al),[0])],R:[T(P.lin(1,be),[1])]};
+    } else if(kind==='F1'){ /* (x+α)/(x-p) + β/((x-p)(x-q)) = γ/(x-q) */
+      const p=rng.int(-5,5),q=rng.int(-5,5); if(p===q) continue;
+      const r1=rng.int(-6,6); if(r1===p||r1===q) continue;
+      const exclP=diff===3?0.5:0.3;
+      const r2=rng.chance(exclP)?rng.pick([p,q]):rng.int(-6,6); if(r2===r1) continue;
+      const g=rng.nz(-5,5);
+      const al=q+g-(r1+r2), be=r1*r2+al*q-g*p;
+      if(be===0||Math.abs(al)>9||Math.abs(be)>45||al===-p) continue;
+      eq={v:'x',factors:[xp(p),xp(q)],L:[T(P.lin(1,al),[0]),T([fr(be)],[0,1],'exp')],R:[T([fr(g)],[1])]};
+    } else { /* F2 – typ z písemky: (x+α)/(x-p) + β/(x²-px) = γ/(x-p) + δ */
+      const p=rng.nz(-5,5); const de=rng.pick([fr(-3,2),fr(-1,2),fr(1,2),fr(3,2),fr(-1),fr(2),fr(-2),fr(3)]);
+      const k=fr(1).sub(de);
+      const r1=rng.nz(-6,6); if(r1===p) continue;
+      const r2=rng.chance(0.55)?p:rng.nz(-6,6); if(r2===r1) continue;
+      const g=rng.nz(-6,6);
+      const al=fr(g).sub(de.mul(p)).sub(k.mul(r1+r2)), be=k.mul(r1*r2);
+      if(!al.isInt()||!be.isInt()||be.isZero()||Math.abs(al.val())>9||Math.abs(be.val())>45||al.eq(-p)) continue;
+      eq={v:'x',factors:[xp(p),X1],L:[T(P.lin(1,al),[0]),T([be],[1,0],'exp')],R:[T([fr(g)],[0]),T([de],[])]};
+    }
+    let pr; try{pr=buildRov(eq,diff);}catch(e){continue;}
+    const S=pr.data.S;
+    if(S.identity||!S.roots) continue;
+    if(diff>=2&&S.deg===2&&!S.valid.length&&rng.chance(0.7)) continue;
+    if(S.valid.some(x=>!x.isInt())&&diff<3) continue;
+    return pr;
+  }
+  throw new Error('genRov');
+}
+
+/* ---------- lomené nerovnice ---------- */
+const REL_TEX={'<':'\\lt ','<=':'\\le ','>':'\\gt ','>=':'\\ge '};
+const REL_TXT={'<':'<','<=':'≤','>':'>','>=':'≥'};
+function testPoint(pts,i){
+  const k=pts.length; if(!k) return fr(0);
+  if(i===0) return fr(Math.floor(pts[0].val())-1);
+  if(i===k) return fr(Math.ceil(pts[k-1].val())+1);
+  const a=pts[i-1],b=pts[i]; const c=fr(Math.floor(a.val())+1);
+  return (c.gt(a)&&c.lt(b))?c:a.add(b).div(2);
+}
+function intervalLabel(pts,i){
+  const k=pts.length;
+  if(!k) return '\\mathbb{R}';
+  if(i===0) return '(-\\infty;\\ '+pts[0].tex()+')';
+  if(i===k) return '('+pts[k-1].tex()+';\\ \\infty)';
+  return '('+pts[i-1].tex()+';\\ '+pts[i].tex()+')';
+}
+function signTableHtml(I){
+  const {pts,tests,nz,dz,N,Den,v}=I; const k=pts.length;
+  const rows=[];
+  const cN=P.norm(N)[P.deg(N)<0?0:P.deg(N)].div(nz.reduce((a,r)=>a.mul(r.d),fr(1)));
+  const cD=P.norm(Den)[P.deg(Den)].div(dz.reduce((a,r)=>a.mul(r.d),fr(1)));
+  const c=cN.div(cD);
+  if(c.sign()<0) rows.push({lab:c.tex(),p:[c]});
+  nz.forEach(r=>{const f=linFac(r,v);rows.push({lab:f.mono?f.t:f.t.slice(1,-1),p:f.p,num:true});});
+  dz.forEach(r=>{const f=linFac(r,v);rows.push({lab:f.mono?f.t:f.t.slice(1,-1),p:f.p,den:true});});
+  const sg=s=>s>0?'<td class="sp">+</td>':'<td class="sm">−</td>';
+  let h='<div class="tscroll"><table class="signtab"><thead><tr><th></th>'+tests.map((_,i)=>'<th>\\('+intervalLabel(pts,i)+'\\)</th>').join('')+'</tr></thead><tbody>';
+  h+='<tr class="tp"><td>test \\('+v+'\\)</td>'+tests.map(t=>'<td>\\('+t.tex()+'\\)</td>').join('')+'</tr>';
+  for(const r of rows) h+='<tr><td>\\('+r.lab+'\\)'+(r.den?' <small>(jmen.)</small>':'')+'</td>'+tests.map(t=>sg(P.ev(r.p,t).sign())).join('')+'</tr>';
+  h+='<tr class="tot"><td>zlomek</td>'+I.signs.map(sg).join('')+'</tr></tbody></table></div>';
+  return h;
+}
+function buildIneq(d,diff=2,opts={}){
+  const v=d.v||'x', rhs=F.of(d.rhs||0), rel=d.rel;
+  const num=P.norm(d.num), den=P.norm(d.den);
+  const N=rhs.isZero()?num:P.sub(num,P.scale(den,rhs));
+  if(P.isZero(N)) throw new Error('N=0');
+  const nz=rationalRoots(N), dz=rationalRoots(den);
+  if(nz===null||dz===null) throw new Error('irrational');
+  if(nz.length!==Math.max(P.deg(N),0)||dz.length!==P.deg(den)||!dz.length) throw new Error('not simple');
+  if(nz.some(a=>dz.some(b=>a.eq(b)))) throw new Error('shared');
+  const pts=[...nz,...dz].sort((a,b)=>a.cmp(b)); const k=pts.length;
+  const tests=[]; for(let i=0;i<=k;i++) tests.push(testPoint(pts,i));
+  const signs=tests.map(t=>P.ev(N,t).div(P.ev(den,t)).sign());
+  const pos=rel==='>'||rel==='>=', nonstrict=rel==='<='||rel==='>=';
+  const inclI=signs.map(s=>pos?s>0:s<0);
+  const isDen=pts.map(p=>dz.some(z=>z.eq(p)));
+  const inclP=pts.map((p,i)=>!isDen[i]&&nonstrict);
+  const segs=buildSegs(pts,inclI,inclP);
+  const numT=d.numTex||P.texNice(num,v), denT=P.texNice(den,v);
+  const I={pts,tests,nz,dz,N,Den:den,v,signs,inclI,inclP,isDen,segs,rel};
+  const steps=[];
+  if(rhs.isZero()) steps.push({t:'Vše na jednu stranu',h:'<p>Na pravé straně už je 0, můžeme rovnou rozkládat.</p>'});
+  else{
+    const c=rhs.neg(); const mulT=(c.eq(1)?'':c.eq(-1)?'-':c.tex())+'('+P.tex(den,v)+')';
+    steps.push({t:'Vše na jednu stranu a na jeden zlomek',h:'<div class="warnbox">Nenásob jmenovatelem! Nevíme, jestli je kladný, nebo záporný – znaménko nerovnosti by se mohlo otočit.</div>'+
+      '\\[\\frac{'+numT+'}{'+denT+'}'+(c.sign()>0?' + '+c.tex():' - '+c.abs().tex())+'\\;'+REL_TEX[rel]+'\\;0\\]'+
+      '\\[\\frac{'+joinTex([P.tex(num,v),mulT])+'}{'+P.tex(den,v)+'}\\;'+REL_TEX[rel]+'\\;0\\qquad\\Longrightarrow\\qquad\\frac{'+P.tex(N,v)+'}{'+P.tex(den,v)+'}\\;'+REL_TEX[rel]+'\\;0\\]'});
+  }
+  steps.push({t:'Rozklad na součin',h:'\\[\\frac{'+factorTex(N,v)+'}{'+factorTex(den,v)+'}\\;'+REL_TEX[rel]+'\\;0\\]'});
+  steps.push({t:'Nulové body',h:'<p>Čitatel: '+(nz.length?'\\('+nz.map(r=>v+'='+r.tex()).join(',\\ ')+'\\)':'je konstanta, nulový bod nemá')+'.</p><div class="cond">Jmenovatel: \\('+dz.map(r=>v+'='+r.tex()).join(',\\ ')+'\\) – tyto body do výsledku nikdy nepatří (dělení nulou).</div>'});
+  steps.push({t:'Znaménková tabulka',h:signTableHtml(I)+numberLineSVG(pts,signs,inclI,inclP,isDen)});
+  steps.push({t:'Výběr intervalů',h:'<p>Hledáme, kde je zlomek '+(pos?'kladný':'záporný')+(nonstrict?' nebo roven nule. Nulové body čitatele proto patří do výsledku (uzavřená závorka), body jmenovatele ne.':'. Nerovnost je ostrá, krajní body nepatří.')+'</p>'});
+  steps.push({t:'Výsledek',h:'\\[K='+segsTex(segs)+'\\]'});
+  const parts=[
+    {id:'nz',kind:'list',stage:0,v,label:'Nulové body čitatele (po převedení na tvar „zlomek '+REL_TXT[rel]+' 0“):',ans:nz,placeholder:'např. 0; 3 (nemá-li, napiš ∅)'},
+    {id:'dz',kind:'list',stage:0,v,label:'Nulové body jmenovatele:',ans:dz,placeholder:'např. -4; 4'},
+    {id:'signs',kind:'signs',stage:1,label:'Znaménková tabulka – klikni na znaménko zlomku v každém intervalu:',I},
+    {id:'pick',kind:'pick',stage:2,label:'Vyber, co patří do výsledku:',I}
+  ];
+  const examParts=[parts[0],parts[1],{id:'int',kind:'interval',v,label:'Výsledek (intervaly):',ans:segs,placeholder:'např. (-4;0>∪<3;4)'}];
+  return {topic:'nerovnice',diff,title:opts.title||'Lomená nerovnice',
+    statement:'<p>Řeš nerovnici v \\(\\mathbb{R}\\):</p>\\[\\frac{'+numT+'}{'+denT+'}\\;'+REL_TEX[rel]+'\\;'+rhs.tex()+'\\]',
+    parts,examParts,stageUnlock:{1:3,2:4},
+    hints:[rhs.isZero()?'Pravá strana je 0. Rozlož čitatel i jmenovatel na součin a najdi jejich nulové body.':'Nenásob jmenovatelem! Odečti '+pT(rhs)+' a převeď vše na jeden zlomek. Pak najdi nulové body čitatele a jmenovatele.',
+      'Kritické body rozdělí osu na '+(k+1)+' intervaly. V každém dosaď testovací číslo a urči znaménko. Body jmenovatele nikdy nepatří do výsledku'+(nonstrict?', body čitatele ano (nerovnost je neostrá).':'.')],
+    steps,summary:'\\(K='+segsTex(segs)+'\\)',printTask:'Řeš nerovnici, výsledek zapiš intervalem.',data:I};
+}
+function checkSigns(part,arr){
+  const I=part.I; const wrong=[];
+  I.signs.forEach((s,i)=>{if(arr[i]!==s) wrong.push(i);});
+  if(!wrong.length) return {ok:true};
+  const i=wrong[0];
+  return {ok:false,wrong,msg:(arr.some(a=>!a)?'Vyplň znaménko ve všech intervalech. ':'')+'Znaménko nesedí na intervalu \\('+intervalLabel(I.pts,i)+'\\). Dosaď testovací číslo, např. \\('+I.v+'='+I.tests[i].tex()+'\\).'};
+}
+function checkPick(part,ch){
+  const I=part.I, msgs=[], v=I.v, nonstrict=I.rel==='<='||I.rel==='>=';
+  I.pts.forEach((p,i)=>{
+    const c=!!ch.P[i];
+    if(c&&I.isDen[i]) msgs.push('Pozor – \\('+v+'='+p.tex()+'\\) nemůže být součástí výsledku, protože pro \\('+v+'='+p.tex()+'\\) je jmenovatel roven nule.');
+    else if(c&&!nonstrict) msgs.push('\\('+v+'='+p.tex()+'\\) do výsledku nepatří – nerovnost je ostrá (\\('+REL_TEX[I.rel]+'\\)) a v tomto bodě je zlomek roven nule.');
+    else if(!c&&!I.isDen[i]&&nonstrict) msgs.push('\\('+v+'='+p.tex()+'\\) do výsledku patří – nerovnost je neostrá (\\('+REL_TEX[I.rel]+'\\)) a zlomek je tu roven nule.');
+  });
+  I.inclI.forEach((inc,i)=>{
+    if(!!ch.I[i]!==inc) msgs.push('Na intervalu \\('+intervalLabel(I.pts,i)+'\\) je zlomek '+(I.signs[i]>0?'kladný':'záporný')+', takže do výsledku '+(inc?'patří':'nepatří')+'.');
+  });
+  return msgs.length?{ok:false,msg:msgs.slice(0,3).join('<br>')}:{ok:true};
+}
+function genIneq(rng,diff=2){
+  for(let t=0;t<5000;t++){
+    let d; const r=rng.f();
+    const kind=diff===1?'N1':diff===2?(r<0.3?'N1':r<0.6?'N2':r<0.85?'N4':'N3'):(r<0.4?'N3':r<0.65?'N5':r<0.85?'N6':'N4');
+    const rel=rng.pick(['<','<=','>','>=']);
+    if(kind==='N1'){
+      const a1=diff===1?rng.pick([1,-1]):rng.pick([1,-1,2,-2,3,-3]), b1=rng.int(-9,9), b2=rng.int(-6,6), a2=1;
+      if(diff===1&&b1%a1!==0) continue;
+      d={num:P.lin(a1,b1),den:P.lin(a2,b2),rhs:0,rel};
+    } else if(kind==='N2'){
+      const k=rng.nz(-6,6),p=rng.int(-5,5),m=rng.nz(-3,3);
+      d={num:[fr(k)],den:xp(p),rhs:m,rel};
+    } else if(kind==='N4'){
+      const a=rng.int(-6,6),b=rng.int(-6,6),m=rng.pick([1,1,2,-1,-2,3]); if(a===b) continue;
+      d={num:P.lin(1,a),den:P.lin(1,b),rhs:m,rel};
+    } else if(kind==='N3'){
+      const u1=rng.int(-5,5),u2=rng.int(-5,5),w1=rng.int(-6,6),w2=rng.int(-6,6);
+      if(new Set([u1,u2,w1,w2]).size<4) continue;
+      const s=rng.chance(0.25)?-1:1;
+      d={num:P.scale(P.mul(xp(u1),xp(u2)),s),den:P.mul(xp(w1),xp(w2)),rhs:0,rel};
+    } else if(kind==='N5'){
+      const u1=rng.int(-5,5),u2=rng.int(-5,5),w=rng.int(-5,5); if(new Set([u1,u2,w]).size<3) continue;
+      d={num:P.mul(xp(u1),xp(u2)),den:xp(w),rhs:0,rel};
+    } else {
+      const u=rng.int(-5,5),w=rng.int(1,5); if(Math.abs(u)===w) continue;
+      d={num:xp(u),den:P.mul(xp(w),xp(-w)),rhs:0,rel};
+    }
+    let pr; try{pr=buildIneq(d,diff);}catch(e){continue;}
+    if(pr.data.pts.some(p=>Math.abs(p.val())>9)) continue;
+    if(diff<=2&&pr.data.pts.some(p=>!p.isInt())&&rng.chance(diff===1?1:0.5)) continue;
+    if(!pr.data.segs.length) continue;
+    return pr;
+  }
+  throw new Error('genIneq');
+}
+
+/* ---------- algebraické výrazy ---------- */
+function explainFactor(p,v){
+  p=P.norm(p); const dg=P.deg(p);
+  if(dg<2) return '';
+  if(p[0].isZero()) return 'vytkneme \\('+v+'\\)';
+  if(p[1].isZero()&&p[0].sign()<0&&p[2].eq(1)) return 'rozdíl čtverců \\(a^2-b^2=(a-b)(a+b)\\)';
+  return 'trojčlen: hledáme dvě čísla se součinem \\('+p[0].div(p[2]).tex()+'\\) a součtem \\('+p[1].div(p[2]).tex()+'\\)';
+}
+function buildExpr(s,diff){
+  const v=s.v;
+  const resFn=x=>P.evf(s.res.num,x)/P.evf(s.res.den,x);
+  const resTex=P.deg(s.res.den)===0?factorTex(P.scale(s.res.num,fr(1).div(P.norm(s.res.den)[0])),v):'\\frac{'+factorTex(s.res.num,v)+'}{'+factorTex(s.res.den,v)+'}';
+  const parts=[
+    {id:'cond',kind:'list',stage:0,condMode:true,v,label:'1) Podmínky – pro která \\('+v+'\\) výraz nemá smysl?',ans:s.conds,placeholder:'např. -2; 3',condExtraWhy:s.condWhy||''},
+    {id:'res',kind:'expr',stage:1,v,label:'2) Zjednodušený výraz:',fn:resFn,maxVar:P.varTerms(s.res.num)+P.varTerms(s.res.den),placeholder:'např. (x-2)/(x+5)'}
+  ];
+  const steps=s.steps.slice();
+  steps.push({t:'Výsledek',h:'\\['+resTex+',\\qquad '+s.conds.map(c=>v+'\\neq '+c.tex()).join(',\\ ')+'\\]'});
+  let summary='\\('+resTex+'\\), podmínky \\('+s.conds.map(c=>v+'\\neq '+c.tex()).join(',\\ ')+'\\)';
+  if(s.extra){
+    const K=s.extra.K; const eqP=P.sub(s.res.num,P.scale(s.res.den,K));
+    const roots=rationalRoots(eqP)||[]; const valid=roots.filter(r=>!s.conds.some(c=>c.eq(r)));
+    const ex=roots.filter(r=>s.conds.some(c=>c.eq(r)));
+    parts.push({id:'extra',kind:'list',stage:1,v,label:'3) Pro které \\('+v+'\\) má výraz hodnotu \\('+K.tex()+'\\)?',ans:valid,excluded:s.conds,exclWhy:'původní výraz pro tuto hodnotu není definován',placeholder:'např. 4 (žádné → ∅)'});
+    steps.push({t:'Kdy má výraz hodnotu '+K.tex()+'?',h:'\\['+resTex+' = '+K.tex()+'\\]\\['+P.tex(eqP,v)+' = 0\\]'+
+      (roots.length?'<p>Vychází \\('+roots.map(r=>v+'='+r.tex()).join(',\\ ')+'\\).</p>':'<p>Rovnice nemá řešení.</p>')+
+      (ex.length?'<p class="bad-line">\\('+v+'='+ex[0].tex()+'\\) ale porušuje podmínku → vyřadíme.</p>':'')+
+      '<p>Odpověď: \\('+(valid.length?valid.map(r=>v+'='+r.tex()).join(',\\ '):'\\text{žádné}\\ '+v)+'\\)</p>'});
+    summary+='; hodnota \\('+K.tex()+'\\) pro \\('+(valid.length?valid.map(r=>r.tex()).join(';'):'∅')+'\\)';
+  }
+  return {topic:'vyrazy',diff,title:s.title,statement:'<p>'+s.task+'</p>\\['+s.tex+'\\]',parts,stageUnlock:{1:1},
+    hints:s.hints,steps,summary,printTask:s.printTask||'Urči podmínky a zjednoduš výraz.',data:{s,resFn}};
+}
+function genExprE1(rng,diff,v='x'){
+  for(let t=0;t<2000;t++){
+    const a=rng.int(-6,6),b=rng.int(-6,6),c=rng.int(-6,6); if(new Set([a,b,c]).size<3) continue;
+    const k=diff===1?1:rng.pick([1,1,2,-1,3]);
+    const num=P.scale(P.mul(xp(a),xp(b)),k), den=P.mul(xp(a),xp(c));
+    if(P.norm(num).some(q=>Math.abs(q.val())>30)||P.norm(den).some(q=>Math.abs(q.val())>30)) continue;
+    const conds=[fr(a),fr(c)].sort((p,q)=>p.cmp(q));
+    const fa=linFac(fr(a),v);
+    return {v,title:'Krácení lomeného výrazu',task:'Urči podmínky a zjednoduš výraz:',tex:'\\frac{'+P.tex(num,v)+'}{'+P.tex(den,v)+'}',conds,
+      res:{num:P.scale(xp(b),k),den:xp(c)},orig:x=>P.evf(num,x)/P.evf(den,x),
+      hints:['Rozlož čitatel i jmenovatel na součin ('+(explainFactor(num,v)||'vytýkání')+'). Podmínky čti z rozloženého jmenovatele.','Krátit se smí jen stejný <b>činitel</b> v čitateli i jmenovateli – tady \\('+(fa.mono?fa.t:fa.t)+'\\). Podmínka \\('+v+'\\neq '+a+'\\) ale platí dál!'],
+      steps:[
+        {t:'Rozklad čitatele',h:'\\['+P.tex(num,v)+'='+factorTex(num,v)+'\\]<p>'+explainFactor(num,v)+'</p>'},
+        {t:'Rozklad jmenovatele',h:'\\['+P.tex(den,v)+'='+factorTex(den,v)+'\\]<p>'+explainFactor(den,v)+'</p>'},
+        {t:'Podmínky',h:'<div class="cond">\\('+factorTex(den,v)+'\\neq 0 \\Rightarrow '+conds.map(q=>v+'\\neq '+q.tex()).join(',\\ ')+'\\)</div>'},
+        {t:'Krácení',h:'\\[\\frac{'+factorTex(num,v)+'}{'+factorTex(den,v)+'}=\\frac{'+factorTex(P.scale(xp(b),k),v)+'}{'+factorTex(xp(c),v)+'}\\]<p>Zkrátili jsme činitel \\('+fa.t+'\\). Podmínka \\('+v+'\\neq '+a+'\\) zůstává.</p>'}
+      ]};
+  }
+}
+function genExprE2(rng,diff,v='x'){
+  for(let t=0;t<2000;t++){
+    const a=rng.int(1,6),p=rng.nz(-5,5),q=rng.nz(-5,5); const m=p-q; if(m===0) continue;
+    const toMinus=rng.chance(0.5);
+    const r=toMinus?m*a-(p+q)*a:-m*a-(p+q)*a; if(r===0||Math.abs(r)>40) continue;
+    const resDen=toMinus?xp(a):xp(-a);
+    const dA=xp(a),dB=xp(-a),dAB=P.mul(dA,dB);
+    const fracT=(c,dt)=>(c<0?'-':'')+'\\frac{'+Math.abs(c)+'}{'+dt+'}';
+    const tex=joinTex([fracT(p,P.tex(dA,v)),fracT(-q,P.tex(dB,v)),fracT(r,P.tex(dAB,v))]);
+    const numP=P.add(P.add(P.scale(dB,p),P.scale(dA,-q)),[fr(r)]);
+    const ftAB='('+P.tex(dA,v)+')('+P.tex(dB,v)+')';
+    return {v,title:'Součet lomených výrazů',task:'Urči podmínky a zjednoduš výraz:',tex,conds:[fr(-a),fr(a)],
+      res:{num:[fr(m)],den:resDen},orig:x=>p/(x-a)-q/(x+a)+r/(x*x-a*a),
+      hints:['\\('+P.tex(dAB,v)+'\\) je rozdíl čtverců: \\('+ftAB+'\\). To je i společný jmenovatel.','Rozšiř každý zlomek na společný jmenovatel, sečti čitatele, roznásob a vytkni. Pak krať společného činitele.'],
+      steps:[
+        {t:'Rozklad jmenovatele',h:'\\['+P.tex(dAB,v)+'='+ftAB+'\\]'},
+        {t:'Podmínky',h:'<div class="cond">\\('+v+'\\neq '+a+',\\ '+v+'\\neq -'+a+'\\)</div>'},
+        {t:'Společný jmenovatel',h:'\\[\\frac{'+joinTex([texProduct(p,[dB],v),texProduct(-q,[dA],v),String(r)])+'}{'+ftAB+'}\\]'},
+        {t:'Roznásobíme čitatel',h:'\\[\\frac{'+P.tex(numP,v)+'}{'+ftAB+'}=\\frac{'+factorTex(numP,v)+'}{'+ftAB+'}\\]'},
+        {t:'Krácení',h:'\\[=\\frac{'+m+'}{'+P.tex(resDen,v)+'}\\]<p>Krátíme činitel \\(('+P.tex(toMinus?dB:dA,v)+')\\). Podmínky platí dál.</p>'}
+      ]};
+  }
+}
+function genExprE3(rng,diff,v='x'){
+  for(let t=0;t<2000;t++){
+    const a=rng.int(1,5),b=rng.nz(-5,5),c=rng.nz(-6,6),k=rng.pick([1,2,3,-1,-2]);
+    if(new Set([0,-b,a,-a]).size<4) continue;
+    if([0,a,-a,b,-b].includes(c)) continue;
+    const n1=P.scale(P.mul(xp(a),xp(-a)),k), d1=P.mul(X1,xp(-b));
+    const tex='\\frac{'+P.tex(n1,v)+'}{'+P.tex(d1,v)+'}\\cdot\\frac{'+P.tex(xp(-c),v)+'}{'+P.tex(xp(a),v)+'} : \\frac{'+P.tex(xp(-a),v)+'}{'+P.tex(xp(-b),v)+'}';
+    const conds=[fr(0),fr(-b),fr(a),fr(-a)].sort((p,q)=>p.cmp(q));
+    const kT=k===1?'':k===-1?'-':String(k);
+    return {v,title:'Násobení a dělení lomených výrazů',task:'Urči podmínky a zjednoduš výraz:',tex,conds,
+      condWhy:'. Pozor: dělíme zlomkem, takže ani jeho čitatel nesmí být nula',
+      res:{num:P.scale(xp(-c),k),den:X1},orig:x=>(k*(x*x-a*a))/(x*x+b*x)*((x+c)/(x-a))/((x+a)/(x+b)),
+      hints:['Rozlož: \\('+P.tex(n1,v)+'='+factorTex(n1,v)+'\\), \\('+P.tex(d1,v)+'='+factorTex(d1,v)+'\\). Podmínky: všechny jmenovatele ≠ 0 <b>a také čitatel zlomku, kterým dělíme</b>.','Dělení zlomkem = násobení převrácenou hodnotou. Pak vše napiš na jeden zlomkový řádek a krať činitele.'],
+      steps:[
+        {t:'Rozklady',h:'\\['+P.tex(n1,v)+'='+factorTex(n1,v)+',\\qquad '+P.tex(d1,v)+'='+factorTex(d1,v)+'\\]'},
+        {t:'Podmínky',h:'<div class="cond">Jmenovatele: \\('+v+'\\neq 0,\\ '+v+'\\neq '+(-b)+',\\ '+v+'\\neq '+a+'\\). Dělíme zlomkem \\(\\frac{'+P.tex(xp(-a),v)+'}{'+P.tex(xp(-b),v)+'}\\), takže i \\('+P.tex(xp(-a),v)+'\\neq 0 \\Rightarrow '+v+'\\neq '+(-a)+'\\).</div>'},
+        {t:'Dělení → násobení převrácenou hodnotou',h:'\\[\\frac{'+factorTex(n1,v)+'}{'+factorTex(d1,v)+'}\\cdot\\frac{'+P.tex(xp(-c),v)+'}{'+P.tex(xp(a),v)+'}\\cdot\\frac{'+P.tex(xp(-b),v)+'}{'+P.tex(xp(-a),v)+'}\\]'},
+        {t:'Krácení',h:'<p>Zkrátíme \\(('+P.tex(xp(a),v)+')\\), \\(('+P.tex(xp(-a),v)+')\\) a \\(('+P.tex(xp(-b),v)+')\\):</p>\\[='+kT+'\\frac{'+P.tex(xp(-c),v)+'}{'+v+'}\\]'}
+      ]};
+  }
+}
+function genExpr(rng,diff=2){
+  for(let t=0;t<200;t++){
+    let s; const r=rng.f();
+    if(diff===1) s=genExprE1(rng,1);
+    else if(diff===2) s=r<0.4?genExprE1(rng,2):r<0.75?genExprE2(rng,2):genExprE3(rng,2);
+    else{
+      const base=r<0.35?genExprE2(rng,3,'a'):r<0.6?genExprE1(rng,3,'a'):genExprE3(rng,3,'a');
+      if(base.res.den.length===2&&P.deg(base.res.den)===1){
+        const Ks=[]; for(let K=-6;K<=6;K++){const e=P.sub(base.res.num,P.scale(base.res.den,K));const rr=rationalRoots(e);if(rr&&rr.length===1&&rr[0].isInt()&&Math.abs(rr[0].val())<=9) Ks.push({K,r:rr[0]});}
+        if(!Ks.length) continue;
+        const exc=Ks.filter(o=>base.conds.some(c=>c.eq(o.r)));
+        const pick=(exc.length&&rng.chance(0.35))?rng.pick(exc):rng.pick(Ks);
+        base.extra={K:fr(pick.K)}; base.title='Výraz s parametrem a';
+        base.task='Urči podmínky, zjednoduš výraz a urči, pro které \\(a\\) má výraz hodnotu \\('+pick.K+'\\):';
+        base.printTask='Urči podmínky, zjednoduš výraz a urči, pro které a má hodnotu '+pick.K+'.';
+      }
+      s=base;
+    }
+    if(s) return buildExpr(s,diff);
+  }
+  throw new Error('genExpr');
+}
+
+/* =====================================================================
+   FUNKCE: lineární, kvadratická, průsečíky, slovní úlohy
+   ===================================================================== */
+function linTexAB(a,b,v='x'){a=F.of(a);b=F.of(b);return joinTex([a.isZero()?'':coefTex(a)+v,(b.isZero()&&!a.isZero())?'':b.tex()]);}
+function ptTex(x,y){return '['+F.of(x).tex()+';\\ '+F.of(y).tex()+']';}
+const flipRel={'<':'>','<=':'>=','>':'<','>=':'<='};
+
+/* ---------- lineární funkce ---------- */
+function buildLin(K,L,o={}){
+  const [x1,y1]=K.map(F.of),[x2,y2]=L.map(F.of);
+  const a=y2.sub(y1).div(x2.sub(x1)), b=y1.sub(a.mul(x1));
+  if(a.isZero()) throw new Error('a=0');
+  const f=x=>a.mul(x).add(b);
+  const x0=b.neg().div(a);
+  const k=F.of(o.k), rel=o.rel||'>', x3=F.of(o.x3);
+  const xr=k.sub(b).div(a), relR=a.sign()>0?rel:flipRel[rel];
+  const n1=o.n1||'K', n2=o.n2||'L';
+  const lt='y='+linTexAB(a,b);
+  const parts=[
+    {id:'a',kind:'num',label:'Směrnice \\(a=\\)',ans:a,wrong:w=>w.eq(fr(1).div(a))?'Zlomek máš obráceně: nahoře rozdíl y, dole rozdíl x.':w.eq(a.neg())?'Opačné znaménko – v čitateli i jmenovateli odčítej ve stejném pořadí.':'Spočítej \\(a=\\frac{y_2-y_1}{x_2-x_1}\\).'},
+    {id:'b',kind:'num',label:'Absolutní člen \\(b=\\)',ans:b,wrong:()=>'Dosaď jeden bod do \\(y=ax+b\\) a dopočítej b.'},
+    {id:'val',kind:'num',label:'\\(f('+x3.tex()+')=\\)',ans:f(x3)},
+    {id:'Py',kind:'points',single:true,label:'Průsečík s osou y:',ans:[[fr(0),b]],placeholder:'[0;?]'},
+    {id:'Px',kind:'points',single:true,label:'Průsečík s osou x:',ans:[[x0,fr(0)]],placeholder:'[?;0]'},
+    {id:'mono',kind:'choice',label:'Funkce je:',options:[{v:'r',l:'rostoucí'},{v:'k',l:'klesající'}],ans:a.sign()>0?'r':'k',wrong:()=>'Rozhoduje znaménko směrnice a.'},
+    {id:'ineq',kind:'relnum',label:'\\(f(x)'+REL_TEX[rel]+k.tex()+'\\) platí pro',ans:{rel:relR,val:xr},v:'x'}
+  ];
+  const ws=autoWindow([x1.val(),x2.val(),x0.val(),0],[y1.val(),y2.val(),b.val()]);
+  const graph=plotSVG({...ws,fns:[{f:x=>a.val()*x+b.val(),c:0}],pts:[{x:x1.val(),y:y1.val(),label:n1},{x:x2.val(),y:y2.val(),label:n2},{x:0,y:b.val(),label:'P<tspan baseline-shift="sub" font-size="9">y</tspan>',c:'alt'},{x:x0.val(),y:0,label:'P<tspan baseline-shift="sub" font-size="9">x</tspan>',c:'alt'}]});
+  const steps=[
+    {t:'Směrnice a',h:'\\[a=\\frac{y_2-y_1}{x_2-x_1}=\\frac{'+y2.tex()+'-'+pT(y1)+'}{'+x2.tex()+'-'+pT(x1)+'}=\\frac{'+y2.sub(y1).tex()+'}{'+x2.sub(x1).tex()+'}='+a.tex()+'\\]'},
+    {t:'Absolutní člen b',h:'<p>Dosadíme bod '+n1+' do \\(y=ax+b\\):</p>\\['+y1.tex()+'='+coefMulTex(a)+pT(x1)+'+b\\;\\Rightarrow\\; b='+b.tex()+'\\]'},
+    {t:'Rovnice funkce',h:'\\[f:\\ '+lt+'\\]<p>Kontrola bodem '+n2+': \\('+coefMulTex(a)+pT(x2)+(b.sign()<0?'':'+')+b.tex()+'='+y2.tex()+'\\) ✓</p>'},
+    {t:'Dosazení hodnoty',h:'\\[f('+x3.tex()+')='+coefMulTex(a)+pT(x3)+(b.sign()<0?'':'+')+b.tex()+'='+f(x3).tex()+'\\]'},
+    {t:'Průsečíky s osami',h:'<p>S osou y: \\(x=0\\Rightarrow y=b\\), tedy \\(P_y='+ptTex(0,b)+'\\).</p><p>S osou x: \\(y=0\\Rightarrow 0='+linTexAB(a,b)+'\\Rightarrow x='+x0.tex()+'\\), tedy \\(P_x='+ptTex(x0,0)+'\\).</p>'},
+    {t:'Monotonie',h:'<p>\\(a='+a.tex()+(a.sign()>0?'>0':'<0')+'\\) → funkce je <b>'+(a.sign()>0?'rostoucí':'klesající')+'</b>.</p>'},
+    {t:'Nerovnice f(x) '+REL_TXT[rel]+' '+k.str(),h:'\\['+linTexAB(a,b)+'\\;'+REL_TEX[rel]+'\\;'+k.tex()+'\\]\\['+coefTex(a)+'x\\;'+REL_TEX[rel]+'\\;'+k.sub(b).tex()+'\\]'+
+      (a.sign()<0?'<div class="warnbox">Dělíme záporným číslem \\('+pT(a)+'\\) → znak nerovnosti se otočí.</div>':'')+'\\[x\\;'+REL_TEX[relR]+'\\;'+xr.tex()+'\\]'},
+    {t:'Graf',h:graph}
+  ];
+  return {topic:'linear',diff:o.diff||2,title:o.title||'Lineární funkce daná dvěma body',
+    statement:'<p>Lineární funkce \\(f\\) prochází body \\('+n1+ptTex(x1,y1)+'\\) a \\('+n2+ptTex(x2,y2)+'\\).</p><p>Urči její rovnici \\(y=ax+b\\), hodnotu \\(f('+x3.tex()+')\\), průsečíky s osami, monotonii a kdy platí \\(f(x)'+REL_TEX[rel]+k.tex()+'\\).</p>',
+    parts,hints:['\\(a=\\frac{y_2-y_1}{x_2-x_1}\\) – v čitateli i jmenovateli odčítej ve stejném pořadí. Pak dosaď jeden bod a dopočítej b.','Průsečík s osou y: dosaď x = 0. S osou x: polož y = 0. U nerovnice: dělíš-li záporným číslem, otoč znak.'],
+    steps,summary:'\\('+lt+'\\), \\(P_y='+ptTex(0,b)+',\\ P_x='+ptTex(x0,0)+'\\), \\(x'+REL_TEX[relR]+xr.tex()+'\\)',
+    printTask:'Urči rovnici, f('+x3.str()+'), průsečíky s osami, monotonii a kdy f(x) '+REL_TXT[rel]+' '+k.str()+'.',data:{a,b,x0,xr,relR}};
+}
+function genLin(rng,diff=2){
+  const As={1:[1,-1,2,-2,3,-3],2:[1,-1,2,-2,3,-3,fr(1,2),fr(-1,2),fr(3,2),fr(-3,2)],3:[fr(1,2),fr(-1,2),fr(3,2),fr(-3,2),fr(2,3),fr(-2,3),fr(1,3),fr(-1,3),fr(3,4),fr(-3,4)]}[diff];
+  for(let t=0;t<3000;t++){
+    const a=F.of(rng.pick(As)), b=rng.int(-6,6), q=a.d;
+    const xs=[]; for(let x=-8;x<=8;x++) if(x%q===0) xs.push(x);
+    const x1=rng.pick(xs), x2=rng.pick(xs); if(x1===x2) continue;
+    const y1=a.mul(x1).add(b), y2=a.mul(x2).add(b);
+    if(Math.abs(y1.val())>15||Math.abs(y2.val())>15) continue;
+    if(diff===3&&b%q===0&&rng.chance(0.6)) continue;
+    const x3=rng.pick(xs.filter(x=>x!==x1&&x!==x2&&Math.abs(x)<=6));
+    const x0r=rng.pick(xs.filter(x=>Math.abs(x)<=6)); const k=a.mul(x0r).add(b); if(!k.isInt()||Math.abs(k.val())>12) continue;
+    return buildLin([x1,y1],[x2,y2],{k,rel:rng.pick(['>','<','>=','<=']),x3,diff});
+  }
+  throw new Error('genLin');
+}
+
+/* ---------- kvadratická funkce ---------- */
+function vfTex(A,m,n,v='x'){
+  A=F.of(A);m=F.of(m);n=F.of(n);
+  const sq=m.isZero()?v+'^2':'('+v+(m.sign()>0?' - ':' + ')+m.abs().tex()+')^2';
+  return coefTex(A)+sq+(n.isZero()?'':(n.sign()>0?' + ':' - ')+n.abs().tex());
+}
+function buildQuad(a,b,c,o={}){
+  const A=F.of(a),B=F.of(b),C=F.of(c), p=[C,B,A];
+  const m=B.neg().div(A.mul(2)), n=P.ev(p,m);
+  const qi=quadInfo(p); if(qi.irr) throw new Error('irr');
+  const roots=qi.roots, up=A.sign()>0;
+  const fT=P.tex(p);
+  const parts=[
+    {id:'V',kind:'points',single:true,label:'Vrchol \\(V=\\)',ans:[[m,n]],placeholder:'[x;y]',wrong:()=>'\\(x_V=-\\frac{b}{2a}\\), pak \\(y_V=f(x_V)\\). Nebo použij vrcholový tvar.'},
+    {id:'osa',kind:'num',label:'Osa souměrnosti \\(x=\\)',ans:m},
+    {id:'D',kind:'num',label:'Diskriminant \\(D=\\)',ans:qi.D,wrong:()=>'\\(D=b^2-4ac\\). Pozor na znaménka a na \\(b^2\\) – je vždy nezáporné.'},
+    {id:'Px',kind:'points',label:'Průsečíky s osou x:',ans:roots.map(r=>[r,fr(0)]),placeholder:'[x;0]; [x;0]   (žádné → ∅)'},
+    {id:'Py',kind:'points',single:true,label:'Průsečík s osou y:',ans:[[fr(0),C]],placeholder:'[0;?]'},
+    {id:'H',kind:'range',label:'Obor hodnot \\(H(f)=\\)',ans:{dir:up?'up':'down',val:n}},
+    {id:'mono',kind:'choice',label:'Monotonie:',options:[{v:'kr',l:'nejdřív klesá, od vrcholu roste'},{v:'rk',l:'nejdřív roste, od vrcholu klesá'}],ans:up?'kr':'rk',wrong:()=>'Rozhoduje znaménko a: a > 0 → parabola otevřená nahoru.'}
+  ];
+  let compl;
+  const m2=m.mul(m);
+  if(A.eq(1)) compl='\\[f(x)='+fT+'=\\left('+P.tex([m2,B,A])+'\\right)'+(m2.isZero()?'':' - '+m2.tex())+(C.isZero()?'':(C.sign()>0?' + ':' - ')+C.abs().tex())+'='+vfTex(A,m,n)+'\\]';
+  else compl='\\[f(x)='+fT+'='+A.tex()+'\\left('+P.tex([fr(0),B.div(A),fr(1)])+'\\right)'+(C.isZero()?'':(C.sign()>0?' + ':' - ')+C.abs().tex())+'='+A.tex()+'\\left['+vfTex(1,m,0)+(m2.isZero()?'':' - '+m2.tex())+'\\right]'+(C.isZero()?'':(C.sign()>0?' + ':' - ')+C.abs().tex())+'='+vfTex(A,m,n)+'\\]';
+  const prodT=roots.length?'<p>Součinový tvar: \\(f(x)='+factorTex(p)+'\\)</p>':'<p>Součinový tvar neexistuje (žádné reálné kořeny).</p>';
+  const xsW=[m.val(),...roots.map(r=>r.val()),0], ysW=[n.val(),C.val()];
+  const ws=autoWindow(xsW,ysW,8,10); ws.xr=[Math.min(ws.xr[0],Math.floor(m.val()-3)),Math.max(ws.xr[1],Math.ceil(m.val()+3))];
+  const graph=plotSVG({...ws,fns:[{f:x=>P.evf(p,x),c:0}],vlines:[{x:m.val(),label:'x = '+m.str().replace('-','−')}],pts:[{x:m.val(),y:n.val(),label:'V'},{x:0,y:C.val(),label:'P<tspan baseline-shift="sub" font-size="9">y</tspan>',c:'alt'},...roots.map(r=>({x:r.val(),y:0,label:'',c:'alt'}))]});
+  const steps=[
+    {t:'Předpis',h:'\\[f(x)='+fT+',\\qquad a='+A.tex()+',\\ b='+B.tex()+',\\ c='+C.tex()+'\\]<p>\\(a'+(up?'>':'<')+'0\\) → parabola je otevřená '+(up?'nahoru (má minimum)':'dolů (má maximum)')+'.</p>'},
+    {t:'Vrcholový tvar (doplnění na čtverec)',h:compl},
+    {t:'Diskriminant',h:'\\[D=b^2-4ac='+pT(B)+'^2-4\\cdot '+pT(A)+'\\cdot '+pT(C)+'='+qi.D.tex()+'\\]<p>'+(qi.D.sign()>0?'D &gt; 0 → dva průsečíky s osou x.':qi.D.isZero()?'D = 0 → graf se osy x dotýká v jednom bodě.':'D &lt; 0 → graf osu x neprotíná.')+'</p>'},
+    {t:'Průsečíky s osami',h:(roots.length?'\\[x_{1,2}=\\frac{-b\\pm\\sqrt{D}}{2a}\\;\\Rightarrow\\;'+roots.map(r=>ptTex(r,0)).join(',\\ ')+'\\]':'<p>S osou x: žádný průsečík.</p>')+'<p>S osou y: \\(f(0)=c='+C.tex()+'\\), tedy \\(P_y='+ptTex(0,C)+'\\).</p>'+prodT},
+    {t:'Vrchol a osa souměrnosti',h:'\\[x_V=-\\frac{b}{2a}=-\\frac{'+B.tex()+'}{'+A.mul(2).tex()+'}='+m.tex()+',\\quad y_V=f('+m.tex()+')='+n.tex()+'\\]\\[V='+ptTex(m,n)+',\\qquad \\text{osa: } x='+m.tex()+'\\]'},
+    {t:'Monotonie',h:up?'<p>Klesající na \\((-\\infty;\\ '+m.tex()+'\\rangle\\), rostoucí na \\(\\langle '+m.tex()+';\\ \\infty)\\).</p>':'<p>Rostoucí na \\((-\\infty;\\ '+m.tex()+'\\rangle\\), klesající na \\(\\langle '+m.tex()+';\\ \\infty)\\).</p>'},
+    {t:'Definiční obor a obor hodnot',h:'\\[D(f)=\\mathbb{R},\\qquad H(f)='+(up?'\\langle '+n.tex()+';\\ \\infty)':'(-\\infty;\\ '+n.tex()+'\\rangle')+'\\]'},
+    {t:'Graf',h:graph}
+  ];
+  return {topic:'kvadr',diff:o.diff||2,title:o.title||'Kvadratická funkce',
+    statement:'<p>Je dána funkce</p>\\[f(x)='+fT+'\\]<p>Urči vrchol, osu, diskriminant, průsečíky s osami, obor hodnot a monotonii.</p>',
+    parts,hints:['Vrchol: \\(x_V=-\\frac{b}{2a}\\), \\(y_V=f(x_V)\\). Nebo doplň na čtverec: \\(a(x-m)^2+n\\) → \\(V=[m;n]\\).','\\(D=b^2-4ac\\). Průsečík s osou y je vždy \\([0;c]\\). Je-li a > 0, je \\(H(f)=\\langle y_V;\\infty)\\).'],
+    steps,summary:'\\(f(x)='+vfTex(A,m,n)+'\\), \\(V='+ptTex(m,n)+'\\), \\(D='+qi.D.tex()+'\\), \\(H(f)='+(up?'\\langle '+n.tex()+';\\infty)':'(-\\infty;'+n.tex()+'\\rangle')+'\\)',
+    printTask:'Urči vrchol, osu, D, průsečíky s osami, H(f), monotonii a načrtni graf.',data:{A,B,C,m,n,roots,D:qi.D}};
+}
+function genQuad(rng,diff=2){
+  const As={1:[1,-1],2:[1,1,-1,2,-2],3:[2,-2,3,-3,1,-1]}[diff];
+  for(let t=0;t<3000;t++){
+    const a=rng.pick(As), m=rng.int(-4,4), r=rng.f();
+    let n;
+    if(r<0.5){const k=rng.int(1,3);n=-a*k*k;}
+    else if(r<0.8){n=Math.sign(a)*rng.int(1,5);}
+    else n=0;
+    const b=-2*a*m, c=a*m*m+n;
+    if(Math.abs(c)>30||Math.abs(b)>16) continue;
+    if(diff>=2&&m===0&&rng.chance(0.7)) continue;
+    return buildQuad(a,b,c,{diff});
+  }
+  throw new Error('genQuad');
+}
+
+/* ---------- průsečíky dvou funkcí ---------- */
+function buildInter(f,g,o={}){
+  f=P.norm(f);g=P.norm(g);
+  const d=P.sub(f,g); const roots=rationalRoots(d);
+  if(roots===null) throw new Error('irr');
+  const pts=roots.map(r=>[r,P.ev(g,r)]);
+  const dn=P.norm(d); const lead=dn[dn.length-1];
+  const dd=lead.eq(1)?dn:P.scale(dn,fr(1).div(lead));
+  let solve;
+  if(P.deg(dn)===2){
+    if(dn[0].isZero()) solve='\\['+factorTex(dn)+'=0\\;\\Rightarrow\\;'+roots.map(r=>'x='+r.tex()).join('\\ \\text{nebo}\\ ')+'\\]';
+    else solve=quadSolveTex(dn,'x');
+  } else solve='\\[x='+(roots[0]?roots[0].tex():'')+'\\]';
+  const xs=[...roots.map(r=>r.val()),0], ys=[...pts.map(p=>p[1].val()),P.evf(f,0)];
+  const mF=P.norm(f)[1]?fr(0).sub(P.norm(f)[1]).div(P.norm(f)[2].mul(2)):fr(0); xs.push(mF.val()); ys.push(P.evf(f,mF.val()));
+  const ws=autoWindow(xs,ys,8,10);
+  const graph=plotSVG({...ws,fns:[{f:x=>P.evf(f,x),c:0,label:'f'},{f:x=>P.evf(g,x),c:1,label:'g'}],pts:pts.map((p,i)=>({x:p[0].val(),y:p[1].val(),label:'P'+(i+1)}))});
+  const steps=[
+    {t:'Položíme f(x) = g(x)',h:'\\['+P.tex(f)+' = '+P.tex(g)+'\\]'},
+    {t:'Převedeme na jednu stranu',h:'\\['+P.tex(dn)+' = 0\\]'+(lead.eq(1)?'':'<p>Vydělíme \\('+pT(lead)+'\\): \\('+P.tex(dd)+'=0\\)</p>')},
+    {t:'Vyřešíme',h:solve},
+    {t:'Dopočítáme y (dosadíme do g)',h:pts.length?pts.map(p=>'\\[x='+p[0].tex()+':\\quad y=g('+p[0].tex()+')='+p[1].tex()+'\\]').join(''):'<p>Žádné x – grafy se neprotínají.</p>'},
+    {t:'Výsledek',h:pts.length?'\\['+pts.map((p,i)=>'P_'+(i+1)+'='+ptTex(p[0],p[1])).join(',\\quad ')+'\\]':'<p>Grafy nemají společný bod.</p>'},
+    {t:'Graf',h:graph}
+  ];
+  return {topic:'prusecik',diff:o.diff||2,title:'Průsečíky dvou funkcí',
+    statement:'<p>Najdi průsečíky grafů funkcí</p>\\[f(x)='+P.tex(f)+',\\qquad g(x)='+P.tex(g)+'\\]',
+    parts:[{id:'P',kind:'points',label:'Průsečíky – zapiš celé body [x;y]:',ans:pts,placeholder:'[0;3]; [4;11]   (žádné → ∅)'}],
+    hints:['Průsečík = bod, který leží na obou grafech. Polož \\(f(x)=g(x)\\) a vyřeš vzniklou kvadratickou rovnici.','Ke každému x dopočítej y dosazením do g (nebo f) a zapiš celý bod \\([x;y]\\).'],
+    steps,summary:pts.length?'\\('+pts.map(p=>ptTex(p[0],p[1])).join(',\\ ')+'\\)':'žádné průsečíky',printTask:'Najdi průsečíky grafů (celé body [x;y]).',data:{pts}};
+}
+function genInter(rng,diff=2){
+  for(let t=0;t<3000;t++){
+    const a=diff===3?rng.pick([1,-1,2]):rng.pick([1,-1]), b=rng.int(-4,4), c=rng.int(-5,5);
+    const f=[fr(c),fr(b),fr(a)]; const r=rng.f(); let g;
+    if(r<0.72){const x1=rng.int(-4,5),x2=rng.int(-4,5);if(x1===x2) continue;g=[fr(c-a*x1*x2),fr(b+a*(x1+x2))];}
+    else if(r<0.86){const x1=rng.int(-3,4);g=[fr(c-a*x1*x1),fr(b+2*a*x1)];}
+    else{const m=rng.int(-3,3),q=rng.int(1,3);g=[fr(c-a*m*m-a*q),fr(b+2*a*m)];}
+    if(Math.abs(g[0].val())>15||Math.abs(g[1].val())>8) continue;
+    let pr; try{pr=buildInter(f,g,{diff});}catch(e){continue;}
+    if(pr.data.pts.some(p=>Math.abs(p[1].val())>40)) continue;
+    return pr;
+  }
+  throw new Error('genInter');
+}
+
+/* ---------- slovní úlohy (lineární funkce) ---------- */
+const WORD_T=[
+  {id:'taxi',X:'s',Y:'c',ux:'km',uy:'Kč',lvl:1,
+    gen:r=>({a:r.pick([18,20,22,24,25,28,30,35]),b:r.pick([40,50,60,70,80]),xs:[r.int(2,8),r.int(10,25)],x3:r.int(4,30),x4:r.int(5,40)}),
+    text:(d)=>'Jízda taxíkem na '+d.x1+' km stála '+d.y1+' Kč, jízda na '+d.x2+' km stála '+d.y2+' Kč. Cena se skládá z nástupní sazby a z ceny za každý ujetý kilometr.',
+    q3:d=>'Kolik zaplatíš za jízdu '+d.x3+' km?',q4:d=>'Kolik km ujedeš za '+d.y4+' Kč?',am:'cena za 1 km',bm:'nástupní sazba'},
+  {id:'aqua',X:'h',Y:'c',ux:'h',uy:'Kč',lvl:1,
+    gen:r=>({a:r.pick([40,50,60,70,80,90]),b:r.pick([50,80,100,120,150]),xs:[r.int(1,3),r.int(4,6)],x3:r.int(2,8),x4:r.int(2,9)}),
+    text:d=>'Fitcentrum účtuje jednorázový poplatek a pak cenu za každou hodinu. Za '+d.x1+' h zaplatíš '+d.y1+' Kč, za '+d.x2+' h zaplatíš '+d.y2+' Kč.',
+    q3:d=>'Kolik zaplatíš za '+d.x3+' h?',q4:d=>'Kolik hodin můžeš cvičit za '+d.y4+' Kč?',am:'cena za 1 hodinu',bm:'jednorázový poplatek'},
+  {id:'nadrz',X:'t',Y:'V',ux:'min',uy:'l',lvl:1,
+    gen:r=>({a:r.pick([5,8,10,12,15,20,25]),b:r.pick([20,40,60,100,150,200]),xs:[r.int(2,6),r.int(8,15)],x3:r.int(3,20),x4:r.int(5,30)}),
+    text:d=>'Do nádrže se napouští voda stálým přítokem. Po '+d.x1+' min je v ní '+d.y1+' l, po '+d.x2+' min '+d.y2+' l.',
+    q3:d=>'Kolik litrů bude v nádrži po '+d.x3+' min?',q4:d=>'Za kolik minut bude v nádrži '+d.y4+' l?',am:'přítok v l za minutu',bm:'množství vody na začátku'},
+  {id:'cesta',X:'t',Y:'s',ux:'h',uy:'km',lvl:2,
+    gen:r=>({a:-r.pick([50,60,70,80,90]),b:r.pick([300,360,400,450,480,540]),xs:[1,r.int(2,3)],x3:r.int(2,4),x4:r.int(1,4)}),
+    text:d=>'Auto jede stálou rychlostí do cíle. Za '+d.x1+' h jízdy je od cíle '+d.y1+' km, za '+d.x2+' h jízdy už jen '+d.y2+' km.',
+    q3:d=>'Jak daleko od cíle bude za '+d.x3+' h?',q4:d=>'Za kolik hodin bude od cíle '+d.y4+' km?',am:'změna vzdálenosti za 1 h (rychlost se záporným znaménkem)',bm:'vzdálenost na začátku'},
+  {id:'svicka',X:'t',Y:'h',ux:'h',uy:'cm',lvl:2,
+    gen:r=>({a:fr(-r.pick([1,3,5]),2),b:r.pick([12,15,18,20,24]),xs:[2,r.int(4,6)],x3:r.int(1,7),x4:r.int(3,8)}),
+    text:d=>'Svíčka hoří rovnoměrně. Po '+d.x1+' h hoření měří '+d.y1+' cm, po '+d.x2+' h měří '+d.y2+' cm.',
+    q3:d=>'Jak vysoká bude po '+d.x3+' h?',q4:d=>'Za kolik hodin bude měřit '+d.y4+' cm?',am:'změna výšky za 1 h',bm:'výška nové svíčky'},
+  {id:'teplota',X:'C',Y:'F',ux:'°C',uy:'°F',lvl:3,
+    gen:r=>({a:fr(9,5),b:32,xs:[r.pick([5,8,10,15]),r.pick([20,24,25,30,35])],x3:r.pick([-10,0,12,37,40]),x4:r.pick([-5,18,20,28,45])}),
+    text:d=>'Teplotě '+d.x1+' °C odpovídá '+d.y1+' °F a teplotě '+d.x2+' °C odpovídá '+d.y2+' °F. Převod mezi stupnicemi je lineární: \\(F=a\\cdot C+b\\).',
+    q3:d=>'Kolik °F je '+d.x3+' °C?',q4:d=>'Kolik °C je '+d.y4+' °F?',am:'o kolik °F stoupne teplota při změně o 1 °C',bm:'kolik °F odpovídá 0 °C'},
+  {id:'smena',X:'e',Y:'K',ux:'€',uy:'Kč',lvl:3,
+    gen:r=>({a:fr(r.pick([243,245,248,251]),10),b:r.pick([40,50,60,80]),xs:[r.pick([10,20,40]),r.pick([100,150,200])],x3:r.pick([30,50,80]),x4:r.pick([60,120,300])}),
+    text:d=>'Směnárna účtuje pevný poplatek a k tomu kurz za každé euro. Za '+d.x1+' € zaplatíš '+d.y1+' Kč, za '+d.x2+' € zaplatíš '+d.y2+' Kč.',
+    q3:d=>'Kolik Kč zaplatíš za '+d.x3+' €?',q4:d=>'Kolik € dostaneš, když zaplatíš '+d.y4+' Kč?',am:'kurz – cena 1 €',bm:'poplatek'}
+];
+function buildWord(tpl,d0,diff=2){
+  const a=F.of(d0.a), b=F.of(d0.b); const f=x=>a.mul(x).add(b);
+  const x1=fr(d0.xs[0]), x2=fr(d0.xs[1]), x3=fr(d0.x3), x4=fr(d0.x4);
+  const y1=f(x1), y2=f(x2), y3=f(x3), y4=f(x4);
+  const D={x1:fmtDec(x1,false),x2:fmtDec(x2,false),y1:fmtDec(y1,false),y2:fmtDec(y2,false),x3:fmtDec(x3,false),y4:fmtDec(y4,false)};
+  const X=tpl.X,Y=tpl.Y;
+  const parts=[
+    {id:'a',kind:'num',label:'\\('+Y+'=a\\cdot '+X+'+b\\):&nbsp; \\(a=\\)',ans:a,wrong:w=>w.eq(fr(1).div(a))?'Zlomek máš obráceně – nahoře je rozdíl '+Y+', dole rozdíl '+X+'.':null},
+    {id:'b',kind:'num',label:'\\(b=\\)',ans:b},
+    {id:'y3',kind:'num',label:tpl.q3(D)+' ('+tpl.uy+')',ans:y3},
+    {id:'x4',kind:'num',label:tpl.q4(D)+' ('+tpl.ux+')',ans:x4}
+  ];
+  const fd=v=>fmtDec(v); const decP=v=>F.of(v).sign()<0?'('+fmtDec(v)+')':fmtDec(v);
+  const steps=[
+    {t:'Dvě dvojice hodnot = dva body grafu',h:'\\[['+fd(x1)+';\\ '+fd(y1)+'],\\qquad ['+fd(x2)+';\\ '+fd(y2)+']\\]<p>Na vodorovné ose je \\('+X+'\\) ('+tpl.ux+'), na svislé \\('+Y+'\\) ('+tpl.uy+').</p>'},
+    {t:'Koeficient a',h:'\\[a=\\frac{'+fd(y2)+'-'+decP(y1)+'}{'+fd(x2)+'-'+decP(x1)+'}=\\frac{'+fd(y2.sub(y1))+'}{'+fd(x2.sub(x1))+'}='+fd(a)+'\\]<p>a = '+tpl.am+'.</p>'},
+    {t:'Koeficient b',h:'\\[b='+fd(y1)+'-'+fd(a)+'\\cdot '+decP(x1)+'='+fd(b)+'\\]<p>b = '+tpl.bm+'.</p>'},
+    {t:'Předpis',h:'\\['+Y+'='+fd(a)+'\\cdot '+X+(b.sign()<0?' - '+fd(b.abs()):' + '+fd(b))+'\\]'},
+    {t:'Dosazení',h:'\\['+Y+'='+fd(a)+'\\cdot '+decP(x3)+(b.sign()<0?' - '+fd(b.abs()):' + '+fd(b))+'='+fd(y3)+'\\ \\text{'+tpl.uy+'}\\]'},
+    {t:'Opačná otázka',h:'\\['+fd(y4)+'='+fd(a)+'\\cdot '+X+(b.sign()<0?' - '+fd(b.abs()):' + '+fd(b))+'\\;\\Rightarrow\\;'+X+'=\\frac{'+fd(y4)+(b.sign()<0?' + '+fd(b.abs()):' - '+fd(b))+'}{'+fd(a)+'}='+fd(x4)+'\\]'}
+  ];
+  return {topic:'slovni',diff,title:'Slovní úloha – lineární funkce',statement:'<p>'+tpl.text(D)+'</p><p>Urči předpis \\('+Y+'=a\\cdot '+X+'+b\\) a odpověz na otázky.</p>',
+    parts,hints:['Dvě dvojice hodnot jsou dva body grafu: \\(['+fd(x1)+';'+fd(y1)+']\\) a \\(['+fd(x2)+';'+fd(y2)+']\\). Spočítej \\(a=\\frac{\\Delta '+Y+'}{\\Delta '+X+'}\\).','b dopočítáš dosazením jednoho bodu: \\(b='+Y+'_1-a\\cdot '+X+'_1\\). U opačné otázky dosaď za '+Y+' a vyřeš rovnici.'],
+    steps,summary:'\\('+Y+'='+fd(a)+'\\cdot '+X+(b.sign()<0?' - '+fd(b.abs()):' + '+fd(b))+'\\); odpovědi '+fmtDec(y3,false)+' '+tpl.uy+', '+fmtDec(x4,false)+' '+tpl.ux,
+    printTask:'Urči předpis a odpověz: '+tpl.q3(D)+' '+tpl.q4(D),data:{a,b,y3,x4}};
+}
+function genWord(rng,diff=2){
+  const pool=WORD_T.filter(t=>t.lvl<=diff+(diff===1?0:1));
+  for(let t=0;t<500;t++){
+    const tpl=rng.pick(pool); const d=tpl.gen(rng);
+    if(d.xs[0]===d.xs[1]) continue;
+    if(d.x3===d.xs[0]||d.x3===d.xs[1]) continue;
+    const a=F.of(d.a), y4=a.mul(d.x4).add(d.b);
+    if(tpl.id==='cesta'&&y4.sign()<=0) continue;
+    if(tpl.id==='svicka'&&(y4.sign()<=0||a.mul(d.x3).add(d.b).sign()<=0)) continue;
+    if(tpl.id==='cesta'&&a.mul(d.x3).add(d.b).sign()<=0) continue;
+    return buildWord(tpl,d,diff);
+  }
+  throw new Error('genWord');
+}
+
+/* =====================================================================
+   KONTROLA ODPOVĚDÍ, PARSER VÝRAZŮ, DRIL, PÍSEMKA, REGISTR TÉMAT
+   ===================================================================== */
+
+/* ---------- parser výrazů (pro zjednodušené výrazy od žáka) ---------- */
+function parseExpr(str,v){
+  const s=String(str==null?'':str).replace(/[\u2212\u2013]/g,'-').replace(/[·×⋅*]/g,'*').replace(/:/g,'/').replace(/,/g,'.').replace(/²/g,'^2').replace(/³/g,'^3').replace(/\s+/g,'');
+  if(s==='') throw new Error('Nic jsi nevyplnil.');
+  const toks=[]; let i=0;
+  while(i<s.length){
+    const c=s[i];
+    if(/[0-9.]/.test(c)){let j=i;while(j<s.length&&/[0-9.]/.test(s[j])) j++;const val=parseFloat(s.slice(i,j));if(isNaN(val)) throw new Error('Nerozumím číslu „'+s.slice(i,j)+'“.');toks.push({t:'n',v:val});i=j;continue;}
+    if(c===v){toks.push({t:'v'});i++;continue;}
+    if('+-*/^()'.includes(c)){toks.push({t:c});i++;continue;}
+    if(c==='['||c==='{'){toks.push({t:'('});i++;continue;}
+    if(c===']'||c==='}'){toks.push({t:')'});i++;continue;}
+    throw new Error('Neznámý znak „'+c+'“. Používej '+v+', čísla, + − · / ^ a závorky.');
+  }
+  const out=[];
+  for(const b of toks){const a=out[out.length-1];if(a&&(a.t==='n'||a.t==='v'||a.t===')')&&(b.t==='n'||b.t==='v'||b.t==='(')) out.push({t:'*'});out.push(b);}
+  let p=0; const peek=()=>out[p]; const eat=t=>{if(out[p]&&out[p].t===t){p++;return true;}return false;};
+  function expr(){let f=term();while(peek()&&(peek().t==='+'||peek().t==='-')){const op=out[p++].t,g=term(),f0=f;f=op==='+'?x=>f0(x)+g(x):x=>f0(x)-g(x);}return f;}
+  function term(){let f=unary();while(peek()&&(peek().t==='*'||peek().t==='/')){const op=out[p++].t,g=unary(),f0=f;f=op==='*'?x=>f0(x)*g(x):x=>f0(x)/g(x);}return f;}
+  function unary(){if(eat('-')){const g=unary();return x=>-g(x);}if(eat('+')) return unary();return power();}
+  function power(){const b=atom();if(eat('^')){const e=unary();return x=>Math.pow(b(x),e(x));}return b;}
+  function atom(){const tk=out[p];if(!tk) throw new Error('Výraz je neúplný.');p++;
+    if(tk.t==='n'){const val=tk.v;return ()=>val;}
+    if(tk.t==='v') return x=>x;
+    if(tk.t==='('){const f=expr();if(!eat(')')) throw new Error('Chybí uzavírací závorka.');return f;}
+    throw new Error('Na tomhle místě nečekám „'+tk.t+'“.');}
+  const f=expr();
+  if(p<out.length) throw new Error('Výraz se nepodařilo přečíst celý – zkontroluj závorky.');
+  return f;
+}
+
+/* ---------- kontrola jedné části ---------- */
+function setCmp(ans,got,eqf){
+  const extra=got.filter(g=>!ans.some(a=>eqf(a,g))), missing=ans.filter(a=>!got.some(g=>eqf(a,g)));
+  return {extra,missing,ok:!extra.length&&!missing.length};
+}
+const ptEq=(a,b)=>a[0].eq(b[0])&&a[1].eq(b[1]);
+function checkPart(part,raw){
+  const v=part.v||'x';
+  switch(part.kind){
+    case 'num':{
+      const x=parseNum(raw); if(!x) return {ok:false,invalid:true,msg:String(raw||'').trim()===''?'Nic jsi nevyplnil.':'Nerozumím zápisu čísla. Piš např. 3, -2, 3/4 nebo 1,5.'};
+      if(x.eq(part.ans)) return {ok:true};
+      const m=part.wrong?part.wrong(x):null;
+      return {ok:false,msg:m||(!part.ans.isZero()&&x.eq(part.ans.neg())?'Máš opačné znaménko.':'Není to správně.')};
+    }
+    case 'list':{
+      const r=parseList(raw); if(r.error) return {ok:false,invalid:true,msg:r.error};
+      const c=setCmp(part.ans,r.vals,(a,b)=>a.eq(b)); if(c.ok) return {ok:true};
+      if(part.excluded){const bad=c.extra.filter(e=>part.excluded.some(q=>q.eq(e)));if(bad.length){const e=bad[0].tex();return {ok:false,msg:'Pozor – \\('+v+'='+e+'\\) nemůže být řešením, protože pro \\('+v+'='+e+'\\) je '+(part.exclWhy||'jmenovatel roven nule')+'.'};}}
+      if(part.condMode){
+        if(c.missing.length) return {ok:false,msg:'Některá podmínka chybí. Projdi všechny jmenovatele – i ty, které vzniknou až rozkladem'+(part.condExtraWhy||'')+'.'};
+        return {ok:false,msg:'Pro \\('+v+'='+c.extra[0].tex()+'\\) není žádný jmenovatel nulový – to není podmínka.'};
+      }
+      if(!part.ans.length) return {ok:false,msg:'Zkontroluj to znovu – takové číslo tu vycházet nemá.'};
+      if(r.none) return {ok:false,msg:'Řešení existuje – zkus to znovu.'};
+      if(c.missing.length&&!c.extra.length) return {ok:false,msg:'Něco ti chybí – správných hodnot je víc.'};
+      if(c.extra.length&&!c.missing.length) return {ok:false,msg:'Máš tam hodnotu navíc: \\('+c.extra[0].tex()+'\\).'};
+      return {ok:false,msg:'Není to správně.'};
+    }
+    case 'row':{
+      const r=parseRow(raw); if(r.error) return {ok:false,invalid:true,msg:r.error};
+      if(r.vals.length!==part.ans.length) return {ok:false,msg:'Řádek má mít '+part.ans.length+' čísel.'};
+      const bad=r.vals.findIndex((x,i)=>!x.eq(part.ans[i]));
+      return bad<0?{ok:true}:{ok:false,msg:'Nesedí '+(bad+1)+'. číslo v řádku.'};
+    }
+    case 'points':{
+      const r=parsePoints(raw); if(r.error) return {ok:false,invalid:true,msg:r.error};
+      const c=setCmp(part.ans,r.pts,ptEq); if(c.ok) return {ok:true};
+      if(!part.ans.length) return {ok:false,msg:'Tady žádný průsečík není (∅).'};
+      if(r.none) return {ok:false,msg:'Průsečíky existují – najdi je.'};
+      if(part.single&&r.pts.length>1) return {ok:false,msg:'Zadej jen jeden bod.'};
+      const swapped=r.pts.some(g=>part.ans.some(a=>a[0].eq(g[1])&&a[1].eq(g[0])&&!a[0].eq(a[1])));
+      if(swapped) return {ok:false,msg:'Pořadí souřadnic: nejdřív x, pak y.'};
+      const xOk=r.pts.length===part.ans.length&&r.pts.every(g=>part.ans.some(a=>a[0].eq(g[0])));
+      if(xOk) return {ok:false,msg:'x-ové souřadnice máš správně, ale y ne. Dosaď je do předpisu.'};
+      if(c.missing.length&&!c.extra.length) return {ok:false,msg:'Některý bod chybí.'};
+      const m=part.wrong?part.wrong():null;
+      return {ok:false,msg:m||'Není to správně.'};
+    }
+    case 'expr':{
+      let f; try{f=parseExpr(raw,v);}catch(e){return {ok:false,invalid:true,msg:e.message};}
+      const xs=[0.37,1.73,-2.41,3.19,-0.83,5.31,-4.67,2.57]; let n=0;
+      for(const x of xs){const e=part.fn(x);if(!isFinite(e)) continue;const g=f(x);
+        if(!isFinite(g)||Math.abs(g-e)>1e-6*Math.max(1,Math.abs(e))){const tip=(String(raw).includes('/')&&!String(raw).includes('('))?' Tip: zlomek piš se závorkami, např. (x-2)/(x+5).':'';return {ok:false,msg:'Výraz se nerovná správnému výsledku.'+tip};}
+        n++;}
+      if(n<4) return {ok:false,msg:'Výraz se nepodařilo ověřit.'};
+      const cnt=(String(raw).match(new RegExp(v,'g'))||[]).length;
+      if(cnt>part.maxVar) return {ok:false,msg:'Hodnota sedí, ale výraz ještě není co nejjednodušší – zkrať, co jde.'};
+      return {ok:true};
+    }
+    case 'choice':{
+      if(raw==null||raw==='') return {ok:false,invalid:true,msg:'Vyber jednu možnost.'};
+      if(raw===part.ans) return {ok:true};
+      return {ok:false,msg:(part.wrong&&part.wrong(raw))||'Není to správně.'};
+    }
+    case 'matrix':{
+      const bad=[]; let empty=false;
+      part.ans.forEach((row,i)=>row.forEach((a,j)=>{const x=parseNum(raw[i][j]);if(!x){empty=true;bad.push([i,j]);}else if(!x.eq(a)) bad.push([i,j]);}));
+      if(!bad.length) return {ok:true};
+      return {ok:false,bad,msg:(empty?'Vyplň všechna políčka (chybějící neznámá = 0). ':'')+'Zkontroluj zvýrazněná políčka – pozor na znaménka a pravou stranu.'};
+    }
+    case 'relnum':{
+      const x=parseNum(raw&&raw.val); if(!raw||!raw.rel||!x) return {ok:false,invalid:true,msg:'Vyber znak a doplň číslo.'};
+      const vo=x.eq(part.ans.val), ro=raw.rel===part.ans.rel;
+      if(vo&&ro) return {ok:true};
+      if(vo) return {ok:false,msg:'Hraniční číslo máš správně, ale znak ne. Dělíš-li záporným číslem, znak se otočí; ≤ a ≥ zachovávají rovnost.'};
+      if(ro) return {ok:false,msg:'Znak sedí, hraniční číslo ne.'};
+      return {ok:false,msg:'Není to správně.'};
+    }
+    case 'range':{
+      const x=parseNum(raw&&raw.val); if(!raw||!raw.dir||!x) return {ok:false,invalid:true,msg:'Vyber tvar intervalu a doplň číslo.'};
+      if(x.eq(part.ans.val)&&raw.dir===part.ans.dir) return {ok:true};
+      if(x.eq(part.ans.val)) return {ok:false,msg:'Číslo sedí, ale směr ne – podívej se na znaménko a.'};
+      return {ok:false,msg:'Krajní hodnota oboru hodnot je y-ová souřadnice vrcholu.'};
+    }
+    case 'interval':{
+      const r=parseIntervals(raw); if(r.error) return {ok:false,invalid:true,msg:r.error};
+      return segsEqual(r.segs,part.ans)?{ok:true}:{ok:false,msg:'Intervaly nesedí – zkontroluj krajní body a závorky.'};
+    }
+    case 'signs': return checkSigns(part,raw||[]);
+    case 'pick': return checkPick(part,raw||{I:[],P:[]});
+  }
+  return {ok:false,msg:'?'};
+}
+/* text správné odpovědi (pro výsledky písemky) */
+function answerTex(part){
+  switch(part.kind){
+    case 'num': return '\\('+part.ans.tex()+'\\)';
+    case 'list': return part.ans.length?'\\('+part.ans.map(a=>a.tex()).join(';\\ ')+'\\)':'∅';
+    case 'points': return part.ans.length?'\\('+part.ans.map(p=>ptTex(p[0],p[1])).join(';\\ ')+'\\)':'∅';
+    case 'choice': return part.options.find(o=>o.v===part.ans).l;
+    case 'matrix': return '\\('+matTex(part.ans,{aug:part.aug})+'\\)';
+    case 'relnum': return '\\(x'+REL_TEX[part.ans.rel]+part.ans.val.tex()+'\\)';
+    case 'range': return '\\('+(part.ans.dir==='up'?'\\langle '+part.ans.val.tex()+';\\infty)':'(-\\infty;'+part.ans.val.tex()+'\\rangle')+'\\)';
+    case 'interval': return '\\('+segsTex(part.ans)+'\\)';
+    case 'expr': return '(viz řešení)';
+    default: return '';
+  }
+}
+
+/* ---------- teoretické otázky jako „problém“ ---------- */
+function buildTheoryQ(q,idx){
+  let parts;
+  if(q.type==='mc') parts=[{id:'q',kind:'choice',label:'Vyber správnou odpověď:',options:q.options.map((l,i)=>({v:String(i),l})),ans:String(q.ans)}];
+  else if(q.type==='tf') parts=[{id:'q',kind:'choice',label:'Pravda, nebo nepravda?',options:[{v:'t',l:'Pravda'},{v:'f',l:'Nepravda'}],ans:q.ans?'t':'f'}];
+  else parts=[{id:'q',kind:'self',label:'Odpověz vlastními slovy (stačí v hlavě nebo na papír), pak se porovnej:',model:q.model}];
+  return {topic:'teorie',diff:1,title:'Teoretická otázka',statement:'<p class="tq">'+q.q+'</p>',parts,hints:[],steps:[{t:'Vysvětlení',h:'<p>'+(q.expl||q.model)+'</p>'}],summary:q.type==='open'?q.model:answerTex(parts[0]),printTask:'',data:{idx}};
+}
+
+/* ---------- rychlý dril ---------- */
+const DRILL_TYPES=[
+  {id:'det2',name:'Determinant 2×2',topic:'cramer'},{id:'cond',name:'Podmínka výrazu',topic:'vyrazy'},
+  {id:'gstep',name:'Krok Gaussovy eliminace',topic:'gauss'},{id:'nulb',name:'Nulové body',topic:'nerovnice'},
+  {id:'znam',name:'Znaménko na intervalu',topic:'nerovnice'},{id:'smer',name:'Směrnice',topic:'linear'},
+  {id:'vrch',name:'Vrchol paraboly',topic:'kvadr'},{id:'disk',name:'Diskriminant',topic:'kvadr'},{id:'prus',name:'Průsečík s osou',topic:'kvadr'}
+];
+function genDrill(rng,type){
+  const id=type||rng.pick(DRILL_TYPES).id;
+  switch(id){
+    case 'det2':{const [a,b,c,d]=[0,0,0,0].map(()=>rng.int(-6,6));const D=fr(a*d-b*c);
+      return {id,q:'Vypočítej determinant \\(\\begin{vmatrix} '+a+' & '+b+' \\\\ '+c+' & '+d+' \\end{vmatrix}\\)',part:{kind:'num',ans:D},explain:'\\(ad-bc='+pT(fr(a))+'\\cdot'+pT(fr(d))+'-'+pT(fr(b))+'\\cdot'+pT(fr(c))+'='+D.tex()+'\\)'};}
+    case 'cond':{const u=rng.int(-6,6);let w=rng.int(1,6);const kind=rng.int(0,2);let tex,ans;
+      if(kind===0){tex='\\frac{3}{x^2-'+(w*w)+'}';ans=[fr(-w),fr(w)];}
+      else if(kind===1){tex='\\frac{x+1}{x^2'+(u>=0?'-':'+')+Math.abs(u)+'x}';ans=u===0?[fr(0)]:[fr(0),fr(u)].sort((p,q)=>p.cmp(q));if(u===0) tex='\\frac{x+1}{x^2}';}
+      else{const p=rng.int(-5,5);tex='\\frac{2}{x'+(p>=0?'-':'+')+Math.abs(p)+'}+\\frac{1}{x}';ans=p===0?[fr(0)]:[fr(0),fr(p)].sort((q,r)=>q.cmp(r));if(p===0) tex='\\frac{2}{x}+\\frac{1}{x}';}
+      return {id,q:'Pro která x nemá výraz \\('+tex+'\\) smysl? (odděl středníkem)',part:{kind:'list',ans,v:'x'},explain:'Jmenovatel ≠ 0: \\(x\\neq '+ans.map(a=>a.tex()).join(',\\ x\\neq ')+'\\)'};}
+    case 'gstep':{const r1=[1,rng.int(-3,3),rng.int(-3,3),rng.int(-6,6)];const k=rng.nz(-3,3);const r2=[k,rng.int(-4,4),rng.int(-4,4),rng.int(-8,8)];
+      const res=r2.map((v,i)=>fr(v-k*r1[i]));
+      return {id,q:'\\(R_1=('+r1.join(';\\ ')+')\\), \\(R_2=('+r2.join(';\\ ')+')\\). Proveď \\(R_2\\to R_2'+(k>0?'-':'+')+(Math.abs(k)===1?'':Math.abs(k))+'R_1\\) a zapiš nový \\(R_2\\) (4 čísla, odděl středníkem).',part:{kind:'row',ans:res},explain:'Nový \\(R_2=('+res.map(x=>x.tex()).join(';\\ ')+')\\) – první číslo musí vyjít 0.'};}
+    case 'nulb':{const a=rng.int(-5,5),b=rng.int(-5,5),c=rng.int(-5,5);if(new Set([a,b,c]).size<3) return genDrill(rng,id);
+      const ans=[fr(a),fr(b),fr(c)].sort((p,q)=>p.cmp(q));
+      return {id,q:'Urči všechny nulové body (čitatele i jmenovatele) výrazu \\(\\frac{'+factorTex(P.mul(xp(a),xp(b)))+'}{'+factorTex(xp(c))+'}\\).',part:{kind:'list',ans,v:'x'},explain:'Čitatel: \\('+a+',\\ '+b+'\\), jmenovatel: \\('+c+'\\).'};}
+    case 'znam':{const a=rng.int(-5,5),b=rng.int(-5,5);if(a===b) return genDrill(rng,id);
+      const lo=Math.min(a,b),hi=Math.max(a,b); const which=rng.int(0,2);
+      const t=which===0?lo-1:which===1?(lo+hi)/2:hi+1; const tF=which===1?fr(lo+hi,2):fr(t);
+      const s=Math.sign((t-a)/(t-b)); const lab=which===0?'(-\\infty;\\ '+lo+')':which===1?'('+lo+';\\ '+hi+')':'('+hi+';\\ \\infty)';
+      return {id,q:'Jaké znaménko má \\(\\frac{'+P.tex(xp(a))+'}{'+P.tex(xp(b))+'}\\) na intervalu \\('+lab+'\\)?',part:{kind:'choice',options:[{v:'+',l:'+'},{v:'-',l:'−'}],ans:s>0?'+':'-'},explain:'Dosaď např. \\(x='+tF.tex()+'\\): znaménko '+(s>0?'+':'−')+'.'};}
+    case 'smer':{const x1=rng.int(-5,5),x2=rng.int(-5,5);if(x1===x2) return genDrill(rng,id);const y1=rng.int(-6,6),y2=rng.int(-6,6);const a=fr(y2-y1,x2-x1);
+      return {id,q:'Urči směrnici přímky body \\(['+x1+';'+y1+']\\) a \\(['+x2+';'+y2+']\\).',part:{kind:'num',ans:a},explain:'\\(a=\\frac{'+y2+'-'+pT(fr(y1))+'}{'+x2+'-'+pT(fr(x1))+'}='+a.tex()+'\\)'};}
+    case 'vrch':{const m=rng.int(-4,4),n=rng.int(-5,5);const p=[fr(m*m+n),fr(-2*m),fr(1)];
+      return {id,q:'Urči vrchol paraboly \\(y='+P.tex(p)+'\\) (zapiš jako [x;y]).',part:{kind:'points',single:true,ans:[[fr(m),fr(n)]]},explain:'\\(x_V=-\\frac{b}{2a}='+m+'\\), \\(y_V='+n+'\\), \\(V=['+m+';'+n+']\\)'};}
+    case 'disk':{const a=rng.nz(-3,3),b=rng.int(-6,6),c=rng.int(-6,6);const D=fr(b*b-4*a*c);
+      return {id,q:'Vypočítej diskriminant \\('+P.tex([fr(c),fr(b),fr(a)])+'=0\\).',part:{kind:'num',ans:D},explain:'\\(D='+pT(fr(b))+'^2-4\\cdot'+pT(fr(a))+'\\cdot'+pT(fr(c))+'='+D.tex()+'\\)'};}
+    case 'prus':{if(rng.chance(0.5)){const a=rng.nz(-3,3),b=rng.int(-6,6),c=rng.int(-9,9);
+        return {id,q:'Průsečík grafu \\(y='+P.tex([fr(c),fr(b),fr(a)])+'\\) s osou y:',part:{kind:'points',single:true,ans:[[fr(0),fr(c)]]},explain:'Dosadíme x = 0: \\([0;'+c+']\\)'};}
+      const a=rng.nz(-4,4),b=rng.int(-8,8);const x0=fr(-b,a);
+      return {id,q:'Průsečík přímky \\(y='+linTexAB(fr(a),fr(b))+'\\) s osou x:',part:{kind:'points',single:true,ans:[[x0,fr(0)]]},explain:'y = 0: \\(x='+x0.tex()+'\\), bod \\(['+x0.tex()+';0]\\)'};}
+  }
+}
+
+/* ---------- registr témat ---------- */
+const TOPICS={
+  cramer:{name:'Determinanty a Cramerovo pravidlo',short:'Determinanty',glyph:'|A|',gen:genCramer},
+  gauss:{name:'Matice a Gaussova eliminace',short:'Matice a Gauss',glyph:'[ | ]',gen:(r,d)=>genGauss(r,d,3)},
+  pocet:{name:'Počet řešení soustavy',short:'Počet řešení',glyph:'0 | c',gen:genPocet},
+  rovnice:{name:'Lomené rovnice',short:'Lomené rovnice',glyph:'a/b=c',gen:genRov},
+  nerovnice:{name:'Lomené nerovnice',short:'Lomené nerovnice',glyph:'a/b≤0',gen:genIneq},
+  vyrazy:{name:'Algebraické výrazy',short:'Výrazy',glyph:'(x−2)',gen:genExpr},
+  linear:{name:'Lineární funkce',short:'Lineární funkce',glyph:'y=ax+b',gen:genLin},
+  slovni:{name:'Slovní úlohy – lineární funkce',short:'Slovní úlohy',glyph:'km→Kč',gen:genWord},
+  kvadr:{name:'Kvadratické funkce',short:'Kvadratické funkce',glyph:'x²',gen:genQuad},
+  prusecik:{name:'Průsečíky dvou funkcí',short:'Průsečíky',glyph:'f=g',gen:genInter},
+  teorie:{name:'Teoretické otázky',short:'Teorie',glyph:'?',gen:null}
+};
+function genProblem(topic,diff,rng){
+  rng=rng||new Rng();
+  if(topic==='gauss4') return genGauss(rng,3,4);
+  if(topic==='teorie'){const i=rng.int(0,THEORY_Q.length-1);return buildTheoryQ(THEORY_Q[i],i);}
+  return TOPICS[topic].gen(rng,diff);
+}
+
+/* ---------- písemka ---------- */
+function buildExam(rng,variant){
+  const B=variant==='A'?[genIneq(rng,3),genQuad(rng,2),genWord(rng,2)]:variant==='B'?[genExpr(rng,3),genInter(rng,2),genRov(rng,3)]:
+    [rng.chance(.5)?genIneq(rng,3):genExpr(rng,3),rng.pick([genQuad,genInter,genLin])(rng,2),rng.chance(.5)?genWord(rng,2):genRov(rng,3)];
+  return [genCramer(rng,2),genGauss(rng,2,3),...B];
+}
+function gradeOf(pct){return pct>=90?1:pct>=75?2:pct>=60?3:pct>=45?4:5;}
+
+/* ---------- vzorové (pevné) příklady – typy z písemky ---------- */
+const PRESETS={
+  cramer:()=>buildCramer([[1,1,-2],[4,3,-3],[5,1,5]],[-1,-1,2],2,{title:'Vzorový příklad z písemky'}),
+  gauss:()=>buildGauss([[1,1,-1],[1,-1,1],[-1,1,1]],[17,13,7],2,{title:'Vzorový příklad'}),
+  pocet:()=>buildPocet([[1,2,-1,3,5],[0,1,3,2,6],[0,0,1,0,1],[0,0,0,0,0]],1),
+  rovnice:()=>buildRov({v:'x',factors:[xp(3),X1],L:[{num:P.lin(1,-2),fac:[0]},{num:[fr(15)],fac:[0,1],show:'exp'}],R:[{num:[fr(6)],fac:[0]},{num:[fr(-3,2)],fac:[]}]},3,{title:'Vzorový příklad z písemky'}),
+  nerovnice:()=>buildIneq({num:P.mul(X1,xp(3)),den:P.mul(xp(4),xp(-4)),rhs:0,rel:'<='},3,{title:'Vzorový příklad z písemky'}),
+  vyrazy:()=>buildExpr({v:'x',title:'Vzorový příklad',task:'Urči podmínky a zjednoduš výraz:',tex:'\\frac{x^2-9}{x^2+2x}\\cdot\\frac{x+1}{x-3} : \\frac{x+3}{x+2}',conds:[fr(-3),fr(-2),fr(0),fr(3)],
+    condWhy:'',res:{num:xp(-1),den:X1},hints:['',''],steps:[
+      {t:'Rozklady',h:'\\[x^2-9=(x-3)(x+3),\\qquad x^2+2x=x(x+2)\\]'},
+      {t:'Podmínky',h:'<div class="cond">Jmenovatele: \\(x\\neq0,\\ x\\neq-2,\\ x\\neq3\\). Dělíme zlomkem \\(\\frac{x+3}{x+2}\\), proto i \\(x+3\\neq0\\Rightarrow x\\neq-3\\).</div>'},
+      {t:'Dělení → násobení převrácenou hodnotou',h:'\\[\\frac{(x-3)(x+3)}{x(x+2)}\\cdot\\frac{x+1}{x-3}\\cdot\\frac{x+2}{x+3}\\]'},
+      {t:'Krácení',h:'<p>Krátíme činitele \\((x-3)\\), \\((x+3)\\), \\((x+2)\\):</p>\\[=\\frac{x+1}{x}\\]'}]},2),
+  linear:()=>buildLin([3,2],[-1,4],{k:2,rel:'>',x3:5,title:'Vzorový příklad z písemky'}),
+  slovni:()=>buildWord(WORD_T.find(t=>t.id==='teplota'),{a:fr(9,5),b:32,xs:[8,24],x3:37,x4:20},2),
+  kvadr:()=>buildQuad(1,-2,3,{title:'Vzorový příklad z písemky'}),
+  prusecik:()=>buildInter([fr(3),fr(-2),fr(1)],[fr(3),fr(2)],{})
+};
+
+/* =====================================================================
+   OBSAH: krátká teorie, teoretické otázky, „Najdi chybu“
+   ===================================================================== */
+const SARRUS_SVG=(()=>{
+  const L=[['a','b','c'],['d','e','f'],['g','h','i'],['a','b','c'],['d','e','f']];
+  const X=c=>34+c*46, Y=r=>26+r*34;
+  let s='<svg class="sarrus" viewBox="0 0 160 190" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Sarrusovo pravidlo – první dva řádky opsané pod matici">';
+  for(let k=0;k<3;k++) s+='<line class="dg plus" x1="'+(X(0)-12)+'" y1="'+(Y(k)-14)+'" x2="'+(X(2)+12)+'" y2="'+(Y(k+2)+8)+'"/>';
+  for(let k=0;k<3;k++) s+='<line class="dg minus" x1="'+(X(2)+12)+'" y1="'+(Y(k)-14)+'" x2="'+(X(0)-12)+'" y2="'+(Y(k+2)+8)+'"/>';
+  s+='<line class="sep" x1="10" y1="'+(Y(3)-20)+'" x2="150" y2="'+(Y(3)-20)+'"/>';
+  L.forEach((row,r)=>row.forEach((t,col)=>{s+='<text class="'+(r>2?'rep':'')+'" x="'+X(col)+'" y="'+(Y(r)+6)+'" text-anchor="middle">'+t+'</text>';}));
+  return s+'</svg>';
+})();
+const STAIRS_HTML=(()=>{
+  const M=[['1','*','*','*'],['0','1','*','*'],['0','0','1','*'],['0','0','0','1']];
+  return '<table class="stairs">'+M.map((r,i)=>'<tr>'+r.map((c,j)=>'<td class="'+(j<i?'z':j===i?'pv':'')+'">'+c+'</td>').join('')+'</tr>').join('')+'</table>';
+})();
+
+const THEORY={
+cramer:String.raw`
+<p><b>Determinant</b> je číslo, které přiřadíme čtvercové matici. U soustavy nám řekne, jestli má právě jedno řešení.</p>
+<h4>Determinant 2 × 2</h4>
+\[\begin{vmatrix} a & b \\ c & d \end{vmatrix}=ad-bc\qquad\text{např. }\begin{vmatrix} 2 & -3 \\ 4 & 1 \end{vmatrix}=2\cdot1-(-3)\cdot4=14\]
+<h4>Determinant 3 × 3 – Sarrusovo pravidlo</h4>
+<div class="twocol"><div>${SARRUS_SVG}</div><div><p>Opiš <b>první dva řádky pod</b> matici (pod čáru).</p><p><span class="tag-plus">hlavní diagonály ↘</span> (zleva shora doprava dolů) sečti,<br><span class="tag-minus">vedlejší diagonály ↙</span> (zprava shora doleva dolů) odečti.</p><p>Každá diagonála má 3 čísla, každé ze tří řádků jedno.</p></div></div>
+\[D=aei+dhc+gbf-ceg-fha-ibd\]
+<div class="warnbox">Záporná čísla v součinu dávej do závorky. Nejčastější chyba: vedlejší diagonály se <b>odčítají</b>, i když je jejich součin záporný (pak vznikne +).</div>
+<h4>Cramerovo pravidlo</h4>
+<p>\(D\) = determinant matice koeficientů. \(D_x\) vznikne, když v ní nahradíš 1. sloupec (u x) sloupcem pravých stran; \(D_y\) – 2. sloupec, \(D_z\) – 3. sloupec.</p>
+\[x=\frac{D_x}{D},\qquad y=\frac{D_y}{D},\qquad z=\frac{D_z}{D}\]
+<p><b>D ≠ 0</b> → soustava má právě jedno řešení a Cramer funguje.<br><b>D = 0</b> → Cramer použít nejde; soustava má buď žádné, nebo nekonečně mnoho řešení – rozhodne Gaussova eliminace.</p>`,
+
+gauss:String.raw`
+<p><b>Matice</b> je tabulka čísel. Má <b>řádky</b> (vodorovně) a <b>sloupce</b> (svisle). Rozměr \(m\times n\) = m řádků, n sloupců.</p>
+<p><b>Matice koeficientů</b> obsahuje jen čísla u neznámých. <b>Rozšířená matice</b> má navíc za svislou čarou pravé strany. Čára zastupuje rovnítko.</p>
+\[\begin{aligned} x+y-z&=17\\ x-y+z&=13\\ -x+y+z&=7\end{aligned}\qquad\longrightarrow\qquad\left[\begin{array}{rrr|r}1&1&-1&17\\1&-1&1&13\\-1&1&1&7\end{array}\right]\]
+<h4>Povolené řádkové úpravy</h4>
+<ul class="ops"><li>\(R_i\leftrightarrow R_j\) – prohození řádků</li><li>\(R_i\to kR_i,\ k\neq0\) – vynásobení nenulovým číslem</li><li>\(R_i\to R_i+kR_j\) – přičtení násobku jiného řádku</li></ul>
+<p>Každou úpravu proveď s <b>celým</b> řádkem – i s číslem za čarou.</p>
+<h4>Schodový tvar</h4>
+<div class="twocol"><div>${STAIRS_HTML}</div><div><p><b>Pivot</b> = první nenulové číslo v řádku. Pod každým pivotem jsou nuly a každý další pivot je víc vpravo – vznikají „schody“.</p><div class="okbox">Cílem není jednotková matice. Stačí nuly pod pivoty, pak dopočítáš neznámé odspodu (zpětný chod).</div></div></div>
+<h4>Kolik má soustava řešení?</h4>
+<div class="tscroll"><table class="cases"><thead><tr><th>Případ</th><th>Příklad (schodový tvar)</th><th>Poznáš to</th></tr></thead><tbody>
+<tr><td><b>Právě jedno</b></td><td>\(\left[\begin{array}{rrr|r}1&2&1&5\\0&1&3&4\\0&0&2&6\end{array}\right]\)</td><td>počet pivotů = počet neznámých (3 = 3)</td></tr>
+<tr><td><b>Nekonečně mnoho</b></td><td>\(\left[\begin{array}{rrrr|r}1&2&-1&3&5\\0&1&3&2&6\\0&0&1&0&1\\0&0&0&0&0\end{array}\right]\)</td><td>4 neznámé, 3 pivoty, žádný spor → 1 volná proměnná</td></tr>
+<tr><td><b>Žádné</b></td><td>\(\left[\begin{array}{rrr|r}1&2&1&4\\0&1&3&2\\0&0&0&5\end{array}\right]\)</td><td>řádek \(0\;0\;0\mid5\) znamená \(0=5\) – spor</td></tr>
+</tbody></table></div>
+<p><b>Hodnost</b> \(h(A)\) = počet nenulových řádků matice koeficientů ve schodovém tvaru, \(h(A|b)\) = totéž pro rozšířenou matici. \(n\) = počet neznámých.</p>
+<ul class="ops"><li>\(h(A)=h(A|b)=n\) → právě jedno řešení</li><li>\(h(A)=h(A|b)\lt n\) → nekonečně mnoho, volných proměnných je \(n-h\)</li><li>\(h(A)\neq h(A|b)\) → žádné řešení</li></ul>`,
+
+rovnice:String.raw`
+<p>Lomená rovnice má neznámou ve jmenovateli. Postup je pokaždé stejný:</p>
+<ol class="proc"><li><b>Podmínky</b> – rozlož jmenovatele, žádný nesmí být 0.</li><li><b>Společný jmenovatel</b> – součin všech různých činitelů.</li><li><b>Vynásob celou rovnici</b> – každý člen, i ten bez zlomku.</li><li><b>Vyřeš</b> vzniklou rovnici.</li><li><b>Zkontroluj kořeny proti podmínkám</b> – zakázaný kořen vyřaď.</li></ol>
+<div class="warnbox">Kořen, který porušuje podmínku, <b>není</b> řešením – i když ti „vyšel“. Pro takové x by se dělilo nulou.</div>
+\[\frac{3}{x-3}+\frac{x+3}{x}=\frac{x}{x-3},\quad x\neq0,\ x\neq3\;\Rightarrow\;3x+(x+3)(x-3)=x^2\;\Rightarrow\;x=3\ \text{✗}\;\Rightarrow\;K=\emptyset\]`,
+
+nerovnice:String.raw`
+<div class="warnbox"><b>Nenásob nerovnici výrazem s neznámou</b>, dokud nevíš jeho znaménko. Záporné číslo otáčí znak nerovnosti – a o jmenovateli to předem nevíš.</div>
+<ol class="proc"><li>Vše na jednu stranu: \(\ \dots\ \le 0\).</li><li>Jeden zlomek, rozklad čitatele i jmenovatele na součin.</li><li><b>Kritické body</b>: nulové body čitatele a jmenovatele.</li><li><b>Znaménková tabulka</b>: v každém intervalu dosaď testovací číslo.</li><li>Vyber intervaly a zapiš výsledek.</li></ol>
+\[\frac{x^2-3x}{x^2-16}\le0\;\Rightarrow\;\frac{x(x-3)}{(x-4)(x+4)}\le0\qquad\text{čitatel: }0,\ 3\qquad\text{jmenovatel: }-4,\ 4\]
+<h4>Závorky ve výsledku</h4>
+<ul class="ops"><li>Nulový bod <b>jmenovatele</b> – vždy kulatá závorka (dělení nulou).</li><li>Nulový bod <b>čitatele</b> – u \(\le,\ \ge\) lomená \(\langle\ \rangle\), u \(<,\ >\) kulatá.</li><li>\(\pm\infty\) – vždy kulatá.</li></ul>
+<p>Výsledek příkladu: \(K=(-4;\ 0\rangle\cup\langle3;\ 4)\).</p>`,
+
+vyrazy:String.raw`
+<h4>Rozklady, které musíš poznat</h4>
+<ul class="ops"><li>Vytýkání: \(x^2-3x=x(x-3)\)</li><li>Rozdíl čtverců: \(a^2-b^2=(a-b)(a+b)\), např. \(x^2-16=(x-4)(x+4)\)</li><li>Trojčlen: \(x^2+x-6=(x+3)(x-2)\) – čísla se součinem −6 a součtem 1</li></ul>
+<div class="warnbox"><b>Krátit se mohou činitelé, ne členy součtu.</b>
+\[\frac{(x-2)(x+3)}{(x-2)(x+5)}=\frac{x+3}{x+5}\ \text{✓}\qquad\qquad \frac{x+2}{x+5}\neq\frac{2}{5}\ \text{✗ (x je sčítanec)}\]</div>
+<h4>Podmínky</h4>
+<p>Čti je z <b>rozloženého</b> jmenovatele a piš je <b>před</b> krácením – po zkrácení zmizí, ale platí dál. Když dělíš zlomkem, nesmí být nula ani jeho čitatel.</p>
+<h4>Sčítání zlomků</h4>
+<p>Společný jmenovatel = součin všech různých činitelů. Každý zlomek rozšiř, sečti čitatele, roznásob, vytkni, zkrať.</p>`,
+
+linear:String.raw`
+\[f:\ y=ax+b\qquad a\ \text{– směrnice},\quad b\ \text{– absolutní člen (průsečík s osou y)}\]
+<ul class="ops"><li>\(a>0\) rostoucí, \(a<0\) klesající, \(a=0\) konstantní.</li><li>Průsečík s osou y: \([0;\ b]\). S osou x: polož \(y=0\), vyjde \(x=-\frac{b}{a}\).</li></ul>
+<h4>Rovnice ze dvou bodů</h4>
+\[a=\frac{y_2-y_1}{x_2-x_1}\qquad\text{pak dosaď jeden bod a dopočítej }b\]
+<p>Body \(K[3;2],\ L[-1;4]\): \(a=\frac{4-2}{-1-3}=-\frac12\), \(2=-\frac12\cdot3+b\Rightarrow b=\frac72\).</p>
+<h4>Nerovnice f(x) &gt; k</h4>
+<p>Řeš jako lineární nerovnici. <b>Dělíš-li záporným číslem, otoč znak.</b></p>
+<h4>Slovní úlohy</h4>
+<p>Dvě dvojice hodnot jsou dva body grafu. Např. „8 °C odpovídá 46,4 °F, 24 °C odpovídá 75,2 °F“ jsou body \([8;\ 46{,}4]\) a \([24;\ 75{,}2]\). Pak počítáš úplně stejně: \(a\) = změna za jednotku, \(b\) = počáteční hodnota.</p>`,
+
+kvadr:String.raw`
+<ul class="ops"><li>Obecný tvar: \(f(x)=ax^2+bx+c,\ a\neq0\)</li><li>Vrcholový tvar: \(f(x)=a(x-m)^2+n\) → vrchol \(V=[m;\ n]\)</li><li>Součinový tvar: \(f(x)=a(x-x_1)(x-x_2)\) – jen když existují kořeny</li></ul>
+<h4>Co z toho vyčteš</h4>
+<ul class="ops"><li>\(a>0\) parabola nahoru (minimum), \(a<0\) dolů (maximum).</li><li>Vrchol: \(x_V=-\frac{b}{2a},\ y_V=f(x_V)\). Osa souměrnosti: \(x=x_V\).</li><li>\(D=b^2-4ac\): \(D>0\) dva průsečíky s osou x, \(D=0\) jeden (dotyk), \(D<0\) žádný.</li><li>Průsečík s osou y: \([0;\ c]\).</li><li>\(D(f)=\mathbb{R}\); \(H(f)=\langle y_V;\infty)\) pro \(a>0\), \((-\infty;\ y_V\rangle\) pro \(a<0\).</li></ul>
+<h4>Doplnění na čtverec</h4>
+\[x^2-2x+3=(x^2-2x+1)-1+3=(x-1)^2+2\;\Rightarrow\;V=[1;\ 2],\ D=-8<0,\ H(f)=\langle2;\infty)\]
+<h4>Průsečíky dvou grafů</h4>
+<p>Polož \(f(x)=g(x)\), vyřeš rovnici a ke každému x dopočítej y. Výsledkem jsou <b>celé body</b> \([x;\ y]\).</p>`
+};
+THEORY.pocet=THEORY.gauss; THEORY.slovni=THEORY.linear; THEORY.prusecik=THEORY.kvadr;
+
+const THEORY_Q=[
+ {type:'open',q:'Co je determinant?',model:'Číslo přiřazené čtvercové matici. U soustavy rozhoduje: je-li D ≠ 0, má soustava právě jedno řešení.'},
+ {type:'mc',q:'Jak vypočítáme determinant \\(\\begin{vmatrix} a & b \\\\ c & d\\end{vmatrix}\\)?',options:['\\(ad-bc\\)','\\(ab-cd\\)','\\(ad+bc\\)','\\(ac-bd\\)'],ans:0,expl:'Součin na hlavní diagonále minus součin na vedlejší: ad − bc.'},
+ {type:'open',q:'Co je Sarrusovo pravidlo?',model:'Postup výpočtu determinantu 3×3: první dva řádky opíšeme pod matici, sečteme součiny na třech hlavních diagonálách a odečteme součiny na třech vedlejších.'},
+ {type:'tf',q:'Sarrusovo pravidlo lze použít i pro determinant 4 × 4.',ans:false,expl:'Nelze – Sarrusovo pravidlo platí jen pro matice 3 × 3.'},
+ {type:'mc',q:'Kdy lze použít Cramerovo pravidlo?',options:['Když je soustava čtvercová a D ≠ 0','Vždy','Jen když D = 0','Jen pro soustavy 2 × 2'],ans:0,expl:'Počet rovnic = počet neznámých a determinant soustavy nesmí být nula.'},
+ {type:'mc',q:'Co znamená D = 0?',options:['Soustava nemá právě jedno řešení – má žádné, nebo nekonečně mnoho','Řešení je x = y = z = 0','Soustava má vždy nekonečně mnoho řešení','Soustava nemá nikdy řešení'],ans:0,expl:'Při D = 0 Cramer nefunguje. O tom, jestli řešení není žádné, nebo jich je nekonečně, rozhodne Gauss.'},
+ {type:'mc',q:'Jak vznikne determinant \\(D_y\\)?',options:['V matici koeficientů nahradíme 2. sloupec pravými stranami','Nahradíme 1. sloupec pravými stranami','Vynecháme 2. řádek','Prohodíme 1. a 2. sloupec'],ans:0},
+ {type:'open',q:'Co je rozšířená matice soustavy?',model:'Matice koeficientů doplněná za svislou čarou o sloupec pravých stran.'},
+ {type:'tf',q:'Svislá čára v rozšířené matici zastupuje rovnítko.',ans:true,expl:'Vlevo jsou koeficienty (levé strany), vpravo pravé strany.'},
+ {type:'open',q:'Co je pivot?',model:'První nenulové číslo v řádku matice. Ve schodovém tvaru jsou pod pivoty nuly.'},
+ {type:'open',q:'Co je schodový tvar matice?',model:'Pod každým pivotem jsou nuly a pivot každého dalšího řádku je víc vpravo než předchozí. Nulové řádky jsou dole.'},
+ {type:'mc',q:'Která úprava NENÍ povolená řádková úprava?',options:['Vynásobit řádek nulou','Prohodit dva řádky','Vynásobit řádek číslem −3','Přičíst k řádku dvojnásobek jiného řádku'],ans:0,expl:'Násobit se smí jen nenulovým číslem – nulou bychom ztratili rovnici.'},
+ {type:'tf',q:'Při Gaussově eliminaci musíme vždy dojít až k jednotkové matici.',ans:false,expl:'Stačí schodový tvar, zbytek dopočítáme zpětným chodem.'},
+ {type:'mc',q:'Co znamená řádek \\(0\\;\\;0\\;\\;0\\mid 5\\)?',options:['Rovnici 0 = 5 – spor, soustava nemá řešení','Že z = 5','Volnou proměnnou','Nekonečně mnoho řešení'],ans:0},
+ {type:'mc',q:'Co znamená řádek \\(0\\;\\;0\\;\\;0\\mid 0\\)?',options:['Rovnici 0 = 0 – platí vždy, nic nového neříká','Spor','Že soustava nemá řešení','Že všechny neznámé jsou 0'],ans:0,expl:'Takový řádek můžeme vynechat. Rozhodne počet pivotů.'},
+ {type:'open',q:'Co je volná proměnná?',model:'Neznámá, ve které sloupci není pivot. Můžeme za ni zvolit libovolné číslo (parametr) – proto je řešení nekonečně mnoho.'},
+ {type:'mc',q:'Soustava má 4 neznámé a hodnost 3 (bez sporu). Kolik má volných proměnných?',options:['1','3','4','0'],ans:0,expl:'n − h = 4 − 3 = 1.'},
+ {type:'mc',q:'Kdy má soustava právě jedno řešení?',options:['\\(h(A)=h(A|b)=n\\)','\\(h(A)\\neq h(A|b)\\)','\\(h(A)=h(A|b)\\lt n\\)','\\(h(A)=0\\)'],ans:0},
+ {type:'open',q:'Co je definiční obor výrazu (funkce)?',model:'Množina všech hodnot proměnné, pro které má výraz smysl – např. jmenovatel není 0 a pod odmocninou není záporné číslo.'},
+ {type:'open',q:'Proč nesmí být jmenovatel nulový?',model:'Nulou dělit nelze – výraz by neměl smysl.'},
+ {type:'tf',q:'\\(\\frac{x+2}{x+5}=\\frac{2}{5}\\) – „x se zkrátí“.',ans:false,expl:'x je sčítanec, ne činitel. Krátit se smí jen činitelé.'},
+ {type:'tf',q:'Kořen lomené rovnice, který porušuje podmínku, do řešení nepatří.',ans:true},
+ {type:'open',q:'Jaký je rozdíl mezi rovnicí a nerovnicí?',model:'Rovnice hledá hodnoty, kde se obě strany rovnají (obvykle několik čísel). Nerovnice hledá, kde je jedna strana větší/menší – výsledkem bývá interval.'},
+ {type:'open',q:'Proč u lomené nerovnice nemůžeme bezmyšlenkovitě násobit jmenovatelem?',model:'Neznáme znaménko jmenovatele. Kdyby byl záporný, musel by se otočit znak nerovnosti. Proto vše převedeme na jednu stranu a použijeme znaménkovou tabulku.'},
+ {type:'open',q:'Co je nulový bod výrazu?',model:'Hodnota proměnné, pro kterou je výraz (činitel) roven nule. Např. x − 3 má nulový bod 3.'},
+ {type:'tf',q:'Nulový bod jmenovatele může patřit do řešení nerovnice typu „≤ 0“.',ans:false,expl:'Nikdy – v tomto bodě výraz není definován.'},
+ {type:'mc',q:'Co je směrnice lineární funkce \\(y=ax+b\\)?',options:['Číslo a – o kolik se změní y, když x vzroste o 1','Číslo b','Průsečík s osou x','Úhel 45°'],ans:0},
+ {type:'mc',q:'Kdy je lineární funkce rostoucí?',options:['Když a > 0','Když b > 0','Když a < 0','Vždy'],ans:0},
+ {type:'open',q:'Co nám říká diskriminant?',model:'D = b² − 4ac rozhoduje o počtu reálných kořenů kvadratické rovnice: D > 0 dva, D = 0 jeden (dvojnásobný), D < 0 žádný.'},
+ {type:'mc',q:'Parabola má D < 0. Co platí?',options:['Graf neprotíná osu x','Graf protíná osu x ve dvou bodech','Graf se dotýká osy x','Funkce není definovaná'],ans:0},
+ {type:'open',q:'Co je vrchol paraboly?',model:'Bod, kde funkce nabývá minima (a > 0) nebo maxima (a < 0). \\(V=[-\\frac{b}{2a};\\ f(-\\frac{b}{2a})]\\).'},
+ {type:'open',q:'Co je osa souměrnosti paraboly?',model:'Svislá přímka procházející vrcholem, \\(x=-\\frac{b}{2a}\\). Parabola je podle ní souměrná.'},
+ {type:'open',q:'Co je obor hodnot funkce?',model:'Množina všech hodnot y, kterých funkce nabývá. U paraboly s a > 0 je to \\(\\langle y_V;\\infty)\\).'},
+ {type:'mc',q:'Jak určíme průsečíky grafů f a g?',options:['Vyřešíme f(x) = g(x) a ke každému x dopočítáme y','Položíme x = 0','Položíme f(x) = 0','Sečteme předpisy'],ans:0},
+ {type:'tf',q:'Průsečík dvou grafů stačí zapsat jen jako x = 4.',ans:false,expl:'Průsečík je bod – musíš zapsat obě souřadnice, např. [4; 11].'}
+];
+
+const FIND_ERR=[
+ {title:'Krácení',lines:['\\frac{x+2}{x+5}','=\\frac{\\not x+2}{\\not x+5}','=\\frac{2}{5}'],bad:1,expl:'x je sčítanec, ne činitel. Krátit se smí jen stejný činitel celého čitatele i jmenovatele. Výraz už zjednodušit nejde.'},
+ {title:'Lomená rovnice',lines:['\\frac{2x}{x-1}=\\frac{2}{x-1}','2x=2','x=1','K=\\{1\\}'],bad:3,expl:'Chybí podmínka x ≠ 1. Kořen x = 1 ji porušuje, takže K = ∅.'},
+ {title:'Lomená nerovnice',lines:['\\frac{x-1}{x+2}>0\\quad\\big|\\cdot(x+2)','x-1>0','x>1'],bad:0,expl:'Násobit výrazem (x+2) nesmíme – pro x < −2 je záporný a znak by se otočil. Správně přes znaménkovou tabulku: K = (−∞; −2) ∪ (1; ∞).'},
+ {title:'Sarrusovo pravidlo',lines:['\\begin{vmatrix}1&2&0\\\\0&1&3\\\\2&0&1\\end{vmatrix}','=1\\cdot1\\cdot1+0\\cdot0\\cdot0+2\\cdot2\\cdot3','\\quad + (0\\cdot1\\cdot2+3\\cdot0\\cdot1+1\\cdot2\\cdot0)','=1+0+12+0=13'],bad:2,expl:'Součiny vedlejších diagonál se odčítají, ne přičítají. Tady to náhodou vyjde stejně (jsou nulové), ale postup je špatně – zvykni si psát minus.'},
+ {title:'Gaussova eliminace',lines:['\\left[\\begin{array}{rr|r}1&2&5\\\\2&1&4\\end{array}\\right]','R_2\\to R_2-2R_1','\\left[\\begin{array}{rr|r}1&2&5\\\\0&-3&4\\end{array}\\right]'],bad:2,expl:'Úpravu je nutné provést i s pravou stranou: 4 − 2·5 = −6. Správně je řádek (0; −3 | −6).'},
+ {title:'Rozklad',lines:['x^2+9','=(x+3)(x-3)'],bad:1,expl:'(x+3)(x−3) = x² − 9. Součet čtverců x² + 9 v reálných číslech na součin rozložit nejde.'},
+ {title:'Vrchol paraboly',lines:['f(x)=x^2-6x+5','x_V=-\\frac{b}{2a}=-\\frac{6}{2}=-3','V=[-3;\\ 32]'],bad:1,expl:'b = −6, takže \\(x_V=-\\frac{-6}{2}=3\\) a V = [3; −4]. Pozor na znaménko b.'},
+ {title:'Výsledek nerovnice',lines:['\\frac{x}{x-4}\\le0','\\text{body: } 0,\\ 4','K=\\langle0;\\ 4\\rangle'],bad:2,expl:'4 je nulový bod jmenovatele – do výsledku nepatří. Správně K = ⟨0; 4).'},
+ {title:'Lineární nerovnice',lines:['-2x>6','x>-3'],bad:1,expl:'Dělíme záporným číslem −2, znak se otočí: x < −3.'},
+ {title:'Sčítání zlomků',lines:['\\frac{1}{x}+\\frac{1}{x+1}','=\\frac{1+1}{x+x+1}','=\\frac{2}{2x+1}'],bad:1,expl:'Jmenovatele se nesčítají. Společný jmenovatel je x(x+1): \\(\\frac{x+1+x}{x(x+1)}=\\frac{2x+1}{x(x+1)}\\).'}
+];
+
+/* =====================================================================
+   UI 1 – MathJax, úložiště pokroku, vykreslení jedné úlohy
+   ===================================================================== */
+const $=(s,el=document)=>el.querySelector(s);
+const $$=(s,el=document)=>[...el.querySelectorAll(s)];
+
+/* ---------- MathJax ---------- */
+const MJ={ready:false,queue:[],p:Promise.resolve()};
+function typeset(el){
+  el=el||document.body;
+  if(!MJ.ready||!window.MathJax||!MathJax.typesetPromise){MJ.queue.push(el);return Promise.resolve();}
+  MJ.p=MJ.p.then(()=>document.body.contains(el)?MathJax.typesetPromise([el]):null).catch(e=>console.warn('MathJax',e));
+  return MJ.p;
+}
+function clearMath(el){if(MJ.ready&&window.MathJax&&MathJax.typesetClear){try{MathJax.typesetClear([el]);}catch(e){}}}
+window.__mjReady=function(){MJ.ready=true;const q=MJ.queue.splice(0);q.forEach(el=>typeset(el));};
+
+/* ---------- úložiště ---------- */
+const LS_KEY='matikaTrenink_radovan_v1';
+const Store={
+  d:null,mem:false,
+  fresh(){return {solved:0,correct:0,wrong:0,streak:0,best:0,topics:{},mistakes:{},daily:null,dailyHist:[],drill:null,exams:[],diff:{}};},
+  load(){let d=null;try{d=JSON.parse(localStorage.getItem(LS_KEY));}catch(e){this.mem=true;}this.d=Object.assign(this.fresh(),d||{});},
+  save(){try{localStorage.setItem(LS_KEY,JSON.stringify(this.d));}catch(e){this.mem=true;}},
+  topic(id){return this.d.topics[id]||(this.d.topics[id]={n:0,scores:[]});},
+  record(topic,score,correct){
+    const t=this.topic(topic); t.n++; t.scores.push(Math.round(score*100)); if(t.scores.length>10) t.scores.shift();
+    this.d.solved++;
+    if(correct){this.d.correct++;this.d.streak++;this.d.best=Math.max(this.d.best,this.d.streak);}
+    else{this.d.wrong++;this.d.streak=0;}
+    this.save();
+  },
+  mistake(topic){this.d.mistakes[topic]=(this.d.mistakes[topic]||0)+1;this.save();},
+  progress(topic){const t=this.d.topics[topic];if(!t||!t.scores.length) return null;return Math.round(t.scores.reduce((a,b)=>a+b,0)/t.scores.length);},
+  reset(){this.d=this.fresh();try{localStorage.removeItem(LS_KEY);}catch(e){}}
+};
+function todayStr(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function fmtTime(ms){ms=Math.max(0,ms);const s=Math.ceil(ms/1000);return Math.floor(s/60)+':'+String(s%60).padStart(2,'0');}
+
+/* ---------- jedna část úlohy ---------- */
+let UID=0;
+function renderPart(p,onEnter){
+  const id='p'+(++UID);
+  const el=document.createElement('div'); el.className='part k-'+p.kind;
+  const fbH='<div class="fb" aria-live="polite"></div>';
+  let get=()=>'', lock=()=>{}, focus=()=>{};
+  const enter=inp=>inp.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();onEnter&&onEnter();}});
+  switch(p.kind){
+    case 'num': case 'list': case 'points': case 'expr': case 'interval':{
+      el.innerHTML='<label class="pl" for="'+id+'">'+p.label+'</label><div class="pin"><input id="'+id+'" class="in '+(p.kind==='num'?'w-s':'w-l')+'" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="'+(p.placeholder||'')+'"></div>'+fbH;
+      const inp=$('input',el); enter(inp); get=()=>inp.value; focus=()=>inp.focus(); lock=()=>{inp.readOnly=true;}; break;}
+    case 'choice':{
+      el.innerHTML='<fieldset><legend class="pl">'+p.label+'</legend><div class="opts">'+p.options.map(o=>'<label class="opt"><input type="radio" name="'+id+'" value="'+o.v+'"><span>'+o.l+'</span></label>').join('')+'</div></fieldset>'+fbH;
+      get=()=>{const c=$('input:checked',el);return c?c.value:'';}; lock=()=>$$('input',el).forEach(i=>{i.disabled=true;}); focus=()=>$('input',el).focus(); break;}
+    case 'matrix':{
+      let h='<div class="pl">'+p.label+'</div><div class="mgrid-wrap"><table class="mgrid"><tbody>';
+      for(let i=0;i<p.rows;i++){h+='<tr>';for(let j=0;j<p.cols;j++) h+='<td'+(p.aug&&j===p.cols-1?' class="rhs"':'')+'><input type="text" autocomplete="off" aria-label="řádek '+(i+1)+', sloupec '+(j+1)+'" data-i="'+i+'" data-j="'+j+'"></td>';h+='</tr>';}
+      el.innerHTML=h+'</tbody></table></div>'+fbH;
+      const cell=(i,j)=>$('input[data-i="'+i+'"][data-j="'+j+'"]',el);
+      get=()=>{const R=[];for(let i=0;i<p.rows;i++){R.push([]);for(let j=0;j<p.cols;j++) R[i].push(cell(i,j).value);}return R;};
+      $$('input',el).forEach(enter); lock=()=>$$('input',el).forEach(i=>{i.readOnly=true;}); focus=()=>cell(0,0).focus(); p._cell=cell; break;}
+    case 'relnum':{
+      el.innerHTML='<label class="pl" for="'+id+'">'+p.label+'</label><div class="pin">\\(x\\)<select aria-label="znak nerovnosti"><option value="">znak…</option><option value=">">&gt;</option><option value="<">&lt;</option><option value=">=">≥</option><option value="<=">≤</option></select><input id="'+id+'" class="in w-s" type="text" autocomplete="off" placeholder="číslo"></div>'+fbH;
+      const s=$('select',el),inp=$('input',el); enter(inp); get=()=>({rel:s.value,val:inp.value}); lock=()=>{s.disabled=true;inp.readOnly=true;}; focus=()=>s.focus(); break;}
+    case 'range':{
+      el.innerHTML='<label class="pl" for="'+id+'">'+p.label+'</label><div class="pin"><select aria-label="tvar intervalu"><option value="">tvar…</option><option value="up">⟨ h ; ∞)</option><option value="down">(−∞ ; h ⟩</option></select><span>h =</span><input id="'+id+'" class="in w-s" type="text" autocomplete="off"></div>'+fbH;
+      const s=$('select',el),inp=$('input',el); enter(inp); get=()=>({dir:s.value,val:inp.value}); lock=()=>{s.disabled=true;inp.readOnly=true;}; focus=()=>s.focus(); break;}
+    case 'signs':{
+      const I=p.I, arr=I.signs.map(()=>0);
+      el.innerHTML='<div class="pl">'+p.label+'</div><div class="tscroll"><table class="signpick"><thead><tr>'+I.tests.map((_,i)=>'<th>\\('+intervalLabel(I.pts,i)+'\\)</th>').join('')+'</tr></thead><tbody><tr>'+I.tests.map((_,i)=>'<td><button type="button" class="sgn" data-i="'+i+'" aria-label="znaménko v '+(i+1)+'. intervalu">?</button></td>').join('')+'</tr></tbody></table></div>'+fbH;
+      $$('.sgn',el).forEach(b=>{b.onclick=()=>{const i=+b.dataset.i;arr[i]=arr[i]===1?-1:1;b.textContent=arr[i]>0?'+':'−';b.className='sgn '+(arr[i]>0?'plus':'minus');b.closest('td').classList.remove('wrong');};});
+      get=()=>arr.slice(); lock=()=>$$('.sgn',el).forEach(b=>{b.disabled=true;}); focus=()=>$('.sgn',el).focus(); break;}
+    case 'pick':{
+      const I=p.I; let h='<div class="pl">'+p.label+'</div><div class="pickline">';
+      for(let i=0;i<=I.pts.length;i++){
+        h+='<label class="pk iv"><input type="checkbox" data-t="I" data-i="'+i+'"><span>\\('+intervalLabel(I.pts,i)+'\\)</span></label>';
+        if(i<I.pts.length) h+='<label class="pk pt"><input type="checkbox" data-t="P" data-i="'+i+'"><span>bod \\('+I.pts[i].tex()+'\\)</span></label>';
+      }
+      el.innerHTML=h+'</div><div class="pickres"></div>'+fbH;
+      get=()=>{const r={I:[],P:[]};$$('input',el).forEach(c=>{r[c.dataset.t][+c.dataset.i]=c.checked;});return r;};
+      const upd=()=>{const g=get();const segs=buildSegs(I.pts,I.inclI.map((_,i)=>!!g.I[i]),I.pts.map((_,i)=>!!g.P[i]));const pr=$('.pickres',el);clearMath(pr);pr.innerHTML='Tvůj výsledek: \\(K='+segsTex(segs)+'\\)';typeset(pr);};
+      $$('input',el).forEach(c=>c.addEventListener('change',upd));
+      lock=()=>$$('input',el).forEach(i=>{i.disabled=true;}); focus=()=>$('input',el).focus(); break;}
+    case 'self':{
+      el.innerHTML='<div class="pl">'+p.label+'</div><textarea rows="3" class="in" aria-label="Tvoje odpověď"></textarea><div class="selfrow"><button type="button" class="btn" data-s="show">Porovnat se vzorovou odpovědí</button></div>'+
+        '<div class="model" hidden><b>Vzorová odpověď:</b> '+p.model+'<div class="selfrow"><button type="button" class="btn ok" data-s="y">Věděl/a jsem ✓</button><button type="button" class="btn" data-s="n">Nevěděl/a jsem</button></div></div>';
+      $('[data-s=show]',el).onclick=()=>{$('.model',el).hidden=false;typeset($('.model',el));};
+      $('[data-s=y]',el).onclick=()=>p._self&&p._self(true);
+      $('[data-s=n]',el).onclick=()=>p._self&&p._self(false);
+      break;}
+  }
+  const fb=$('.fb',el);
+  p._get=get; p._lock=lock; p._focus=focus; p._el=el;
+  p._mark=(cls,msg,r)=>{
+    el.classList.remove('ok','bad','inv'); el.classList.add(cls);
+    if(fb){clearMath(fb);fb.innerHTML=msg;typeset(fb);}
+    if(p.kind==='matrix'){$$('td',el).forEach(td=>td.classList.remove('wrong'));if(r&&r.bad) r.bad.forEach(([i,j])=>p._cell(i,j).closest('td').classList.add('wrong'));}
+    if(p.kind==='signs'){$$('td',el).forEach(td=>td.classList.remove('wrong'));if(r&&r.wrong) r.wrong.forEach(i=>$('.sgn[data-i="'+i+'"]',el).closest('td').classList.add('wrong'));}
+  };
+  return el;
+}
+
+/* ---------- celá úloha ---------- */
+const DIFF_NAME={1:'Lehké',2:'Střední',3:'Těžké'};
+function mountProblem(host,prob,opt={}){
+  const exam=opt.mode==='exam';
+  const parts=exam?(prob.examParts||prob.parts):prob.parts;
+  const isTheory=prob.topic==='teorie';
+  const st={hints:[false,false],steps:0,sol:false,failed:false,mistake:false,done:false,ok:{},stage:exam?99:0};
+  const maxStage=Math.max(0,...parts.map(p=>p.stage||0));
+  const hasCheck=parts.some(p=>p.kind!=='self');
+  clearMath(host);
+  host.innerHTML='<article class="prob'+(prob.diff===3&&!isTheory?' is-hard':'')+'">'+
+    '<header class="ph"><span class="chip">'+(TOPICS[prob.topic]?TOPICS[prob.topic].short:'')+'</span>'+(isTheory?'':'<span class="chip d'+prob.diff+'">'+DIFF_NAME[prob.diff]+'</span>')+'<h3>'+prob.title+'</h3></header>'+
+    '<div class="stmt">'+prob.statement+'</div><div class="parts"></div>'+
+    (exam?'':'<div class="acts">'+
+      (hasCheck?'<button type="button" class="btn primary" data-a="check">Zkontrolovat</button>':'')+
+      (prob.checkOnly?'<button type="button" class="btn" data-a="checkOnly">Zkontrolovat pouze D</button>':'')+
+      (prob.hints&&prob.hints.length?'<button type="button" class="btn ghost" data-a="h0">Nápověda 1</button><button type="button" class="btn ghost" data-a="h1">Nápověda 2</button>':'')+
+      (!isTheory&&prob.steps.length?'<button type="button" class="btn ghost" data-a="step">Ukázat další krok</button><button type="button" class="btn ghost warn" data-a="sol">Ukázat řešení</button>':'')+
+      '</div>'+(isTheory?'':'<p class="cap"></p>')+'<div class="hintbox"></div><ol class="steps stepbox"></ol><div class="res" role="status" aria-live="polite"></div>'+
+      (opt.onNext?'<div class="nextwrap"><button type="button" class="btn next" data-a="next">'+(opt.nextLabel||'DALŠÍ PODOBNÝ PŘÍKLAD')+'</button></div>':''))+
+  '</article>';
+  const art=$('.prob',host), partsEl=$('.parts',art);
+  parts.forEach(p=>partsEl.appendChild(renderPart(p,()=>doCheck())));
+  const lockMsg=document.createElement('p'); lockMsg.className='lockmsg'; lockMsg.textContent='🔒 Další část se odemkne, až správně vyřešíš předchozí krok (nebo si ukážeš další krok řešení).';
+  if(!exam&&maxStage>0) partsEl.appendChild(lockMsg);
+  function showStages(){parts.forEach(p=>{p._el.hidden=(p.stage||0)>st.stage;});lockMsg.hidden=st.stage>=maxStage;}
+  showStages();
+  const capEl=$('.cap',art), resEl=$('.res',art), stepBox=$('.stepbox',art);
+  const aids=()=>st.hints.filter(Boolean).length+st.steps;
+  function cap(){if(st.sol) return 0;let c=aids()?Math.max(0.2,1-0.2*aids()):1;if(st.failed) c=Math.min(c,0.7);return c;}
+  function updCap(){if(!capEl||st.done) return;capEl.textContent='Za tuto úlohu teď můžeš získat max. '+Math.round(cap()*100)+' %'+(aids()?' (použité nápovědy a kroky: '+aids()+')':'')+(st.failed?', po opravě chyby max. 70 %':'')+'.';}
+  function setRes(cls,html){if(!resEl) return;clearMath(resEl);resEl.className='res '+cls;resEl.innerHTML=html;typeset(resEl);}
+  function revealStep(){
+    if(st.steps>=prob.steps.length) return;
+    const s=prob.steps[st.steps]; st.steps++;
+    const li=document.createElement('li'); li.innerHTML='<h4>'+s.t+'</h4>'+s.h; stepBox.appendChild(li); typeset(li);
+    if(prob.stageUnlock) for(const k in prob.stageUnlock) if(st.steps>prob.stageUnlock[k]&&st.stage<+k){st.stage=+k;showStages();}
+  }
+  function finish(success,how){
+    if(st.done) return; st.done=true;
+    const score=success?cap():0, correct=success&&!st.failed&&!st.sol;
+    Store.record(prob.topic,score,correct);
+    if(capEl) capEl.textContent='';
+    if(success) setRes('ok','<b>'+(correct?'Výborně, všechno správně!':'Hotovo.')+'</b> Získáváš '+Math.round(score*100)+' %.'+(st.failed?' Napoprvé to nevyšlo, ale chybu jsi opravil/a.':''));
+    else if(how==='self') setRes('bad','Nevadí – přečti si vzorovou odpověď a vrať se k otázce později.');
+    else setRes('bad','Řešení zobrazeno – za tuto úlohu 0 bodů. Projdi si postup a zkus další podobný příklad.<div class="sum"><b>Výsledek:</b> '+prob.summary+'</div>');
+    if(isTheory) while(st.steps<prob.steps.length) revealStep();
+    parts.forEach(p=>p._lock&&p._lock());
+    $$('.acts [data-a=check], .acts [data-a=checkOnly]',art).forEach(b=>{b.disabled=true;});
+    const nb=$('[data-a=next]',art); if(nb){nb.classList.add('pulse');}
+    opt.onFinish&&opt.onFinish({score,correct});
+  }
+  function doCheck(onlyId){
+    if(st.done||exam) return;
+    const vis=parts.filter(p=>p.kind!=='self'&&(p.stage||0)<=st.stage&&(!onlyId||p.id===onlyId));
+    let wrong=false, allOk=true;
+    for(const p of vis){
+      if(st.ok[p.id]) continue;
+      const r=checkPart(p,p._get());
+      if(r.ok){st.ok[p.id]=true;p._mark('ok','Správně ✓');p._lock();}
+      else{allOk=false;if(!r.invalid) wrong=true;p._mark(r.invalid?'inv':'bad',r.msg,r);}
+    }
+    if(wrong){st.failed=true;if(!st.mistake){st.mistake=true;Store.mistake(prob.topic);}}
+    updCap();
+    if(onlyId){setRes(allOk?'info':'bad-soft',allOk?'D je správně – pokračuj determinanty \\(D_x, D_y, D_z\\).':'D zatím nesedí – podívej se na poznámku u něj.');return;}
+    if(!allOk){setRes('bad-soft',wrong?'Něco nesedí – přečti si poznámku u označené části a oprav to.':'Doplň chybějící části.');return;}
+    if(st.stage<maxStage){st.stage++;showStages();setRes('info','Správně – pokračuj dalším krokem.');const nx=parts.find(p=>(p.stage||0)===st.stage);nx&&nx._focus();return;}
+    finish(true);
+  }
+  parts.forEach(p=>{if(p.kind==='self') p._self=ok=>{if(st.done) return;if(!ok) Store.mistake('teorie');finish(ok,ok?null:'self');};});
+  if(!exam){
+    updCap();
+    $('.acts',art).addEventListener('click',e=>{
+      const b=e.target.closest('button'); if(!b) return; const a=b.dataset.a;
+      if(a==='check') doCheck();
+      else if(a==='checkOnly') doCheck(prob.checkOnly);
+      else if(a==='h0'||a==='h1'){
+        const i=+a[1];
+        if(!st.done) st.hints[i]=true;
+        const d=document.createElement('div'); d.className='hint'; d.innerHTML='<b>Nápověda '+(i+1)+':</b> '+prob.hints[i];
+        $('.hintbox',art).appendChild(d); typeset(d); b.disabled=true; updCap();
+      }
+      else if(a==='step'){
+        if(st.steps>=prob.steps.length-1&&!st.done){st.sol=true;revealStep();finish(false);}
+        else{revealStep();updCap();}
+        if(st.steps>=prob.steps.length){b.disabled=true;const sb=$('[data-a=sol]',art);if(sb) sb.disabled=true;}
+      }
+      else if(a==='sol'){
+        if(!st.done) st.sol=true;
+        st.stage=maxStage; showStages();
+        while(st.steps<prob.steps.length) revealStep();
+        if(!st.done) finish(false);
+        b.disabled=true; const sb=$('[data-a=step]',art); if(sb) sb.disabled=true;
+      }
+    });
+    const nb=$('[data-a=next]',art); if(nb) nb.onclick=()=>opt.onNext();
+  }
+  return {
+    art,
+    evaluate(){
+      let ok=0; const wrong=[];
+      for(const p of parts){
+        const r=checkPart(p,p._get());
+        if(r.ok){ok++;p._mark('ok','Správně ✓');}
+        else{p._mark('bad',(r.invalid?'Nevyplněno nebo nečitelné. ':'')+'Správně: '+answerTex(p),r);wrong.push({label:p.label,ans:answerTex(p)});}
+        p._lock();
+      }
+      return {ok,total:parts.length,wrong};
+    }
+  };
+}
+function renderWorked(prob){
+  return '<div class="stmt">'+prob.statement+'</div><ol class="steps">'+prob.steps.map(s=>'<li><h4>'+s.t+'</h4>'+s.h+'</li>').join('')+'</ol><p class="sum"><b>Výsledek:</b> '+prob.summary+'</p>';
+}
+
+/* =====================================================================
+   UI 2 – stránky a router
+   ===================================================================== */
+const PROG=['cramer','gauss','pocet','rovnice','nerovnice','vyrazy','linear','slovni','kvadr','prusecik','teorie'];
+const PAGES={
+  cramer:{title:'Determinanty a Cramerovo pravidlo',glyph:'|A|',theory:'cramer',modes:[{id:'cramer',l:'Soustavy 3 × 3'}]},
+  gauss:{title:'Matice a Gaussova eliminace',glyph:'[ A | b ]',theory:'gauss',modes:[{id:'gauss',l:'Řešit soustavu'},{id:'pocet',l:'Kolik má řešení?'},{id:'gauss4',l:'Bonus 4 × 4'}]},
+  rovnice:{title:'Lomené rovnice',glyph:'a/b = c',theory:'rovnice',modes:[{id:'rovnice',l:'Lomené rovnice'}]},
+  nerovnice:{title:'Lomené nerovnice',glyph:'a/b ≤ 0',theory:'nerovnice',modes:[{id:'nerovnice',l:'Lomené nerovnice'}]},
+  vyrazy:{title:'Algebraické výrazy',glyph:'(x − 2)',theory:'vyrazy',modes:[{id:'vyrazy',l:'Úpravy výrazů'},{id:'chyba',l:'Najdi chybu'}]},
+  linear:{title:'Lineární funkce',glyph:'y = ax + b',theory:'linear',modes:[{id:'linear',l:'Funkce ze dvou bodů'},{id:'slovni',l:'Slovní úlohy'}]},
+  kvadr:{title:'Kvadratické funkce',glyph:'x²',theory:'kvadr',modes:[{id:'kvadr',l:'Vlastnosti funkce'},{id:'prusecik',l:'Průsečíky dvou funkcí'}]}
+};
+const TILES=[
+  {h:'#t/cramer',g:'|A|',n:'Determinanty a Cramerovo pravidlo',d:'Sarrus, D, Dₓ, D_y, D_z'},
+  {h:'#t/gauss',g:'[ A | b ]',n:'Matice a Gaussova eliminace',d:'schodový tvar, počet řešení'},
+  {h:'#t/rovnice',g:'a/b = c',n:'Lomené rovnice',d:'nejdřív podmínky'},
+  {h:'#t/nerovnice',g:'a/b ≤ 0',n:'Lomené nerovnice',d:'znaménková tabulka'},
+  {h:'#t/vyrazy',g:'(x − 2)',n:'Algebraické výrazy',d:'rozklady, krácení, najdi chybu'},
+  {h:'#t/linear',g:'y = ax + b',n:'Lineární funkce',d:'dva body, slovní úlohy'},
+  {h:'#t/kvadr',g:'x²',n:'Kvadratické funkce',d:'vrchol, D, graf, průsečíky'},
+  {h:'#pisemka',g:'45 min',n:'Mix jako písemka',d:'časovač, známka',sp:true},
+  {h:'#teorie',g:'?',n:'Teoretické otázky',d:THEORY_Q.length+' otázek'},
+  {h:'#chyby',g:'✗',n:'Moje chyby',d:'kde chybuješ nejvíc',sp:true}
+];
+const HERO_SVG=(()=>{
+  const M=[['1','2','−1','4'],['0','1','3','7'],['0','0','2','6']];
+  const cx=j=>44+j*58, ry=i=>46+i*54;
+  let s='<svg viewBox="0 0 290 200" class="hero-svg" xmlns="http://www.w3.org/2000/svg">';
+  [[0,0],[1,1],[2,2]].forEach(([i,j])=>{s+='<rect class="pv" x="'+(cx(j)-22)+'" y="'+(ry(i)-21)+'" width="44" height="42" rx="6"/>';});
+  s+='<path class="brk" d="M18 12 H8 V188 H18 M268 12 H278 V188 H268"/><line class="bar" x1="189" y1="12" x2="189" y2="188"/>';
+  M.forEach((r,i)=>r.forEach((t,j)=>{s+='<text class="'+(t==='0'?'z':'')+'" x="'+cx(j)+'" y="'+(ry(i)+11)+'" text-anchor="middle">'+t+'</text>';}));
+  s+='<path class="stair" d="M15 73 H73 V127 H131 V181"/>';
+  return s+'</svg>';
+})();
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+const barCls=v=>v==null?'':v<50?'lo':v<75?'mid':'hi';
+let cleanup=null;
+
+/* ---------- přehled ---------- */
+function pageHome(app){
+  const d=Store.d, pct=d.solved?Math.round(d.correct/d.solved*100):0;
+  const practiced=PROG.filter(t=>(d.topics[t]||{}).n>0).length;
+  const daily=d.daily&&d.daily.date===todayStr()?d.daily:null;
+  const stat=(k,v,c,s)=>'<div class="stat"><div class="v '+(c||'')+'">'+v+'</div><div class="k">'+k+'</div>'+(s?'<div class="s">'+s+'</div>':'')+'</div>';
+  const pageOf=t=>t==='pocet'?'#t/gauss/pocet':t==='slovni'?'#t/linear/slovni':t==='prusecik'?'#t/kvadr/prusecik':t==='teorie'?'#teorie':'#t/'+t;
+  app.innerHTML=
+  '<section class="hero"><div class="hero-txt"><h1>MATEMATIKA – TRÉNINK NA PÍSEMKU</h1><p class="lead">Cíl: umět každý typ příkladu samostatně a bez nápovědy.</p>'+
+  '<div class="reco"><h2>Dnešní doporučení</h2><ol><li><a href="#t/gauss">Matice a Gauss</a></li><li><a href="#t/nerovnice">Lomené nerovnice</a></li><li><a href="#t/kvadr">Kvadratické funkce</a></li><li><a href="#pisemka">1 cvičná písemka</a></li></ol><p class="why">Tyhle složitější úlohy dávají v písemce nejvíc bodů.</p></div>'+
+  '<div class="cta-row"><a class="btn primary" href="#dnes">'+(daily?'Dnešní trénink ✓ ('+daily.pct+' %)':'Dnešní trénink')+'</a><a class="btn" href="#dril">10 minut drilu</a><a class="btn" href="#pisemka">Vygenerovat písemku</a><a class="btn" href="#tisk">Pracovní list k tisku</a></div></div>'+
+  '<div class="hero-art" aria-hidden="true">'+HERO_SVG+'</div></section>'+
+  '<section class="dash" aria-labelledby="dash-h"><div class="dash-head"><h2 id="dash-h">Příprava z matematiky</h2><button type="button" class="btn small ghost" data-a="reset">Vynulovat pokrok</button></div>'+
+  '<div class="stats">'+stat('vyřešených úloh',d.solved)+stat('správně',d.correct,'ok')+stat('špatně',d.wrong,'bad')+stat('úspěšnost',d.solved?pct+' %':'–')+stat('série správných',d.streak,'','nejlepší: '+d.best)+stat('procvičená témata',practiced+' / '+PROG.length)+'</div>'+
+  '<div class="bars">'+PROG.map(t=>{const v=Store.progress(t);return '<a class="bar" href="'+pageOf(t)+'"><span class="bl">'+TOPICS[t].short+'</span><span class="bt"><span class="bf '+barCls(v)+'" style="width:'+(v||0)+'%"></span></span><span class="bv">'+(v==null?'—':v+' %')+'</span></a>';}).join('')+'</div>'+
+  '<p class="fine">Pokrok tématu = průměr bodů z posledních 10 úloh. Úloha se počítá jako „správně“, když ji vyřešíš napoprvé a bez zobrazení řešení.'+(Store.mem?' Prohlížeč neumožňuje ukládání – pokrok se po zavření ztratí.':' Ukládá se v tomto prohlížeči.')+'</p></section>'+
+  '<section class="tiles-sec"><h2>Témata</h2><div class="tiles">'+TILES.map(t=>'<a class="tile'+(t.sp?' special':'')+'" href="'+t.h+'"><span class="g">'+t.g+'</span><span class="n">'+t.n+'</span><span class="d">'+t.d+'</span></a>').join('')+'</div></section>';
+  $('[data-a=reset]',app).onclick=()=>{if(confirm('Opravdu vynulovat veškerý pokrok? Smažou se statistiky, chyby i historie. Nejde to vrátit.')){Store.reset();route();}};
+}
+
+/* ---------- téma ---------- */
+function pageTopic(app,pid,mid){
+  const pg=PAGES[pid], mode=(pg.modes.find(m=>m.id===mid)||pg.modes[0]).id;
+  const seen=(Store.d.topics[mode==='gauss4'?'gauss':mode]||{}).n>0;
+  const preset=PRESETS[mode==='gauss4'?'gauss':mode];
+  const hasDiff=mode!=='gauss4'&&mode!=='chyba';
+  const diff=Store.d.diff[mode]||2;
+  app.innerHTML='<nav class="crumbs"><a href="#">← Přehled</a></nav><header class="tp-head"><span class="tglyph">'+pg.glyph+'</span><h1>'+pg.title+'</h1></header>'+
+    (pg.modes.length>1?'<div class="tabs" role="tablist">'+pg.modes.map(m=>'<a role="tab" aria-selected="'+(m.id===mode)+'" class="tab'+(m.id===mode?' on':'')+'" href="#t/'+pid+'/'+m.id+'">'+m.l+'</a>').join('')+'</div>':'')+
+    (mode==='chyba'?'':'<details class="box teorie"'+(seen?'':' open')+'><summary>Teorie</summary><div class="box-in">'+THEORY[pg.theory]+'</div></details>'+
+      (preset?'<details class="box priklad"><summary>Vzorový příklad – celý postup</summary><div class="box-in" id="worked"></div></details>':''))+
+    '<section class="practice"><div class="pr-head"><h2>'+(mode==='chyba'?'Najdi chybu v cizím postupu':'Samostatný příklad')+'</h2>'+
+    (hasDiff?'<div class="diffsel" role="group" aria-label="Obtížnost">'+[1,2,3].map(d=>'<button type="button" class="d'+d+(d===diff?' on':'')+'" data-d="'+d+'" aria-pressed="'+(d===diff)+'">'+DIFF_NAME[d]+'</button>').join('')+'</div>':'')+
+    '</div><div id="ph"></div></section>';
+  const wk=$('#worked',app);
+  if(wk){const det=wk.closest('details');det.addEventListener('toggle',()=>{if(det.open&&!wk.dataset.done){wk.dataset.done='1';wk.innerHTML=renderWorked(preset());typeset(wk);}});}
+  const ph=$('#ph',app);
+  if(mode==='chyba'){findError(ph);return;}
+  $$('.diffsel button',app).forEach(b=>{b.onclick=()=>{Store.d.diff[mode]=+b.dataset.d;Store.save();$$('.diffsel button',app).forEach(x=>{x.classList.toggle('on',x===b);x.setAttribute('aria-pressed',x===b);});practice(ph,mode);};});
+  practice(ph,mode);
+}
+function practice(host,mode){
+  const diff=mode==='gauss4'?3:(Store.d.diff[mode]||2);
+  let prob=null;
+  for(let t=0;t<5&&!prob;t++){try{prob=genProblem(mode,diff,new Rng());}catch(e){console.warn(e);}}
+  if(!prob){host.innerHTML='<p class="res bad">Příklad se nepodařilo vytvořit. Zkus to znovu.</p>';return;}
+  window.__lastProb=prob;
+  mountProblem(host,prob,{mode:'practice',onNext:()=>{practice(host,mode);host.scrollIntoView({behavior:'smooth',block:'start'});}});
+  typeset(host);
+}
+
+/* ---------- najdi chybu ---------- */
+function findError(host){
+  const order=shuffle(FIND_ERR.map((_,i)=>i)); let k=0;
+  function show(){
+    const it=FIND_ERR[order[k%order.length]]; let tried=false, done=false;
+    clearMath(host);
+    host.innerHTML='<article class="prob"><header class="ph"><span class="chip">Najdi chybu</span><span class="chip">'+(k%order.length+1)+' / '+order.length+'</span><h3>'+it.title+'</h3></header>'+
+      '<p>Žák řešil úlohu takto. Klikni na řádek, kde je chyba.</p><ol class="ferr">'+it.lines.map((l,i)=>'<li><button type="button" class="fl" data-i="'+i+'">\\(\\displaystyle '+l+'\\)</button></li>').join('')+'</ol>'+
+      '<div class="res" role="status" aria-live="polite"></div><div class="nextwrap"><button type="button" class="btn next">DALŠÍ PODOBNÝ PŘÍKLAD</button></div></article>';
+    const res=$('.res',host);
+    $$('.fl',host).forEach(b=>{b.onclick=()=>{
+      if(done) return; const i=+b.dataset.i;
+      if(i===it.bad){done=true;b.classList.add('right');res.className='res ok';res.innerHTML='<b>Správně, chyba je tady.</b> '+it.expl;Store.record('teorie',tried?0.7:1,!tried);$('.next',host).classList.add('pulse');}
+      else{b.classList.add('wrong');if(!tried){tried=true;Store.mistake('teorie');}res.className='res bad-soft';res.innerHTML='Tento řádek je v pořádku. Hledej dál.';}
+      typeset(res);
+    };});
+    $('.next',host).onclick=()=>{k++;show();host.scrollIntoView({behavior:'smooth',block:'start'});};
+    typeset(host);
+  }
+  show();
+}
+
+/* ---------- teoretické otázky ---------- */
+function pageTheory(app){
+  const order=shuffle(THEORY_Q.map((_,i)=>i)); let k=0;
+  app.innerHTML='<nav class="crumbs"><a href="#">← Přehled</a></nav><header class="tp-head"><span class="tglyph">?</span><h1>Teoretické otázky</h1></header><p>Krátké otázky – výběr z možností, pravda/nepravda a otevřené otázky, u kterých se porovnáš se vzorovou odpovědí.</p><div id="qh"></div>';
+  const qh=$('#qh',app);
+  function show(){
+    const i=order[k%order.length]; const pr=buildTheoryQ(THEORY_Q[i],i); pr.title='Otázka '+(k%order.length+1)+' z '+order.length; window.__lastProb=pr;
+    mountProblem(qh,pr,{mode:'practice',nextLabel:'DALŠÍ OTÁZKA',onNext:()=>{k++;show();qh.scrollIntoView({behavior:'smooth',block:'start'});}});
+    typeset(qh);
+  }
+  show();
+}
+
+/* ---------- relace (dnešní trénink, slabiny) ---------- */
+function runSession(app,title,queue,onDone){
+  const res=[]; let i=0;
+  function show(){
+    if(i>=queue.length){onDone(res);return;}
+    const q=queue[i]; let prob=null;
+    for(let t=0;t<5&&!prob;t++){try{prob=genProblem(q.topic,q.diff,new Rng());}catch(e){}}
+    if(!prob){i++;show();return;}
+    clearMath(app);
+    app.innerHTML='<nav class="crumbs"><a href="#">← Přehled</a></nav><header class="sess-head"><h1>'+title+'</h1><div class="sess-prog"><span>Úloha '+(i+1)+' / '+queue.length+'</span><span class="bt"><span class="bf" style="width:'+(i/queue.length*100)+'%"></span></span></div></header><div id="sh"></div>';
+    let fin=null; window.__lastProb=prob;
+    mountProblem($('#sh',app),prob,{mode:'practice',nextLabel:i===queue.length-1?'DOKONČIT':'DALŠÍ ÚLOHA',onFinish:r=>{fin=r;},
+      onNext:()=>{res.push({topic:prob.topic,title:prob.title,score:fin?fin.score:0,correct:fin?fin.correct:false,skipped:!fin});i++;show();window.scrollTo(0,0);}});
+    typeset(app);
+  }
+  show();
+}
+function sessionSummary(res){
+  const pct=res.length?Math.round(res.reduce((a,r)=>a+r.score,0)/res.length*100):0;
+  return {pct,html:'<table class="tbl"><thead><tr><th>Úloha</th><th>Téma</th><th>Body</th></tr></thead><tbody>'+res.map((r,i)=>'<tr><td>'+(i+1)+'. '+r.title+'</td><td>'+TOPICS[r.topic].short+'</td><td>'+(r.skipped?'přeskočeno':Math.round(r.score*100)+' %')+'</td></tr>').join('')+'</tbody></table>'};
+}
+function pageDaily(app){
+  const d=Store.d, today=todayStr(), done=d.daily&&d.daily.date===today;
+  const hist=(d.dailyHist||[]).slice(-7).reverse();
+  app.innerHTML='<nav class="crumbs"><a href="#">← Přehled</a></nav><header class="tp-head"><h1>Dnešní trénink</h1></header>'+
+    '<div class="panel"><p>'+(done?'<b>Dnes už máš hotovo ('+d.daily.pct+' %).</b> Můžeš si ho dát znovu.':'Krátký mix na jeden zátah, zhruba 30–40 minut:')+'</p>'+
+    '<ul class="ops"><li>2 × determinanty</li><li>2 × matice (Gauss nebo počet řešení)</li><li>2 × lomená rovnice nebo nerovnice</li><li>2 × funkce</li><li>3 × teoretická otázka</li></ul>'+
+    '<button type="button" class="btn primary big" data-a="go">'+(done?'Spustit znovu':'Začít dnešní trénink')+'</button></div>'+
+    (hist.length?'<div class="panel"><h2>Poslední tréninky</h2><table class="tbl"><thead><tr><th>Datum</th><th>Výsledek</th></tr></thead><tbody>'+hist.map(h=>'<tr><td>'+h.date+'</td><td>'+h.pct+' %</td></tr>').join('')+'</tbody></table></div>':'');
+  $('[data-a=go]',app).onclick=()=>{
+    const pick=a=>a[Math.floor(Math.random()*a.length)];
+    const q=[{topic:'cramer',diff:2},{topic:'cramer',diff:2},{topic:'gauss',diff:2},{topic:pick(['gauss','pocet']),diff:2},
+      {topic:pick(['rovnice','nerovnice']),diff:2},{topic:pick(['rovnice','nerovnice']),diff:3},
+      {topic:pick(['linear','kvadr','prusecik','slovni']),diff:2},{topic:pick(['kvadr','prusecik']),diff:2},
+      {topic:'teorie',diff:1},{topic:'teorie',diff:1},{topic:'teorie',diff:1}];
+    runSession(app,'Dnešní trénink',q,res=>{
+      const s=sessionSummary(res);
+      Store.d.daily={date:todayStr(),pct:s.pct}; Store.d.dailyHist=(Store.d.dailyHist||[]).concat([{date:todayStr(),pct:s.pct}]).slice(-30); Store.save();
+      clearMath(app);
+      app.innerHTML='<nav class="crumbs"><a href="#">← Přehled</a></nav><div class="panel"><h1>Dnešní trénink dokončen.</h1><p class="lead">Průměrně '+s.pct+' % bodů.</p>'+s.html+'<p style="margin-top:14px"><a class="btn primary" href="#">Zpět na přehled</a> <a class="btn" href="#chyby">Moje chyby</a></p></div>';
+    });
+  };
+}
+
+/* ---------- moje chyby ---------- */
+function pageErrors(app){
+  const m=Store.d.mistakes, list=Object.keys(m).filter(t=>TOPICS[t]).sort((a,b)=>m[b]-m[a]);
+  const mx=list.length?m[list[0]]:1;
+  const cz=n=>n===1?'chyba':n>=2&&n<=4?'chyby':'chyb';
+  app.innerHTML='<nav class="crumbs"><a href="#">← Přehled</a></nav><header class="tp-head"><span class="tglyph">✗</span><h1>Moje chyby</h1></header>'+
+    (list.length?'<div class="panel"><p>Témata, ve kterých chybuješ nejčastěji (každá úloha se počítá jednou, i když ji opravuješ víckrát):</p><div class="errbars">'+
+      list.map(t=>'<div class="bar"><span class="bl">'+TOPICS[t].short+'</span><span class="bt"><span class="bf lo" style="width:'+Math.round(m[t]/mx*100)+'%"></span></span><span class="bv">'+m[t]+'</span></div>').join('')+
+      '</div><p>'+list.slice(0,3).map(t=>'<b>'+TOPICS[t].short+'</b> – '+m[t]+' '+cz(m[t])).join(', ')+'</p><a class="btn primary big" href="#slabiny">Procvičit moje slabiny</a></div>'
+    :'<div class="panel empty"><p><b>Zatím tu nic není.</b> Jakmile v nějaké úloze odpovíš špatně, objeví se tady téma a počet chyb.</p><a class="btn primary" href="#dnes">Spustit dnešní trénink</a></div>');
+}
+function pageWeak(app){
+  const m=Store.d.mistakes, list=Object.keys(m).filter(t=>TOPICS[t]).sort((a,b)=>m[b]-m[a]).slice(0,4);
+  if(!list.length){location.hash='#chyby';return;}
+  const tot=list.reduce((a,t)=>a+m[t],0), q=[];
+  for(let i=0;i<10;i++){let r=Math.random()*tot,t=list[0];for(const x of list){r-=m[x];if(r<=0){t=x;break;}}q.push({topic:t,diff:2});}
+  runSession(app,'Procvičení slabin',q,res=>{
+    const s=sessionSummary(res); clearMath(app);
+    app.innerHTML='<nav class="crumbs"><a href="#">← Přehled</a></nav><div class="panel"><h1>Hotovo – slabiny procvičeny.</h1><p class="lead">Průměrně '+s.pct+' % bodů.</p>'+s.html+'<p style="margin-top:14px"><a class="btn primary" href="#slabiny">Další kolo</a> <a class="btn" href="#">Přehled</a></p></div>';
+  });
+}
+
+/* ---------- 10 minut drilu ---------- */
+function pageDrill(app){
+  const last=Store.d.drill;
+  app.innerHTML='<nav class="crumbs"><a href="#">← Přehled</a></nav><header class="tp-head"><h1>10 minut drilu</h1></header>'+
+    '<div class="panel"><p>Krátké úlohy jedna za druhou: determinant 2 × 2, podmínky, krok Gaussovy eliminace, nulové body, znaménko na intervalu, směrnice, vrchol, diskriminant, průsečík. Odpověz a stiskni Enter.</p>'+
+    '<button type="button" class="btn primary big" data-a="go">Spustit dril (10:00)</button>'+(last?'<p class="fine">Minule ('+last.date+'): '+last.ok+' z '+last.n+' správně.</p>':'')+'</div>';
+  $('[data-a=go]',app).onclick=()=>run();
+  function run(){
+    const end=Date.now()+600000, stats={n:0,ok:0,by:{}}; let cur=null, answered=false;
+    app.innerHTML='<div class="drill"><div class="drill-top"><span class="timer" id="dt">10:00</span><span class="sc" id="dsc">0 / 0</span><button type="button" class="btn small" data-a="stop">Ukončit</button></div><div class="drill-card" id="dq"></div></div>';
+    const tick=setInterval(()=>{const left=end-Date.now();if(left<=0){done();return;}const t=$('#dt');if(t){t.textContent=fmtTime(left);t.classList.toggle('low',left<60000);}},250);
+    cleanup=()=>clearInterval(tick);
+    $('[data-a=stop]',app).onclick=()=>done();
+    next();
+    function next(){
+      cur=genDrill(new Rng()); answered=false; const dq=$('#dq'); clearMath(dq);
+      const isChoice=cur.part.kind==='choice';
+      dq.innerHTML='<div class="q">'+cur.q+'</div><div class="row">'+(isChoice?cur.part.options.map(o=>'<button type="button" class="btn big" data-v="'+o.v+'">'+o.l+'</button>').join(''):'<input class="in w-l" type="text" autocomplete="off" spellcheck="false" aria-label="Odpověď" placeholder="'+(cur.part.kind==='points'?'[x;y]':cur.part.kind==='list'||cur.part.kind==='row'?'odděl středníkem':'')+'"><button type="button" class="btn primary" data-a="ok">Zkontrolovat</button>')+'</div><div class="fb"></div>';
+      typeset(dq);
+      if(isChoice) $$('[data-v]',dq).forEach(b=>{b.onclick=()=>answer(b.dataset.v);});
+      else{const inp=$('input',dq);inp.focus();inp.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();answered?next():answer(inp.value);}});$('[data-a=ok]',dq).onclick=()=>answered?next():answer(inp.value);}
+    }
+    function answer(raw){
+      if(answered){next();return;}
+      const dq=$('#dq'), fb=$('.fb',dq), r=checkPart(cur.part,raw);
+      if(r.invalid){fb.className='fb bad';fb.innerHTML=r.msg;typeset(fb);return;}
+      answered=true; stats.n++; const b=stats.by[cur.id]||(stats.by[cur.id]={n:0,ok:0}); b.n++;
+      if(r.ok){stats.ok++;b.ok++;}else{Store.mistake(DRILL_TYPES.find(t=>t.id===cur.id).topic);}
+      fb.className='fb '+(r.ok?'ok':'bad'); fb.innerHTML=(r.ok?'✓ Správně. ':'✗ '+(r.msg||'Špatně.')+' ')+cur.explain+'<div style="margin-top:8px"><button type="button" class="btn" data-a="nx">Další (Enter)</button></div>';
+      typeset(fb); $('[data-a=nx]',fb).onclick=()=>next(); $('#dsc').textContent=stats.ok+' / '+stats.n;
+      $$('[data-v]',dq).forEach(x=>{x.disabled=true;});
+      const ok=$('[data-a=ok]',dq); if(ok) ok.textContent='Další'; const inp=$('input',dq); if(inp){inp.readOnly=true;inp.focus();}else $('[data-a=nx]',fb).focus();
+    }
+    function done(){
+      clearInterval(tick); cleanup=null;
+      Store.d.drill={date:todayStr(),n:stats.n,ok:stats.ok}; Store.save(); clearMath(app);
+      app.innerHTML='<nav class="crumbs"><a href="#">← Přehled</a></nav><div class="panel"><h1>Dril skončil</h1><p class="lead">'+stats.ok+' z '+stats.n+' správně'+(stats.n?' ('+Math.round(stats.ok/stats.n*100)+' %)':'')+'.</p>'+
+        (stats.n?'<table class="tbl"><thead><tr><th>Typ úlohy</th><th>Správně</th></tr></thead><tbody>'+DRILL_TYPES.filter(t=>stats.by[t.id]).map(t=>'<tr><td>'+t.name+'</td><td>'+stats.by[t.id].ok+' / '+stats.by[t.id].n+'</td></tr>').join('')+'</tbody></table>':'')+
+        '<p style="margin-top:14px"><button type="button" class="btn primary" data-a="again">Další dril</button> <a class="btn" href="#">Přehled</a></p></div>';
+      $('[data-a=again]',app).onclick=()=>run();
+    }
+  }
+}
+
+/* ---------- písemka ---------- */
+function pageExam(app){
+  app.innerHTML='<nav class="crumbs"><a href="#">← Přehled</a></nav><header class="tp-head"><span class="tglyph">45 min</span><h1>Mix jako písemka</h1></header>'+
+    '<div class="panel"><p>Pět úloh jako ve skutečné písemce: determinanty, Gauss, lomená nerovnice nebo výraz, funkce, slovní úloha nebo lomená rovnice. Během testu se nezobrazují nápovědy ani řešení.</p>'+
+    '<h2>Varianta</h2><div class="choicerow"><label><input type="radio" name="var" value="A" checked> A</label><label><input type="radio" name="var" value="B"> B</label><label><input type="radio" name="var" value="R"> náhodná</label></div>'+
+    '<h2>Čas</h2><div class="choicerow"><label><input type="radio" name="min" value="45" checked> 45 minut</label><label><input type="radio" name="min" value="60"> 60 minut</label></div>'+
+    '<button type="button" class="btn primary big" data-a="gen">Vygenerovat písemku</button><div id="prev"></div></div>'+
+    (Store.d.exams.length?'<div class="panel"><h2>Předchozí písemky</h2><table class="tbl"><thead><tr><th>Datum</th><th>Body</th><th>Známka</th></tr></thead><tbody>'+Store.d.exams.slice(-6).reverse().map(e=>'<tr><td>'+e.date+'</td><td>'+e.pct+' %</td><td>'+e.grade+'</td></tr>').join('')+'</tbody></table></div>':'');
+  $('[data-a=gen]',app).onclick=()=>{
+    const variant=$('input[name=var]:checked',app).value, minutes=+$('input[name=min]:checked',app).value;
+    let probs=null; for(let t=0;t<5&&!probs;t++){try{probs=buildExam(new Rng(),variant);}catch(e){}}
+    if(!probs) return;
+    $('#prev',app).innerHTML='<h2 style="margin-top:18px">Písemka je připravená</h2><ol>'+probs.map(p=>'<li>'+p.title+' <span class="fine">('+TOPICS[p.topic].short+', 10 b)</span></li>').join('')+'</ol><button type="button" class="btn next" data-a="start">START TESTU</button>';
+    $('[data-a=start]',app).onclick=()=>start(probs,variant,minutes);
+  };
+  function start(probs,variant,minutes){
+    const t0=Date.now(), end=t0+minutes*60000; let submitted=false;
+    clearMath(app);
+    app.innerHTML='<div class="exam-bar"><strong>Písemka'+(variant==='R'?'':' – varianta '+variant)+'</strong><span class="timer" id="et">'+minutes+':00</span><button type="button" class="btn" data-a="submit">Odevzdat test</button></div><div id="eres"></div><div id="eq"></div>';
+    const eq=$('#eq',app);
+    const apis=probs.map((p,i)=>{const s=document.createElement('section');s.className='exam-q';s.innerHTML='<h2>'+(i+1)+'. úloha <small>(10 bodů)</small></h2><div class="eh"></div><div class="pts"></div>';eq.appendChild(s);return {p,s,api:mountProblem($('.eh',s),p,{mode:'exam'})};});
+    typeset(eq);
+    const tick=setInterval(()=>{const left=end-Date.now();const t=$('#et');if(t){t.textContent=fmtTime(left);t.classList.toggle('low',left<5*60000);}if(left<=0) submit(true);},500);
+    cleanup=()=>clearInterval(tick);
+    $('[data-a=submit]',app).onclick=()=>{if(confirm('Opravdu odevzdat? Zbývá '+fmtTime(end-Date.now())+'.')) submit(false);};
+    function submit(auto){
+      if(submitted) return; submitted=true; clearInterval(tick); cleanup=null;
+      const used=Date.now()-t0; let pts=0; const errs=[], review=[];
+      apis.forEach((a,i)=>{
+        const r=a.api.evaluate(); const p=Math.round(10*r.ok/r.total*2)/2; pts+=p;
+        $('.pts',a.s).innerHTML='Body: '+p+' / 10';
+        const frac=r.ok/r.total; Store.record(a.p.topic,frac,frac===1); if(frac<1) Store.mistake(a.p.topic);
+        if(frac<0.7) review.push(a.p.topic);
+        r.wrong.forEach(w=>errs.push('<li><b>'+(i+1)+'. úloha</b> – '+w.label.replace(/<[^>]+>/g,'')+' Správně: '+w.ans+'</li>'));
+        const det=document.createElement('details');det.className='box priklad';det.innerHTML='<summary>Řešení '+(i+1)+'. úlohy</summary><div class="box-in"><ol class="steps">'+a.p.steps.map(s=>'<li><h4>'+s.t+'</h4>'+s.h+'</li>').join('')+'</ol></div>';a.s.appendChild(det);
+      });
+      const pct=Math.round(pts/50*100), grade=gradeOf(pct);
+      Store.d.exams.push({date:todayStr(),pct,grade}); Store.save();
+      $('[data-a=submit]',app).disabled=true;
+      const pageOf={cramer:'#t/cramer',gauss:'#t/gauss',pocet:'#t/gauss/pocet',rovnice:'#t/rovnice',nerovnice:'#t/nerovnice',vyrazy:'#t/vyrazy',linear:'#t/linear',slovni:'#t/linear/slovni',kvadr:'#t/kvadr',prusecik:'#t/kvadr/prusecik'};
+      const er=$('#eres',app);
+      er.innerHTML='<div class="panel"><h2>'+(auto?'Čas vypršel – test odevzdán':'Výsledek písemky')+'</h2><div class="gradebox"><div><div class="v">'+pts+' / 50</div><div class="k">bodů</div></div><div><div class="v">'+pct+' %</div><div class="k">úspěšnost</div></div><div><div class="v">'+grade+'</div><div class="k">orientační známka</div></div><div><div class="v">'+fmtTime(used)+'</div><div class="k">čas</div></div></div>'+
+        '<p class="fine">Orientační hodnocení – nemusí odpovídat klasifikaci školy. (90–100 % = 1, 75–89 % = 2, 60–74 % = 3, 45–59 % = 4, méně = 5)</p>'+
+        (errs.length?'<h3>Chyby</h3><ul class="errlist">'+errs.join('')+'</ul>':'<p class="ok-line">Bez chyby – výborně!</p>')+
+        ([...new Set(review)].length?'<h3>Zopakuj si</h3><p>'+[...new Set(review)].map(t=>'<a class="btn small" href="'+pageOf[t]+'">'+TOPICS[t].short+'</a>').join(' ')+'</p>':'')+
+        '<p style="margin-top:12px"><a class="btn primary" href="#pisemka">Nová písemka</a> <a class="btn" href="#">Přehled</a></p></div>';
+      typeset(app); window.scrollTo(0,0);
+    }
+  }
+}
+
+/* ---------- tisk ---------- */
+let WS=null;
+function newWorksheet(){
+  const r=new Rng(); const spec=[['cramer',2],['gauss',2],['pocet',2],['rovnice',2],['rovnice',3],['nerovnice',2],['nerovnice',3],['vyrazy',2],['kvadr',2],['prusecik',2]];
+  WS=spec.map(([t,d])=>{for(let i=0;i<5;i++){try{return genProblem(t,d,r);}catch(e){}}return null;}).filter(Boolean);
+}
+function pagePrint(app){
+  if(!WS) newWorksheet();
+  app.innerHTML='<nav class="crumbs"><a href="#">← Přehled</a></nav><header class="tp-head"><h1>Pracovní list k tisku</h1></header>'+
+    '<div class="panel"><p>Deset úloh na papír (A4). List bez řešení vytiskni pro počítání, list s řešením pro kontrolu – oba patří ke stejným příkladům.</p>'+
+    '<div class="cta-row"><button type="button" class="btn primary" data-a="p0">Vytisknout pracovní list</button><button type="button" class="btn" data-a="p1">Vytisknout řešení</button><button type="button" class="btn ghost" data-a="new">Nový pracovní list</button></div>'+
+    '<h2 style="margin-top:18px">Úlohy na listu</h2><ol>'+WS.map(p=>'<li>'+p.title+' <span class="fine">('+TOPICS[p.topic].short+', '+DIFF_NAME[p.diff].toLowerCase()+')</span></li>').join('')+'</ol></div>';
+  $('[data-a=p0]',app).onclick=()=>printWS(false);
+  $('[data-a=p1]',app).onclick=()=>printWS(true);
+  $('[data-a=new]',app).onclick=()=>{newWorksheet();pagePrint(app);};
+}
+function printWS(sol){
+  const pa=$('#printArea'); clearMath(pa);
+  pa.innerHTML='<h1>Matematika – pracovní list'+(sol?' (řešení)':'')+'</h1><div class="pa-meta"><span>Jméno: ………………………………</span><span>Datum: '+todayStr()+'</span></div>'+
+    WS.map((p,i)=>'<div class="pa-item'+(sol?' pa-sol':'')+'"><h3>'+(i+1)+'. '+p.title+'</h3>'+p.statement+(p.printTask?'<p><i>'+p.printTask+'</i></p>':'')+
+      (sol?'<ol class="steps">'+p.steps.map(s=>'<li><h4>'+s.t+'</h4>'+s.h+'</li>').join('')+'</ol><p><b>Výsledek:</b> '+p.summary+'</p>':'<div class="pa-space"></div>')+'</div>').join('');
+  pa.style.display='block';
+  const go=()=>{pa.style.display='';document.body.classList.add('printing');window.print();};
+  (MJ.ready?typeset(pa):Promise.resolve()).then(go);
+}
+window.addEventListener('afterprint',()=>document.body.classList.remove('printing'));
+
+/* ---------- router ---------- */
+function route(){
+  if(cleanup){cleanup();cleanup=null;}
+  const [a,b,c]=location.hash.slice(1).split('/'); const app=$('#app');
+  clearMath(app);
+  if(a==='t'&&PAGES[b]) pageTopic(app,b,c);
+  else if(a==='pisemka') pageExam(app);
+  else if(a==='teorie') pageTheory(app);
+  else if(a==='chyby') pageErrors(app);
+  else if(a==='slabiny') pageWeak(app);
+  else if(a==='dril') pageDrill(app);
+  else if(a==='dnes') pageDaily(app);
+  else if(a==='tisk') pagePrint(app);
+  else pageHome(app);
+  $$('.nav a').forEach(l=>{const h=l.getAttribute('href').slice(1);l.classList.toggle('on',h===(a||'')||(h==='t'&&a==='t'));});
+  window.scrollTo(0,0);
+  typeset(app);
+}
+window.addEventListener('hashchange',route);
+Store.load();
+route();
+window.__APP={Store,genProblem,checkPart,route};
+
+</script>
+</body>
+</html>
