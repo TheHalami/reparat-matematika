@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Goniometrie I – Radovanův trénink</title>
+<meta name="description" content="Výklad, jednotková kružnice, grafy a trénink goniometrie: pravoúhlý trojúhelník, obecný úhel a jednoduché goniometrické rovnice.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Semi+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<style>:root{--ink:#17233a;--muted:#4b5970;--blue:#2456a6;--orange:#ad5600;--line:#c8d2ca;--paper:#f2f5f1;--card:#fcfdfb;--good:#1d7748;--red:#ad2d25;--yellow:#f2c230;--r:10px}
+*{box-sizing:border-box}html{scroll-padding-top:85px;-webkit-text-size-adjust:100%}body{margin:0;color:var(--ink);background:var(--paper);font:17px/1.6 'Barlow',system-ui,sans-serif;background-image:linear-gradient(#e1e8e0 1px,transparent 1px),linear-gradient(90deg,#e1e8e0 1px,transparent 1px);background-size:24px 24px}h1,h2,h3,h4{font-family:'Barlow Semi Condensed','Barlow',system-ui,sans-serif;line-height:1.2;margin:0 0 .65em}h1{font-size:clamp(2.3rem,5vw,3.6rem);letter-spacing:-.025em}h2{font-size:clamp(1.8rem,3vw,2.3rem)}h3{font-size:1.4rem;margin-top:1.4em}h4{font-size:1.1rem}p{margin:.5em 0 1em}a{color:var(--blue);text-underline-offset:3px}a:hover{color:var(--ink)}button,input,select{font:inherit}button,a,input,select{touch-action:manipulation}:focus-visible{outline:3px solid var(--orange);outline-offset:4px}[hidden]{display:none!important}li{margin:.35em 0}ul,ol{padding-left:1.5em}code{font-size:.95em;background:#e9eef5;padding:.12em .25em;border-radius:3px}mjx-container[display=true]{overflow-x:auto;overflow-y:hidden;max-width:100%;padding:.35rem 0}.skip{position:absolute;top:-100px;padding:12px;background:white;z-index:100}.skip:focus{top:10px}
+.top{background:var(--ink);color:white}.top-in{max-width:1200px;padding:14px 24px;margin:auto;display:flex;gap:18px;justify-content:space-between;align-items:center}.top a{color:white;font-size:1rem}.top .brand{font-weight:700;text-decoration:none;letter-spacing:.02em}.brand span{color:#ccd6e7;font-weight:400}.wrap{max-width:1200px;margin:auto;padding:0 24px}.chapter-title{padding:28px 0 22px;display:flex;align-items:center;justify-content:space-between;gap:20px}.eyebrow{font-size:.82rem;font-weight:700;letter-spacing:.13em;color:var(--blue);margin:0 0 .65em}.lead{font-size:1.1rem;color:var(--muted);margin:0}.chapter-title h1{margin-bottom:.12em}.chapter-mark{font:700 2rem/1.05 'Barlow Semi Condensed',sans-serif;color:var(--blue);border-bottom:3px solid var(--orange);padding:6px 20px 12px}.chapter-mark span{color:var(--orange)}.view-tabs{display:flex;border-bottom:2px solid var(--ink);gap:6px;flex-wrap:wrap;margin-bottom:28px}.view-tabs a{padding:12px 20px;color:var(--ink);text-decoration:none;font-weight:700;border:1px solid transparent;border-radius:8px 8px 0 0}.view-tabs a.active{background:var(--ink);color:white}.view-tabs a:hover{background:#e0e8ef}.view-tabs a.active:hover{background:var(--ink)}.learn-layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:26px;align-items:start}.learn-layout aside{position:sticky;top:22px}#lesson-nav{display:flex;flex-direction:column;gap:5px}#lesson-nav a{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--ink);font-size:1rem;font-weight:600;line-height:1.35;padding:13px 12px;border-radius:7px}#lesson-nav a span{color:var(--muted);font-size:.85rem}#lesson-nav a.active{background:#dce7fb;color:#143c79;border-left:3px solid var(--blue)}.small-card{margin-top:22px;padding:17px;background:#fff3c5;border:1px solid #dfc975;border-radius:var(--r);font-size:.94rem}.small-card .button{display:block}.lesson,.panel,.problem,.progress-card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:28px;min-width:0}.lesson{box-shadow:0 4px 18px #17233a09}.lesson h2{margin-bottom:18px}.formula{padding:12px 18px;background:#edf2fc;border-left:4px solid var(--blue);margin:20px 0;max-width:100%;overflow:auto}.warning,.notice{padding:16px 18px;background:#fff1d4;border-left:4px solid var(--orange);border-radius:0 6px 6px 0;margin:22px 0}.warning p{margin:.3em 0 0}.worked{border:1px solid #d8cbe9;border-left:4px solid #6a45b8;border-radius:6px;margin:18px 0;padding:15px 18px;background:#f7f4fc}.worked summary{cursor:pointer;font-weight:700;color:#54398d}.worked[open] summary{margin-bottom:12px}.worked p:last-child{margin-bottom:0}.table-scroll{overflow-x:auto;max-width:100%;margin:22px 0}table{border-collapse:collapse;width:100%;background:white;font-size:1rem}caption{text-align:left;color:var(--muted);font-size:.95rem;padding-bottom:10px}th,td{text-align:left;border:1px solid var(--line);padding:11px 14px;white-space:nowrap}th{background:#edf2fc}.triangle{display:block;width:100%;max-width:540px;margin:20px auto}.triangle text{fill:var(--ink);font:20px 'Barlow',sans-serif}.explorer{background:#edf2fc;border:1px solid #bdcceb;border-radius:var(--r);padding:20px;margin:24px 0}.explorer h3{margin-top:0}.angle-controls{display:flex;align-items:center;gap:16px;margin-top:8px}.angle-controls input[type=range]{flex:1;min-width:80px;accent-color:var(--blue)}.angle-controls input[type=number]{width:95px}#circle-diagram svg{display:block;max-width:440px;width:100%;margin:10px auto}.plot{display:block;width:100%;height:auto;margin:12px 0}.plot text{font:19px 'Barlow',sans-serif;fill:#39465a}#circle-readout{font-size:1.08rem;font-weight:600}.button{display:inline-block;cursor:pointer;padding:10px 17px;border:1px solid #9aaabd;background:white;color:var(--ink);border-radius:7px;font-weight:600;text-align:center;text-decoration:none;min-height:44px;line-height:1.35}.button:hover{background:#e8eef7}.button.primary{background:var(--blue);border-color:var(--blue);color:white}.button.primary:hover{background:#173f80}.button:disabled{opacity:.6;cursor:default}.small{font-size:.88rem;color:var(--muted)}footer{border-top:1px solid var(--line);padding:24px 0 40px;margin-top:32px;font-size:.88rem;color:var(--muted)}footer details{max-width:900px}footer summary{cursor:pointer;font-weight:700}.section-title{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px}.section-title h2{margin:0}.training-layout{display:grid;grid-template-columns:minmax(0,1fr) 270px;gap:24px;align-items:start}.controls{display:flex;flex-wrap:wrap;gap:12px;align-items:end}.controls label{flex:1;min-width:140px}label{display:block;font-weight:600;font-size:1rem}input:not([type=range]),select{display:block;width:100%;min-height:44px;padding:9px 11px;border:1px solid #98a9bf;border-radius:6px;background:white;color:var(--ink);margin-top:5px}.input-help{font-size:.94rem;color:var(--muted);margin:15px 0 20px}.problem{margin-bottom:18px}.problem h3{font-size:1.3rem;margin:.6em 0 1em}.problem .prompt{font-size:1.15rem}.problem .tag{font-size:.82rem;letter-spacing:.06em;font-weight:700;color:var(--blue);text-transform:uppercase}.answer-fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin:20px 0}.answer-fields label{line-height:1.4}.unit{font-size:.88rem;font-weight:400;color:var(--muted);margin-left:5px}.families{grid-column:1/-1;border:1px solid var(--line);border-radius:6px;padding:15px;margin:0}.families legend{font-weight:700;padding:0 6px}.families p{font-size:.9rem;color:var(--muted)}.families label+label{margin-top:14px}.actions{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0 0}.feedback{margin-top:16px;border-radius:6px;padding:14px 16px;background:#edf2fc}.feedback:empty{display:none}.feedback.good{background:#e3f3e9;border-left:4px solid var(--good)}.feedback.bad{background:#fbe8e6;border-left:4px solid var(--red)}.feedback p{margin:.2em 0}.answer-correct{border-color:var(--good)!important;background:#f4fcf5!important}.answer-wrong{border-color:var(--red)!important;background:#fff7f6!important}.solution{padding:16px 20px;background:#f0ebfb;border-left:4px solid #6a45b8;border-radius:6px;margin-top:18px}.solution h4{color:#54398d}.solution ol{margin-bottom:0}.progress-card{padding:22px;position:sticky;top:22px}.progress-card h3{margin-top:0}.progress-row{padding:13px 0;border-bottom:1px solid var(--line)}.progress-row .row-label{display:flex;gap:10px;align-items:center;justify-content:space-between;font-size:.95rem}.progress-row .row-label strong{white-space:nowrap}.progress-track{height:6px;background:#dce4e0;border-radius:10px;margin-top:8px;overflow:hidden}.progress-fill{height:100%;background:var(--blue)}.progress-fill.mastered{background:var(--good)}#recommendation{font-weight:600;font-size:.95rem}.exam-note{background:#fff3c5;padding:15px;border-radius:6px}.clock{font-size:1.6rem;font-weight:700;font-variant-numeric:tabular-nums;color:var(--blue);white-space:nowrap}.clock.urgent{color:var(--red)}.result-score{font:700 3rem/1.1 'Barlow Semi Condensed',sans-serif;color:var(--blue);margin:16px 0}.result-table td{white-space:normal}.result-card{margin-bottom:20px}.exam-question{scroll-margin-top:20px}.exam-feedback{margin-top:15px}.exam-feedback.good{color:var(--good)}.exam-feedback.bad{color:var(--red)}.lesson-switch{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+@media(max-width:900px){.training-layout{grid-template-columns:minmax(0,1fr)}.progress-card{position:static}.learn-layout{grid-template-columns:185px minmax(0,1fr);gap:18px}.lesson{padding:22px}.wrap{padding:0 18px}.chapter-mark{font-size:1.7rem}}
+@media(max-width:650px){body{font-size:16px}.top-in{padding:12px 16px}.brand span{display:none}.wrap{padding:0 12px}.chapter-title{padding:22px 4px 18px}.chapter-mark{padding:4px 10px 10px;font-size:1.4rem}.eyebrow{font-size:.8rem;letter-spacing:.08em}.lead{font-size:1rem}.view-tabs{gap:3px;margin-bottom:20px}.view-tabs a{font-size:.94rem;padding:11px 12px}.learn-layout{display:block}.learn-layout aside{position:static}.small-card{display:none}#lesson-nav{display:flex;flex-direction:row;overflow-x:auto;margin-bottom:14px;padding-bottom:5px;gap:6px}#lesson-nav a{flex-shrink:0;max-width:180px;font-size:.94rem;padding:10px}#lesson-nav a span{display:none}#lesson-nav a.active{border-left:0;border-bottom:3px solid var(--blue)}.lesson,.problem,.panel{padding:20px 16px}.formula{padding:7px 11px}.explorer{padding:14px}.worked{padding:13px 14px}.section-title{align-items:start}.section-title>a{font-size:.9rem}.controls label{min-width:130px}.controls button{width:100%}.answer-fields{grid-template-columns:1fr}.actions .button{flex:1;min-width:130px}.section-title .eyebrow{font-size:.8rem}.table-scroll th,.table-scroll td{padding:9px 11px}.progress-card{padding:20px}.chapter-title h1{font-size:2.25rem}.chapter-mark{display:none}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+@media print{body{background:white}.top,.view-tabs,.controls,.actions,.small-card,footer{display:none}.wrap{max-width:none;padding:0}.learn-layout,.training-layout{display:block}.learn-layout aside{display:none}.lesson,.problem,.panel{border:0;padding:0;box-shadow:none}.problem{break-inside:avoid}.chapter-title{padding-top:0}.table-scroll{overflow:visible}}
+</style>
+<script>
+window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']],macros:{tg:'\\operatorname{tg}',cotg:'\\operatorname{cotg}'}},svg:{fontCache:'global'},options:{enableMenu:false}};
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" onerror="document.getElementById('math-status').hidden=false"></script>
+</head>
+<body>
+<a class="skip" href="#main">Přeskočit na obsah</a>
+<header class="top"><div class="top-in"><a href="index.html" class="brand">Radovan <span>/ matematika</span></a><a href="index.html">Všechna témata</a></div></header>
+<main id="main" class="wrap">
+  <div class="chapter-title"><div><p class="eyebrow">MATEMATIKA / DALŠÍ KROK</p><h1>Goniometrie I</h1><p class="lead">Trojúhelník · obecný úhel · grafy · rovnice</p></div><div class="chapter-mark" aria-hidden="true">sin α<br><span>cos α</span></div></div>
+  <nav class="view-tabs" aria-label="Režim kapitoly"><a href="#uceni/trojuhelnik" data-view="uceni">Učím se</a><a href="#trenink" data-view="trenink">Procvičuju</a><a href="#pisemka" data-view="pisemka">Zkušební písemka</a></nav>
+  <p id="math-status" class="notice" hidden>Vzorce se nepodařilo načíst. Připoj se k internetu a obnov stránku. Trénink i kontrola odpovědí fungují dál.</p>
+  <noscript><p class="notice">Pro interaktivní trénink zapni JavaScript. Výklad najdeš v této stránce po jeho zapnutí.</p></noscript>
+  <section id="learning" aria-label="Výklad">
+    <div class="learn-layout"><aside><nav id="lesson-nav" aria-label="Části výkladu"></nav><div class="small-card"><b>Jak to dostat do hlavy</b><p>Po každé části spočítej alespoň 10 úloh. Další den se k nim vrať bez taháku.</p><a class="button primary" href="#trenink">Začít procvičovat</a></div></aside><article id="lesson" class="lesson"></article></div>
+  </section>
+  <section id="training" hidden aria-labelledby="training-title">
+    <div class="section-title"><div><p class="eyebrow">OD ZÁKLADŮ K JISTOTĚ</p><h2 id="training-title">Samostatný trénink</h2></div><a href="#uceni/zaklady">Otevřít výklad</a></div>
+    <div class="training-layout"><div><div class="controls"><label>Téma<select id="practice-topic"><option value="mix">Mix všech témat</option></select></label><label>Obtížnost<select id="practice-diff"><option value="1">Základ</option><option value="2" selected>Písemka</option><option value="3">Výzva</option></select></label><button id="new-practice" class="button">Nový příklad</button></div><p class="input-help">Piš např. <code>1/2</code>, <code>sqrt(3)/2</code>, <code>5*pi/6</code>. Desetinná čárka je v pořádku. Více úhlů odděluj <b>středníkem</b>; žádné řešení = <code>∅</code>, nedefinovaná hodnota = <code>nedef</code>.</p><div id="practice-host"></div></div><aside class="progress-card"><h3>Co už zvládáš</h3><div id="progress"></div><p class="small">Sledujeme posledních 10 úloh v každém tématu. Zelená znamená alespoň 9 z 10 správně napoprvé bez pomoci. Je to vodítko pro další trénink.</p><p id="recommendation"></p><div id="exam-history"></div><p id="storage-status" class="small">Pokrok této kapitoly se ukládá pouze v tomto prohlížeči.</p></aside></div>
+  </section>
+  <section id="exam" hidden aria-labelledby="exam-title">
+    <div class="section-title"><div><p class="eyebrow">BEZ NÁPOVĚDY · 45 MINUT</p><h2 id="exam-title">Zkušební písemka</h2></div><span id="exam-clock" class="clock" role="timer" hidden>45:00</span></div>
+    <div id="exam-start" class="panel"><h3>12 úloh ze všech okruhů</h3><p>Převody úhlů, trojúhelník, jednotková kružnice, grafy a rovnice. Každá úloha má stejnou váhu; u více odpovědí získáš poměrnou část bodu. Řešení se ukážou po odevzdání. Po vypršení času se test odevzdá automaticky.</p><p>Počítej na papír. Kalkulačku použij na zaokrouhlené délky a úhly v trojúhelníku; přesné hodnoty na kružnici zkus zpaměti. Při obnovení stránky se rozpracovaný test ztratí.</p><button id="start-exam" class="button primary">Spustit písemku</button></div>
+    <form id="exam-form" hidden><div id="exam-problems"></div><button id="submit-exam" class="button primary" type="submit">Odevzdat a vyhodnotit</button><p class="small">Před odevzdáním zkontroluj jednotky, všechny větve řešení a vyloučené hodnoty.</p></form>
+    <div id="exam-result" tabindex="-1" hidden></div>
+  </section>
+  <footer><p>Rozsah odpovídá čtyřem okruhům zadání „Goniometrie I“. Doplňuje je nezbytný převod stupňů a radiánů.</p><details><summary>Podklady a rozsah</summary><p>Ověřeno proti ŠVP Technické lyceum 2024 (str. 95–96) a ŠVP Technické lyceum 2025 (str. 98–99): pravoúhlý trojúhelník, orientovaný úhel, oblouková míra, jednotková kružnice, grafy, vlastnosti a rovnice. ŠVP zahrnuje i další učivo; tato kapitola se drží dodaného zadání písemky.</p><p><a href="https://www.purkynka.cz/o-skole/dokumenty-ke-stazeni/" target="_blank" rel="noopener">ŠVP a dokumenty školy Purkyňka</a>. Výklad a trénink jsou vytvořené pro doučování, nejde o oficiální školní test. Ověřeno 15. 10. 2026.</p></details></footer>
+</main>
+
+<template id="lesson-zaklady">
+<p class="eyebrow">00 / NEŽ ZAČNEŠ</p><h2>Jeden úhel, dvě jednotky</h2>
+<p>Celý oběh je 360° neboli \(2\pi\) radiánů. Radián je úhel, který na kružnici vytne oblouk stejně dlouhý, jako je její poloměr. Na jednotkové kružnici je číselná velikost úhlu v radiánech rovna délce orientovaného oblouku.</p>
+<div class="formula">\[180^\circ=\pi\ \mathrm{rad},\qquad \alpha_{\mathrm{rad}}=\alpha_{^\circ}\frac{\pi}{180},\qquad \alpha_{^\circ}=\alpha_{\mathrm{rad}}\frac{180}{\pi}\]</div>
+<div class="table-scroll"><table><caption>Úhly, které potřebuješ znát zpaměti</caption><thead><tr><th>Stupně</th><th>0°</th><th>30°</th><th>45°</th><th>60°</th><th>90°</th><th>180°</th><th>270°</th><th>360°</th></tr></thead><tbody><tr><th>Radiány</th><td>0</td><td>\(\pi/6\)</td><td>\(\pi/4\)</td><td>\(\pi/3\)</td><td>\(\pi/2\)</td><td>\(\pi\)</td><td>\(3\pi/2\)</td><td>\(2\pi\)</td></tr></tbody></table></div>
+<details class="worked" open><summary>Řešený příklad: 150° a −3π/4</summary><ol><li>\(150^\circ=150\cdot\pi/180=5\pi/6\) rad.</li><li>\(-3\pi/4\) rad \(=(-3\pi/4)\cdot180^\circ/\pi=-135^\circ\).</li><li>Převádíš velikost úhlu, proto záporný úhel nech záporný. Až při hledání stejného bodu na kružnici můžeš přičíst 360°.</li></ol></details>
+<h3>DEG, RAD a inverzní funkce</h3><p><b>DEG</b> používáš pro zadání ve stupních, <b>RAD</b> pro radiány. V DEG je \(\sin 30^\circ=0{,}5\); v RAD zadáváš \(\sin(\pi/6)\). Číslo 30 v režimu RAD znamená 30 radiánů.</p><p>\(\arcsin\), \(\arccos\), \(\arctan\) hledají úhel ze známého poměru. Tlačítko \(\sin^{-1}\) na kalkulačce označuje arcsin, <b>nikoli</b> \(1/\sin\). Kalkulačka vrátí jeden hlavní úhel; další řešení najdeš z kružnice.</p>
+<div class="warning"><b>Interval není totéž co všechny úhly.</b><p>\([0^\circ;360^\circ)\) obsahuje 0°, ale neobsahuje 360°. Zápis \(k\in\mathbb Z\) znamená libovolné celé číslo, tedy i záporné.</p></div>
+<a class="button primary" href="#trenink/zaklady">Procvičit převody</a>
+</template>
+
+<template id="lesson-trojuhelnik">
+<p class="eyebrow">01 / PRVNÍ KROK</p><h2>Pravoúhlý trojúhelník</h2>
+<p>Nejdřív najdi pravý úhel a úhel, se kterým počítáš. <b>Přepona</b> leží proti pravému úhlu a je nejdelší. <b>Protilehlá odvěsna</b> leží proti zvolenému ostrému úhlu; <b>přilehlá odvěsna</b> se ho dotýká. Při přechodu k druhému ostrému úhlu se role odvěsen vymění.</p>
+<svg class="triangle" viewBox="0 0 540 260" role="img" aria-label="Pravoúhlý trojúhelník: α vlevo, odvěsna a proti α svisle, odvěsna b u α vodorovně, přepona c šikmo."><path d="M65 215 L450 215 L450 45 Z" fill="#edf2fc" stroke="#17233a" stroke-width="3"/><path d="M426 215 V191 H450" fill="none" stroke="#17233a" stroke-width="2"/><path d="M115 215 A50 50 0 0 0 110 195" fill="none" stroke="#b05b00" stroke-width="3"/><text x="126" y="204">α</text><text x="235" y="247">b · přilehlá</text><text x="460" y="137">a</text><text x="207" y="106">c · přepona</text></svg>
+<div class="formula">\[\sin\alpha=\frac ac,\quad\cos\alpha=\frac bc,\quad\tg\alpha=\frac ab,\quad\cotg\alpha=\frac ba\]</div>
+<p>Zde je \(a\) protilehlá odvěsna, \(b\) přilehlá a \(c\) přepona vzhledem k α. Dále platí \(a^2+b^2=c^2\) a \(\alpha+\beta=90^\circ\).</p>
+<h3>Postup u každé úlohy</h3><ol><li>Nakresli náčrt, vyznač pravý úhel a známé údaje.</li><li>Vyber vztah, který propojí známou a hledanou stranu nebo úhel.</li><li>Nejdřív vyjádři neznámou, potom dosaď. Kalkulačku přepni do DEG nebo RAD podle zadání.</li><li>Zaokrouhli až na konci. Ověř jednotku, ostrý úhel a to, že přepona zůstala nejdelší.</li></ol>
+<details class="worked" open><summary>Řešený příklad: přepona 10 cm, α = 30°</summary><ol><li>Hledáme protilehlou odvěsnu: \(\sin30^\circ=a/10\).</li><li>\(a=10\sin30^\circ=10\cdot1/2=5\) cm.</li><li>Přilehlá: \(b=10\cos30^\circ=5\sqrt3\doteq8{,}66\) cm.</li><li>Druhý úhel: \(\beta=90^\circ-30^\circ=60^\circ\).</li><li>Zkouška: \(5^2+(5\sqrt3)^2=25+75=100=10^2\).</li></ol></details>
+<details class="worked"><summary>Řešený příklad: odvěsny 6 cm a 8 cm → úhel</summary><p>Je-li 6 cm proti α a 8 cm u α, pak \(\tg\alpha=6/8=0{,}75\). Proto \(\alpha=\arctan0{,}75\doteq36{,}87^\circ\). Úhel je ostrý; výsledek z kalkulačky musí být ve stupních.</p></details>
+<details class="worked"><summary>Slovní úloha: výška věže</summary><p>Stojíš 20 m od věže, výškový úhel je 40° a oči jsou 1,6 m nad zemí. Vodorovná vzdálenost je přilehlá odvěsna. Výškový rozdíl od očí k vrcholu je \(20\tg40^\circ\). Celá výška je \(h=20\tg40^\circ+1{,}6\doteq18{,}38\) m. Výšku očí musíš přičíst, pokud je zadaná a místa mají stejnou úroveň terénu.</p></details>
+<div class="warning"><b>Větší úhel nemá v pravoúhlém trojúhelníku místo.</b><p>Vzorce jako poměry kladných délek definují funkce ostrého úhlu. Pro 150° nebo −30° použij obecný úhel a kružnici.</p></div>
+<a class="button primary" href="#trenink/trojuhelnik">Procvičit trojúhelník</a>
+</template>
+
+<template id="lesson-kruznice">
+<p class="eyebrow">02 / Z TROJÚHELNÍKU NA KRUŽNICI</p><h2>Goniometrické funkce obecného úhlu</h2>
+<p>Počáteční rameno leží na kladné poloose x. Kladný úhel otáčí proti směru hodinových ručiček, záporný po směru. Úhly lišící se o 360° (\(2\pi\)) mají stejné koncové rameno.</p>
+<p>Na jednotkové kružnici má koncový bod souřadnice \(P[\cos\alpha;\sin\alpha]\). <b>Kosinus čti vodorovně, sinus svisle.</b> Dále \(\tg\alpha=\sin\alpha/\cos\alpha\) pro \(\cos\alpha\ne0\) a \(\cotg\alpha=\cos\alpha/\sin\alpha\) pro \(\sin\alpha\ne0\).</p>
+<div class="explorer"><h3>Změň úhel a sleduj souřadnice</h3><label for="circle-angle">Úhel α ve stupních</label><div class="angle-controls"><input id="circle-angle" type="range" min="-720" max="720" step="15" value="150"><input id="circle-number" type="number" min="-720" max="720" step="1" value="150" aria-label="Číselná hodnota úhlu ve stupních"></div><div id="circle-diagram"></div><p id="circle-readout" aria-live="polite"></p><p class="small">Modrá úsečka = cos α (x). Oranžová úsečka = sin α (y). Počet celých oběhů nemění koncový bod.</p></div>
+<div class="table-scroll"><table><caption>Znaménka v kvadrantech (osy posuzuj samostatně)</caption><thead><tr><th>Kvadrant</th><th>Úhel</th><th>sin</th><th>cos</th><th>tg, cotg</th></tr></thead><tbody><tr><td>I.</td><td>0° až 90°</td><td>+</td><td>+</td><td>+</td></tr><tr><td>II.</td><td>90° až 180°</td><td>+</td><td>−</td><td>−</td></tr><tr><td>III.</td><td>180° až 270°</td><td>−</td><td>−</td><td>+</td></tr><tr><td>IV.</td><td>270° až 360°</td><td>−</td><td>+</td><td>−</td></tr></tbody></table></div>
+<div class="table-scroll"><table><caption>Přesné hodnoty – odvoď je z trojúhelníků 45°–45°–90° a 30°–60°–90°</caption><thead><tr><th>α</th><th>0°</th><th>30°</th><th>45°</th><th>60°</th><th>90°</th></tr></thead><tbody><tr><th>sin α</th><td>0</td><td>\(1/2\)</td><td>\(\sqrt2/2\)</td><td>\(\sqrt3/2\)</td><td>1</td></tr><tr><th>cos α</th><td>1</td><td>\(\sqrt3/2\)</td><td>\(\sqrt2/2\)</td><td>\(1/2\)</td><td>0</td></tr><tr><th>tg α</th><td>0</td><td>\(\sqrt3/3\)</td><td>1</td><td>\(\sqrt3\)</td><td>nedef.</td></tr><tr><th>cotg α</th><td>nedef.</td><td>\(\sqrt3\)</td><td>1</td><td>\(\sqrt3/3\)</td><td>0</td></tr></tbody></table></div>
+<h3>Základní vztahy</h3><div class="formula">\[\sin^2\alpha+\cos^2\alpha=1,\qquad \sin(-\alpha)=-\sin\alpha,\qquad \cos(-\alpha)=\cos\alpha\]</div><p>Tg a cotg jsou také liché. Doplňkový úhel: \(\sin(90^\circ-\alpha)=\cos\alpha\). Vztah \(\tg\alpha\cdot\cotg\alpha=1\) platí jen tam, kde jsou obě funkce definované. Z \(\cos^2\alpha=1-\sin^2\alpha\) dostaneš absolutní hodnotu kosinu; znaménko vybereš podle kvadrantu.</p>
+<details class="worked" open><summary>Řešený příklad: sin 150°, cos 240°, tg(−45°)</summary><ol><li>150° = 180° − 30°. II. kvadrant, sinus kladný: \(\sin150^\circ=\sin30^\circ=1/2\).</li><li>240° = 180° + 60°. III. kvadrant, kosinus záporný: \(\cos240^\circ=-\cos60^\circ=-1/2\).</li><li>Tangens je lichý: \(\tg(-45^\circ)=-\tg45^\circ=-1\).</li><li>\(\tg90^\circ\) není definován, protože \(\cos90^\circ=0\). Nula a nedefinovaná hodnota jsou různé věci.</li></ol></details>
+<details class="worked"><summary>Řešený příklad: sin α = 3/5, II. kvadrant</summary><p>\(|\cos\alpha|=\sqrt{1-9/25}=4/5\). Ve II. kvadrantu je x záporné, takže \(\cos\alpha=-4/5\). Potom \(\tg\alpha=(3/5)/(-4/5)=-3/4\).</p></details>
+<a class="button primary" href="#trenink/kruznice">Procvičit obecný úhel</a>
+</template>
+
+<template id="lesson-grafy">
+<p class="eyebrow">03 / KRUŽNICE ROZVINUTÁ DO GRAFU</p><h2>Grafy a jejich vlastnosti</h2>
+<p>Na vodorovné ose je úhel x, na svislé funkční hodnota. U grafů používáme radiány. Svislá přerušovaná čára je <b>asymptota</b>; funkce tam nemá hodnotu. Nesmíš přes ni spojit dvě větve grafu.</p>
+<div class="explorer"><label for="graph-function">Zobrazit funkci<select id="graph-function"><option value="sin">y = sin x</option><option value="cos">y = cos x</option><option value="tan">y = tg x</option><option value="cot">y = cotg x</option></select></label><div id="graph-diagram"></div><p id="graph-readout"></p></div>
+<div class="table-scroll"><table><caption>Souhrn, k ∈ ℤ</caption><thead><tr><th>Funkce</th><th>Definiční obor D</th><th>Obor hodnot H</th><th>Nejmenší perioda</th><th>Nuly</th><th>Sudost</th></tr></thead><tbody><tr><th>sin x</th><td>ℝ</td><td>⟨−1; 1⟩</td><td>\(2\pi\)</td><td>\(k\pi\)</td><td>lichá</td></tr><tr><th>cos x</th><td>ℝ</td><td>⟨−1; 1⟩</td><td>\(2\pi\)</td><td>\(\pi/2+k\pi\)</td><td>sudá</td></tr><tr><th>tg x</th><td>\(\mathbb R\setminus\{\pi/2+k\pi\}\)</td><td>ℝ</td><td>\(\pi\)</td><td>\(k\pi\)</td><td>lichá</td></tr><tr><th>cotg x</th><td>\(\mathbb R\setminus\{k\pi\}\)</td><td>ℝ</td><td>\(\pi\)</td><td>\(\pi/2+k\pi\)</td><td>lichá</td></tr></tbody></table></div>
+<h3>Jak graf bezpečně nakreslit</h3><ul><li><b>Sinus:</b> vyznač \((0;0),(\pi/2;1),(\pi;0),(3\pi/2;-1),(2\pi;0)\) a spoj plynulou vlnou.</li><li><b>Kosinus:</b> vyznač \((0;1),(\pi/2;0),(\pi;-1),(3\pi/2;0),(2\pi;1)\).</li><li><b>Tangens:</b> asymptoty \(x=\pi/2+k\pi\), nuly \(x=k\pi\). Každá větev mezi dvěma sousedními asymptotami <b>roste</b>.</li><li><b>Kotangens:</b> asymptoty \(x=k\pi\), nuly \(x=\pi/2+k\pi\). Každá větev mezi sousedními asymptotami <b>klesá</b>.</li></ul>
+<h3>Monotónnost a extrémy</h3><p>Pro \(k\in\mathbb Z\): sinus roste na \(\langle-\pi/2+2k\pi;\pi/2+2k\pi\rangle\) a klesá na \(\langle\pi/2+2k\pi;3\pi/2+2k\pi\rangle\). Kosinus klesá na \(\langle2k\pi;\pi+2k\pi\rangle\) a roste na \(\langle\pi+2k\pi;2\pi+2k\pi\rangle\).</p><p>Sinus má maximum 1 v \(x=\pi/2+2k\pi\), minimum −1 v \(x=3\pi/2+2k\pi\). Kosinus má maximum 1 v \(x=2k\pi\), minimum −1 v \(x=\pi+2k\pi\). Tg a cotg nejsou omezené a nemají extrémy. Netvrď, že tangens roste na celém ℝ; mezi větvemi není definovaný.</p>
+<details class="worked" open><summary>Řešený příklad: poznat funkci z grafu</summary><p>Graf prochází počátkem, má periodu π a svislé asymptoty v \(\pi/2+k\pi\). Jde o <b>tangens</b>. Sinus sice také prochází počátkem, ale má periodu 2π a žádné asymptoty.</p></details>
+<a class="button primary" href="#trenink/grafy">Procvičit grafy</a>
+</template>
+
+<template id="lesson-rovnice">
+<p class="eyebrow">04 / NEZAPOMEŇ NA DALŠÍ VĚTEV</p><h2>Jednoduché goniometrické rovnice</h2>
+<p>Nejdřív osamostatni goniometrickou funkci. Zkontroluj, zda je pravá strana možná a kde je funkce definovaná. Potom najdi řešení na kružnici, přidej všechny větve a periodu. Nakonec použij požadovaný interval a udělej zkoušku.</p>
+<div class="formula">\[\begin{aligned}\sin x=\sin a&\Rightarrow x=a+2k\pi\ \text{nebo}\ x=\pi-a+2k\pi,\\\cos x=\cos a&\Rightarrow x=a+2k\pi\ \text{nebo}\ x=-a+2k\pi,\\\tg x=\tg a&\Rightarrow x=a+k\pi,\\\cotg x=\cotg a&\Rightarrow x=a+k\pi,\qquad k\in\mathbb Z.\end{aligned}\]</div>
+<p>Ve stupních nahraď π hodnotou 180° a 2π hodnotou 360°. Pro sinus a kosinus musí pravá strana ležet v ⟨−1; 1⟩. Např. \(\sin x=2\) nemá řešení. U krajních hodnot sinu/kosinu mohou dvě větve splynout; stejné řešení nezapisuj dvakrát.</p>
+<details class="worked" open><summary>1. Sinus: sin x = 1/2</summary><ol><li>V jednom oběhu: 30° a 150°.</li><li>Všechna řešení: \(x=30^\circ+360^\circ k\) nebo \(x=150^\circ+360^\circ k\), \(k\in\mathbb Z\).</li><li>V radiánech: \(x=\pi/6+2k\pi\) nebo \(x=5\pi/6+2k\pi\).</li><li>Pokud se řeší jen v \([0^\circ;360^\circ)\), odpověď je \(\{30^\circ;150^\circ\}\); nepiš tam nekonečné větve.</li></ol></details>
+<details class="worked"><summary>2. Kosinus: cos x = −√2/2</summary><p>Kosinus je záporný ve II. a III. kvadrantu, referenční úhel je 45°. V \([0;2\pi)\) dostaneš \(x\in\{3\pi/4;5\pi/4\}\). V ℝ přidej k oběma větvím \(2k\pi\).</p></details>
+<details class="worked"><summary>3. Tangens a kotangens</summary><p>\(\tg x=-\sqrt3\): v \([0^\circ;360^\circ)\) vyjde \(x\in\{120^\circ;300^\circ\}\). Obecně stačí \(x=120^\circ+180^\circ k\).</p><p>\(\cotg x=0\): kosinus musí být nulový a sinus nenulový. V jednom oběhu jsou řešení 90° a 270°; obecně \(x=90^\circ+180^\circ k\). Nepřeváděj na \(\tg x=1/0\).</p></details>
+<details class="worked"><summary>4. Nulová hodnota a hranice intervalu</summary><p>\(\sin x=0\Rightarrow x=k\pi\). V \([0;2\pi)\) jsou řešení 0 a π. Číslo 2π se vyloučí otevřeným pravým krajem. U \(\cos x=1\) je v tomto intervalu jen x = 0.</p></details>
+<details class="worked"><summary>5. Rovnice s 2x: sin(2x) = 1/2</summary><ol><li>Pro t = 2x platí \(t=\pi/6+2k\pi\) nebo \(t=5\pi/6+2k\pi\).</li><li>Celé rovnosti vyděl dvěma: \(x=\pi/12+k\pi\) nebo \(x=5\pi/12+k\pi\). Dělí se i perioda.</li><li>V \([0;2\pi)\): \(\pi/12;5\pi/12;13\pi/12;17\pi/12\). Jsou <b>čtyři</b> řešení.</li></ol></details>
+<details class="worked"><summary>6. Posunutý úhel: cos(x − π/3) = 1/2</summary><p>Polož t = x − π/3. Potom \(t=\pi/3+2k\pi\) nebo \(t=-\pi/3+2k\pi\). Přičti π/3 k <b>oběma</b> větvím: \(x=2\pi/3+2k\pi\) nebo \(x=2k\pi\). V \([0;2\pi)\) jsou řešení 0 a 2π/3.</p></details>
+<div class="warning"><b>Kalkulačka ti nedá celou množinu řešení.</b><p>Například arcsin(1/2) vrátí 30°, ale 150° splňuje rovnici také. Při dělení výrazem sin x nebo cos x můžeš ztratit řešení; děl jen po ověření, že dělitel není nulový.</p></div>
+<h3>Zápis v našem tréninku</h3><p>V intervalu zapisuj všechny úhly oddělené středníkem. V úloze „v ℝ“ doplníš výchozí úhly a jednu společnou periodu: pro sin/cos 360° nebo 2π, pro tg/cotg 180° nebo π. Také u sin x = 0 zde zapiš <code>0; pi</code> a periodu <code>2*pi</code>. Matematicky je správný i kratší zápis x = kπ; trénink ale výslovně používá předepsanou podobu, aby ověřil všechny větve.</p>
+<a class="button primary" href="#trenink/rovnice">Procvičit rovnice</a>
+</template>
+<script>(function(root, factory) {
+  if (typeof module === 'object' && module.exports) module.exports = factory();
+  else root.Gonio = factory();
+})(typeof globalThis !== 'undefined' ? globalThis : this, function() {
+  'use strict';
+  const PI = Math.PI, EPS = 1e-7;
+  const TOPICS = {zaklady:'Stupně a radiány', trojuhelnik:'Pravoúhlý trojúhelník', kruznice:'Obecný úhel', grafy:'Grafy a vlastnosti', rovnice:'Goniometrické rovnice'};
+  const FUN = {sin:'sin', cos:'cos', tan:'tg', cot:'cotg'};
+  const mod = (a,b) => ((a % b) + b) % b;
+  const close = (a,b,t=EPS) => Number.isFinite(a) && Number.isFinite(b) && Math.abs(a-b) <= t;
+  const deg = x => x*180/PI;
+  const rad = x => x*PI/180;
+  const val = (fn,x) => fn==='sin'?Math.sin(x):fn==='cos'?Math.cos(x):fn==='tan'?(Math.abs(Math.cos(x))<EPS?null:Math.tan(x)):(Math.abs(Math.sin(x))<EPS?null:Math.cos(x)/Math.sin(x));
+  const fmt = (v,n=2) => Number(v.toFixed(n)).toLocaleString('cs-CZ',{maximumFractionDigits:n,useGrouping:false});
+  const math = s => '\\('+s+'\\)';
+  function gcd(a,b) {return b?gcd(b,a%b):Math.abs(a);}
+  function fraction(x) {
+    for(let d=1;d<=720;d++){const n=Math.round(x*d);if(close(n/d,x,1e-8))return [n,d];}
+    throw Error('Úhel nelze vyjádřit malým násobkem π.');
+  }
+  function piTex(degrees) {
+    const [n,q] = fraction(degrees/180);
+    if (!degrees) return '0';
+    const s = n<0?'-':'', k = Math.abs(n);
+    return s+(q===1?(k===1?'':k)+'\\pi':'\\frac{'+(k===1?'':k)+'\\pi}{'+q+'}');
+  }
+  function piInput(degrees) {
+    if (!degrees) return '0';
+    const [n,d]=fraction(degrees/180);
+    return (n===1?'':n===-1?'-':n+'*')+'pi'+(d===1?'':'/'+d);
+  }
+  function exact(fn, degrees) {
+    const v=val(fn,rad(degrees));
+    if (v===null) return {value:null,tex:'\\text{není definována}',input:'nedef'};
+    const pairs=[[0,'0','0'],[.5,'\\frac12','1/2'],[1,'1','1'],[Math.sqrt(2)/2,'\\frac{\\sqrt2}{2}','sqrt(2)/2'],[Math.sqrt(3)/2,'\\frac{\\sqrt3}{2}','sqrt(3)/2'],[Math.sqrt(3),'\\sqrt3','sqrt(3)'],[Math.sqrt(3)/3,'\\frac{\\sqrt3}{3}','sqrt(3)/3']];
+    const found=pairs.find(([n])=>close(Math.abs(v),n));
+    if (!found) return {value:v,tex:fmt(v,5),input:String(v)};
+    const sign=v < -EPS?'-':'';
+    return {value:Math.abs(v)<EPS?0:v,tex:sign+found[1],input:sign+found[2]};
+  }
+  // Small arithmetic parser: no eval / Function, identifiers or executable code.
+  function number(raw) {
+    let s=String(raw).trim().toLowerCase().replace(/π/g,'pi').replace(/√/g,'sqrt').replace(/[−–]/g,'-').replace(/,/g,'.').replace(/\s+/g,'');
+    if (!s || s.length>180) throw Error('Doplň číslo nebo výraz, např. sqrt(3)/2 či 5*pi/6.');
+    const tokens=s.match(/sqrt|pi|(?:\d+(?:\.\d*)?|\.\d+)|[+*/^()-]/g)||[];
+    if (tokens.join('')!==s || tokens.length>100) throw Error('Použij čísla, pi, sqrt(...) a početní operace.');
+    let p=0, depth=0;
+    function expr(){let x=term();while(tokens[p]==='+'||tokens[p]==='-'){const o=tokens[p++],y=term();x=o==='+'?x+y:x-y;}return x;}
+    function term(){let x=unary();while(p<tokens.length){const o=tokens[p];if(o==='*'||o==='/'){p++;const y=unary();x=o==='*'?x*y:x/y;}else if(o==='pi'||o==='sqrt'||o==='('||/^\d|^\./.test(o)){x*=unary();}else break;}return x;}
+    function unary(){if(tokens[p]==='-'){p++;return -unary();}if(tokens[p]==='+'){p++;return unary();}return power();}
+    function power(){let x=atom();if(tokens[p]==='^'){p++;const y=unary();if(Math.abs(y)>12)throw Error('Mocnina je příliš velká.');x=Math.pow(x,y);}return x;}
+    function atom(){if(++depth>40)throw Error('Příliš složitý zápis.');const t=tokens[p++];let v;
+      if(t==='('){v=expr();if(tokens[p++]!==')')throw Error('Chybí uzavírací závorka.');}
+      else if(t==='sqrt'){v=Math.sqrt(atom());}
+      else if(t==='pi')v=PI;
+      else if(t && /^(?:\d+(?:\.\d*)?|\.\d+)$/.test(t))v=Number(t);
+      else throw Error('Neúplný číselný výraz.');
+      depth--;return v;
+    }
+    const v=expr();
+    if(p!==tokens.length || !Number.isFinite(v) || Math.abs(v)>1e9)throw Error('Výraz není platné konečné číslo.');
+    return v;
+  }
+  const norm=s=>String(s).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/\s+/g,' ').trim();
+  const isNone=s=>/^(∅|zadne|zadna|bez reseni|nema reseni|prazdna mnozina)$/.test(norm(s));
+  const isUndefined=s=>/^(nedef|nedefinovano|neni definovan[ao]?|neexistuje)$/.test(norm(s));
+  function numeric(raw,unit) {
+    let s=String(raw).trim();
+    if(unit==='°')s=s.replace(/°$/,'');
+    if(unit==='rad')s=s.replace(/rad$/i,'');
+    return number(s);
+  }
+  function values(raw,unit) {
+    if(isNone(raw))return [];
+    if(!String(raw).trim())throw Error('Doplň všechny úhly oddělené středníkem, nebo napiš ∅.');
+    return String(raw).split(/[;\n]+/).filter(s=>s.trim()).map(s=>numeric(s,unit));
+  }
+  function sameSet(a,b,tol=EPS){return a.length===b.length && a.every(x=>b.some(y=>close(x,y,tol))) && b.every(x=>a.some(y=>close(x,y,tol)));}
+  function verify(part, raw) {
+    try {
+      if(part.type==='choice')return {ok:String(raw)===String(part.answer),invalid:raw==='',message:raw===''?'Vyber odpověď.':'Zkus si znovu vybavit definici a podmínky funkce.'};
+      if(part.type==='number'){
+        if(part.answer===null)return {ok:isUndefined(raw),message:'Tady dochází k dělení nulou. Zapiš nedef.'};
+        const x=numeric(raw,part.unit);
+        return {ok:close(x,part.answer,part.tol||1e-4),message:Math.abs(part.answer)>EPS&&close(x,-part.answer,1e-4)?'Velikost sedí, ale máš opačné znaménko. Zkontroluj kvadrant.':part.unit==='rad'?'Zkontroluj převod nebo periodu: 180° odpovídá π rad.':'Zkontroluj vztah, znaménko a případné zaokrouhlení.'};
+      }
+      if(part.type==='set'){
+        const a=values(raw,part.unit);
+        if(sameSet(a,part.answer,1e-4))return {ok:true};
+        return {ok:false,message:a.length<part.answer.length?'Chybí některé řešení. Projdi celý zadaný interval.':'Zkontroluj všechna řešení a krajní body intervalu. Úhly odděluj středníkem.'};
+      }
+      if(part.type==='families'){
+        const a=values(raw.seeds,part.unit), period=numeric(raw.period,part.unit);
+        if(!close(period,part.period,1e-4))return {ok:false,message:'Zkontroluj periodu v tomto zápisu: pro sin a cos doplň celý oběh, pro tg a cotg půloběh.'};
+        const seeds=a.map(x=>mod(x,period));
+        return {ok:sameSet(seeds,part.answer,1e-4),message:'V každé periodě potřebuješ všechny různé výchozí úhly. U sinu a kosinu bývají dva; u krajních hodnot mohou splynout.'};
+      }
+      throw Error('Neznámý typ odpovědi.');
+    } catch(e){return {ok:false,invalid:true,message:e.message};}
+  }
+  class Rng {
+    constructor(seed=Date.now()){this.s=seed>>>0;}
+    next(){this.s=(Math.imul(this.s,1664525)+1013904223)>>>0;return this.s/4294967296;}
+    int(a,b){return a+Math.floor(this.next()*(b-a+1));}
+    pick(a){return a[this.int(0,a.length-1)];}
+  }
+  const part=(label,answer,unit='',extra={})=>({type:'number',label,answer,unit,...extra});
+  const choice=(label,answer,options)=>({type:'choice',label,answer,options});
+  function problem(topic,prompt,parts,steps,hint){return {topic,prompt,parts,steps,hint};}
+  function basics(r,d) {
+    const a=r.pick(d===1?[0,30,45,60,90,180]:d===2?[-90,120,135,150,210,225,240,270,300,315,330,360]:[-750,-450,-240,390,540,660,765,1080]);
+    if(r.int(0,1))return problem('zaklady','Převeď '+math(a+'^\\circ')+' na radiány.',[part('Úhel v radiánech',rad(a),'rad')],['Převod: '+math(a+'\\cdot\\frac{\\pi}{180}='+piTex(a))+' rad.','Úhel při převodu nezkracuj o celé oběhy; převádíš jeho původní velikost.'],'Platí 180° = π rad. Násob π/180.');
+    return problem('zaklady','Převeď '+math(piTex(a))+' rad na stupně.',[part('Úhel ve stupních',a,'°')],['Vynásob radiány '+math('\\frac{180^\\circ}{\\pi}')+'.','Vyjde '+math(a+'^\\circ')+'.'],'Násob 180/π; π se vykrátí.');
+  }
+  function triangle(r,d) {
+    const triples=[[3,4,5],[5,12,13],[8,15,17],[7,24,25]], [op,adj,hyp]=r.pick(triples), scale=r.int(1,4);
+    if(d===1){const fn=r.pick(Object.keys(FUN)),ratios={sin:[op,hyp],cos:[adj,hyp],tan:[op,adj],cot:[adj,op]}, [a,b]=ratios[fn];
+      return problem('trojuhelnik','V pravoúhlém trojúhelníku je proti úhlu α odvěsna '+op+' cm, u něj přilehlá odvěsna '+adj+' cm a přepona '+hyp+' cm. Urči '+math('\\'+FUN[fn]+'\\alpha')+'.',[part(FUN[fn]+' α',a/b)],['Vyber správné strany: '+{sin:'protilehlá / přepona',cos:'přilehlá / přepona',tan:'protilehlá / přilehlá',cot:'přilehlá / protilehlá'}[fn]+'.',math('\\'+FUN[fn]+'\\alpha=\\frac{'+a+'}{'+b+'}')+'.'],'Přepona je naproti pravému úhlu. Odvěsny označuj vzhledem k α.');
+    }
+    if(d===2 && r.int(0,1))return problem('trojuhelnik','Protilehlá odvěsna k úhlu α měří '+op*scale+' cm, přilehlá '+adj*scale+' cm. Urči ostrý úhel α. Zaokrouhli na setiny stupně.',[part('Úhel α',deg(Math.atan(op/adj)),'°',{tol:.015})],['Použij '+math('\\operatorname{tg}\\alpha=\\frac{'+op*scale+'}{'+adj*scale+'}')+'.','Na kalkulačce zvol DEG a '+math('\\alpha=\\arctan('+op+'/'+adj+')\\doteq '+fmt(deg(Math.atan(op/adj)))+'^\\circ')+'.'],'Znáš obě odvěsny. Použij tangens a jeho inverzní funkci.');
+    const angle=r.pick([25,30,35,40,45,50,60]), length=r.int(4,18);
+    if(d===2)return problem('trojuhelnik','Přepona měří '+length+' cm a ostrý úhel α = '+angle+'°. Urči protilehlou odvěsnu a zbývající ostrý úhel β. Délku zaokrouhli na setiny.',[part('Protilehlá odvěsna',length*Math.sin(rad(angle)),'cm',{tol:.015}),part('Úhel β',90-angle,'°')],['Z '+math('\\sin\\alpha=a/c')+' vyjádři '+math('a=c\\sin\\alpha')+'.',math('a='+length+'\\sin '+angle+'^\\circ\\doteq '+fmt(length*Math.sin(rad(angle))))+' cm.',math('\\beta=90^\\circ-'+angle+'^\\circ='+(90-angle)+'^\\circ')+'.'],'Znáš přeponu. Sinus propojí přeponu s protilehlou odvěsnou.');
+    const eye=r.pick([1.5,1.6,1.7]);
+    return problem('trojuhelnik','Z vodorovné vzdálenosti '+length+' m vidíš vrchol věže pod výškovým úhlem '+angle+'°. Oči máš '+fmt(eye)+' m nad zemí a pata věže je ve stejné výšce jako místo, kde stojíš. Jak vysoká je věž? Zaokrouhli na setiny metru.',[part('Výška věže',length*Math.tan(rad(angle))+eye,'m',{tol:.015})],['Vzdálenost '+length+' m je přilehlá odvěsna, nikoli přepona.',math('\\operatorname{tg}'+angle+'^\\circ=\\frac{h-'+fmt(eye)+'}{'+length+'}')+'.',math('h='+length+'\\operatorname{tg}'+angle+'^\\circ+'+fmt(eye)+'\\doteq '+fmt(length*Math.tan(rad(angle))+eye))+' m.'],'Výškový rozdíl nad očima je vzdálenost × tg úhlu. Pak přičti výšku očí.');
+  }
+  function circle(r,d) {
+    if(d>=2&&r.int(0,4)===0){
+      const q=r.pick([1,2,3,4]), s=(q<=2?1:-1)*3/5, c=(q===1||q===4?1:-1)*4/5;
+      return problem('kruznice','Víš, že '+math('\\sin\\alpha='+(s<0?'-':'')+'\\frac35')+' a α leží v '+q+'. kvadrantu. Urči '+math('\\cos\\alpha')+' a '+math('\\operatorname{tg}\\alpha')+'.',[part('cos α',c),part('tg α',s/c)],['Použij '+math('\\sin^2\\alpha+\\cos^2\\alpha=1')+'.',math('|\\cos\\alpha|=\\sqrt{1-9/25}=4/5')+'. Znaménko kosinu urči z kvadrantu.',math('\\cos\\alpha='+(c<0?'-':'')+'4/5')+' a '+math('\\operatorname{tg}\\alpha=\\sin\\alpha/\\cos\\alpha='+(s/c<0?'-':'')+'3/4')+'.'],'Odmocnina dá absolutní hodnotu kosinu. O jeho znaménku rozhodne kvadrant.');
+    }
+    const fn=r.pick(Object.keys(FUN)), a=r.pick(d===1?[0,30,45,60,90]:d===2?[120,135,150,180,210,225,240,270,300,315,330]:[-750,-450,-315,-240,390,405,480,585,660,765]);
+    const unit=d===3&&r.int(0,1)?'rad':'°', label=unit==='rad'?piTex(a):a+'^\\circ', ans=exact(fn,a), ref=mod(a,360);
+    const q=ref===0||ref===90||ref===180||ref===270?'na souřadnicové ose':Math.ceil(ref/90)+'. kvadrantu';
+    return problem('kruznice','Urči přesně '+math('\\'+FUN[fn]+'('+label+')')+'. Pokud funkce není definována, napiš nedef.',[part(FUN[fn]+' úhlu',ans.value)],['Přičti nebo odečti celé oběhy: základní úhel je '+math(ref+'^\\circ')+'.','Koncové rameno leží '+(q.startsWith('na')?q:'v '+q)+'. Znaménko urči z kružnice.',math('\\'+FUN[fn]+'('+label+')='+ans.tex)+'.'],fn==='sin'?'Sinus je y-ová souřadnice bodu na jednotkové kružnici.':fn==='cos'?'Kosinus je x-ová souřadnice bodu na jednotkové kružnici.':fn==='tan'?'tg = sin/cos; pro cos = 0 není definován.':'cotg = cos/sin; pro sin = 0 není definován.');
+  }
+  const GRAPH_INFO={
+    sin:{period:2*PI,zero:0,parity:'licha',range:'omezena',at0:0},
+    cos:{period:2*PI,zero:PI/2,parity:'suda',range:'omezena',at0:1},
+    tan:{period:PI,zero:0,parity:'licha',range:'cela',at0:0},
+    cot:{period:PI,zero:PI/2,parity:'licha',range:'cela',at0:null}
+  };
+  function graph(r,d) {
+    const fn=r.pick(Object.keys(FUN)), info=GRAPH_INFO[fn], f='\\'+FUN[fn]+' x';
+    const mode=r.int(0,d===1?2:9);
+    if(mode===7){const interval=fn==='cos'||fn==='cot'?'(0;\\pi)':'(-\\pi/2;\\pi/2)',growth=fn==='cos'||fn==='cot'?'klesa':'roste';
+      return problem('grafy','Jak se chová '+math('y='+f)+' na intervalu '+math(interval)+'?',[choice('Monotónnost',growth,[['roste','Roste'],['klesa','Klesá'],['ani','Na tomto intervalu není monotónní']])],['U sinu sleduj cestu od minima k maximu; u kosinu od maxima k minimu.','Tg roste na každé větvi, cotg na každé větvi klesá.','Na zadaném intervalu funkce '+(growth==='roste'?'roste':'klesá')+'.'],'Podívej se na směr grafu při pohybu zleva doprava.');
+    }
+    if(mode===8){
+      if(fn==='sin'||fn==='cos'){const max=fn==='sin'?PI/2:0;
+        return problem('grafy','Ve kterých x nabývá '+math('y='+f)+' svého maxima na '+math('[0;2\\pi)')+'?',[{type:'set',label:'Všechna místa maxima',unit:'rad',answer:[max]}],['Maximum sinu i kosinu je 1.','V tomto intervalu nastane pro '+math('x='+piTex(deg(max)))+'.'],'Sinus začíná v nule a vystoupá do 1; kosinus začíná v 1.');
+      }
+      return problem('grafy','Má funkce '+math('y='+f)+' největší funkční hodnotu?',[choice('Maximum','ne',[['ano','Ano, hodnota 1'],['ne','Ne, funkce není shora omezená']])],['Obor hodnot je ℝ.','V blízkosti asymptot může funkce růst nad libovolně velké číslo. Maximum neexistuje.'],'Tg a cotg mají obor hodnot ℝ.');
+    }
+    if(mode===9){const answer=fn==='sin'||fn==='cos'?'R':fn==='tan'?'tan':'cot';
+      return problem('grafy','Vyber definiční obor '+math('y='+f)+', kde '+math('k\\in\\mathbb Z')+'.',[choice('Definiční obor',answer,[['R','ℝ'],['tan','ℝ kromě π/2 + kπ'],['cot','ℝ kromě kπ']])],['Sinus a kosinus jsou definované na celém ℝ.','U tangens vyřaď nuly kosinu, u kotangens nuly sinu.'],'Ve zlomku sin/cos nebo cos/sin nesmí být nulový jmenovatel.');
+    }
+    if(mode===6){const p=problem('grafy','Pojmenuj funkci podle vykresleného grafu.',[choice('Funkce',fn,Object.keys(FUN).map(f=>[f,FUN[f]+' x']))],['Sinus prochází počátkem; kosinus má v nule hodnotu 1.','Tangens prochází počátkem a na každé větvi roste. Kotangens má v nule asymptotu a na každé větvi klesá.','Tento graf patří funkci '+math('y='+f)+'.'],'Prohlédni průsečík s osou y, asymptoty a směr jednotlivých větví.');p.graphFn=fn;return p;}
+    if(mode===0)return problem('grafy','Jaká je nejmenší kladná perioda funkce '+math('y='+f)+'?',[part('Nejmenší kladná perioda',info.period,'rad')],['Graf se začne opakovat po '+math(info.period===PI?'\\pi':'2\\pi')+' rad.','Násobky periody fungují také, ale nejsou nejmenší.'],'Sin a cos: celý oběh. Tg a cotg: půloběh.');
+    if(mode===1)return problem('grafy','Urči sudost nebo lichost funkce '+math('y='+f)+'.',[choice('Vlastnost',info.parity,[['suda','Sudá'],['licha','Lichá'],['ani','Ani sudá, ani lichá']])],['Kosinus je sudý: '+math('\\cos(-x)=\\cos x')+'.','Sinus, tangens a kotangens jsou liché: '+math('f(-x)=-f(x)')+' v jejich definičním oboru.'],'Sudá funkce má graf souměrný podle osy y, lichá podle počátku.');
+    if(mode===2)return problem('grafy','Jaký je obor hodnot funkce '+math('y='+f)+'?',[choice('Obor hodnot',info.range,[['omezena','⟨−1; 1⟩'],['cela','ℝ'],['kladna','⟨0; +∞)']])],['Sinus a kosinus mají hodnoty od −1 do 1 včetně krajů.','Tangens a kotangens nabývají všech reálných hodnot.'],'Souřadnice bodu na jednotkové kružnici nepřesáhnou velikost 1.');
+    if(mode===3){const invalid=fn==='tan'?PI/2:fn==='cot'?0:PI;
+      return problem('grafy','Je funkce '+math('y='+f)+' definována pro '+math('x='+(invalid===PI/2?'\\pi/2':invalid===PI?'\\pi':'0'))+'?',[choice('Odpověď',(fn==='tan'||fn==='cot')?'ne':'ano',[['ano','Ano'],['ne','Ne']])],['Sinus i kosinus jsou definovány pro všechna reálná x.','U tg kontroluj cos x ≠ 0; u cotg sin x ≠ 0.'],'Zakázané hodnoty jsou tam, kde je ve zlomku nulový jmenovatel.');
+    }
+    if(mode===4){const zeros=fn==='sin'||fn==='tan'?[0,PI]:fn==='cos'?[PI/2,3*PI/2]:[PI/2,3*PI/2];
+      return problem('grafy','Najdi všechny nulové body funkce '+math('y='+f)+' v intervalu '+math('[0;2\\pi)')+'.',[{type:'set',label:'Všechny nulové body',unit:'rad',answer:zeros}],['Nulový bod splňuje '+math(f+'=0')+'.','V zadaném intervalu jsou to '+zeros.map(x=>math(piTex(deg(x)))).join(' a ')+'.'],'Nulový bod grafu je průsečík s osou x; 2π už do intervalu nepatří.');
+    }
+    const x=r.pick([30,60,120,210,300]), y=val(fn,rad(x));
+    return problem('grafy','Pro '+math('x='+piTex(x))+' rozhodni, kde leží graf '+math('y='+f)+' vůči ose x.',[choice('Poloha grafu',y>0?'nad':'pod',[['nad','Nad osou x'],['pod','Pod osou x'],['na','Na ose x']])],['Úhel je '+x+'°. Urči jeho kvadrant.','Hodnota '+FUN[fn]+' je '+(y>0?'kladná':'záporná')+', takže graf leží '+(y>0?'nad':'pod')+' osou x.'],'Poloha nad/pod osou x znamená kladnou/zápornou funkční hodnotu.');
+  }
+  function roots(fn,target) {
+    if((fn==='sin'||fn==='cos')&&Math.abs(target)>1+EPS)return [];
+    const p=fn==='sin'||fn==='cos'?2*PI:PI;
+    let rr;
+    if(fn==='sin'){const a=Math.asin(Math.max(-1,Math.min(1,target)));rr=[mod(a,p),mod(PI-a,p)];}
+    else if(fn==='cos'){const a=Math.acos(Math.max(-1,Math.min(1,target)));rr=[mod(a,p),mod(-a,p)];}
+    else if(fn==='tan')rr=[mod(Math.atan(target),p)];
+    else rr=[mod(Math.atan2(1,target),p)];
+    return rr.map(x=>close(x,p)?0:x).filter((x,i,a)=>a.findIndex(y=>close(x,y))===i).sort((a,b)=>a-b);
+  }
+  function solveInterval(fn,target,coefficient=1,shift=0,lo=0,hi=2*PI) {
+    const p=fn==='sin'||fn==='cos'?2*PI:PI, rr=roots(fn,target), out=[];
+    for(const a of rr){const first=Math.floor((coefficient*lo+shift-a)/p)-1,last=Math.ceil((coefficient*hi+shift-a)/p)+1;
+      for(let k=first;k<=last;k++){let x=(a+k*p-shift)/coefficient;if(close(x,lo))x=lo;if(x>=lo-EPS&&x<hi-EPS&&!out.some(y=>close(x,y)))out.push(x);}
+    }return out.sort((a,b)=>a-b);
+  }
+  function equation(r,d) {
+    const fn=r.pick(Object.keys(FUN)), angle=r.pick([0,30,45,60,90,120,135,150]), candidate=exact(fn,angle);
+    if(candidate.value===null)return equation(r,d);
+    let target=candidate.value, tx=candidate.tex;
+    const impossible=d>=2 && r.int(0,11)===0 && (fn==='sin'||fn==='cos');
+    if(impossible){target=r.pick([-2,2]);tx=String(target);}
+    const unit=r.int(0,1)?'°':'rad', all=d===2&&!impossible&&r.int(0,1), coef=d===3?r.pick([1,2,3]):1, shift=d===3?r.pick([0,30,-45,60]):0;
+    const arg=(coef===1?'':coef)+'x'+(shift?(shift>0?'+':'-')+(unit==='°'?Math.abs(shift)+'^\\circ':piTex(Math.abs(shift))):'');
+    const eq='\\'+FUN[fn]+'('+arg+')='+tx, unitFactor=unit==='°'?180/PI:1;
+    const rr=all?roots(fn,target):solveInterval(fn,target,coef,rad(shift)), ans=rr.map(x=>x*unitFactor), period=(fn==='sin'||fn==='cos'?2*PI:PI)*unitFactor;
+    const list=ans.map(x=>unit==='°'?math(fmt(x,6)+'^\\circ'):math(piTex(deg(x)))).join('; ');
+    const formula=all?list+' + '+(unit==='°'?period+'°':math(period===PI?'\\pi':'2\\pi'))+'·k pro každou větev, '+math('k\\in\\mathbb Z'):list||'∅';
+    const p=problem('rovnice','Vyřeš '+math(eq)+' '+(all?'v ℝ. Použij předepsaný zápis se společnou periodou.':'v intervalu '+math(unit==='°'?'[0^\\circ;360^\\circ)':'[0;2\\pi)')+'.')+' Odpovídej '+(unit==='°'?'ve stupních.':'v radiánech.'),
+      [all?{type:'families',label:'Obecné řešení',answer:ans,period,unit}:{type:'set',label:'Všechna řešení v intervalu',answer:ans,unit}],
+      impossible?['Hodnoty sinu i kosinu leží mezi −1 a 1.','Pravá strana je mimo tento rozsah, proto rovnice nemá řešení: ∅.']:
+      ['Nejdřív řeš '+math('\\'+FUN[fn]+' t='+tx)+'. '+(fn==='sin'?'U sinu mají stejné y obvykle dva body kružnice.':fn==='cos'?'U kosinu mají stejné x obvykle dva body kružnice.':'Tg a cotg mají jednu větev po π.'),
+       ...(coef!==1||shift?['Zaveď '+math('t='+arg)+'. Ze všech větví vyjádři '+math('x=(t'+(shift?(shift>0?'-':'+')+(unit==='°'?Math.abs(shift)+'^\\circ':piTex(Math.abs(shift))):'')+')/'+coef)+'. Počet řešení v celém oběhu se může zvětšit.']:[]),
+       'Výsledek: '+formula+'.',all?'Každá větev má vlastní celé číslo k. Různé výchozí úhly mají pokrýt jednu periodu.':'Zkontroluj všechny úhly dosazením. Pravý kraj 360° / 2π nepatří do intervalu.'],
+      impossible?'Nejprve ověř, zda může funkce nabýt pravé strany.':'Najdi všechny body kružnice s požadovanou hodnotou. Nezapomeň na periodu a interval.');
+    p.data={fn,target,coef,shift,unit,all};return p;
+  }
+  function generate(topic,difficulty=2,rng=new Rng()) {
+    const gens={zaklady:basics,trojuhelnik:triangle,kruznice:circle,grafy:graph,rovnice:equation};
+    if(!gens[topic])throw Error('Unknown topic');
+    const p=gens[topic](rng,difficulty);p.difficulty=difficulty;return p;
+  }
+  function exam(rng=new Rng()) {
+    // Every stated test area is present, with extra equation and graph coverage.
+    return [['zaklady',2],['zaklady',3],['trojuhelnik',1],['trojuhelnik',3],['kruznice',2],['kruznice',3],['grafy',1],['grafy',2],['grafy',3],['rovnice',1],['rovnice',2],['rovnice',3]].map(([t,d])=>generate(t,d,rng));
+  }
+  return {TOPICS,FUN,PI,EPS,number,numeric,verify,Rng,generate,exam,exact,val,roots,solveInterval,piTex,piInput,fmt,math,mod,rad,deg,sameSet,GRAPH_INFO};
+});
+</script>
+<script>(function(){
+  'use strict';
+  const G=Gonio, $=s=>document.querySelector(s), $$=(s,el=document)=>[...el.querySelectorAll(s)];
+  const key='radovan_goniometrie_v1', topicIds=Object.keys(G.TOPICS);
+  let state={recent:{},exams:[]}, storageOK=true;
+  try{const old=JSON.parse(localStorage.getItem(key));if(old&&typeof old==='object'){topicIds.forEach(t=>{if(Array.isArray(old.recent?.[t]))state.recent[t]=old.recent[t].filter(x=>typeof x==='boolean').slice(-10);});if(Array.isArray(old.exams))state.exams=old.exams.filter(x=>Number.isFinite(x.pct)&&typeof x.date==='string').slice(-5);}}catch(e){storageOK=false;}
+  function save(){try{localStorage.setItem(key,JSON.stringify(state));}catch(e){storageOK=false;}if(!storageOK)$('#storage-status').textContent='Prohlížeč nepovoluje ukládání. Pokrok zůstane jen do obnovení této stránky.';}
+  function record(topic,ok){state.recent[topic]=[...(state.recent[topic]||[]),ok].slice(-10);save();renderProgress();}
+  function typeset(el){if(window.MathJax?.typesetPromise){try{MathJax.typesetClear?.([el]);MathJax.typesetPromise([el]).catch(()=>{});}catch(e){}}}
+  function renderProgress(){
+    $('#progress').innerHTML=topicIds.map(t=>{const a=state.recent[t]||[],n=a.filter(Boolean).length,good=a.length===10&&n>=9;return '<div class="progress-row"><div class="row-label"><a href="#trenink/'+t+'">'+G.TOPICS[t]+'</a><strong>'+n+' / '+a.length+'</strong></div><div class="progress-track"><div class="progress-fill'+(good?' mastered':'')+'" style="width:'+n*10+'%"></div></div><div class="small">'+(a.length<10?'Ještě '+(10-a.length)+' úloh do prvního přehledu.':good?'Alespoň 9 z 10 bez chyby a bez pomoci.':'Vrať se k chybám a zkus další kolo.')+'</div></div>';}).join('');
+    const weak=topicIds.slice().sort((a,b)=>{const aa=state.recent[a]||[],bb=state.recent[b]||[];return (aa.length===10?aa.filter(Boolean).length/10:aa.length/100)-(bb.length===10?bb.filter(Boolean).length/10:bb.length/100);})[0];
+    $('#recommendation').innerHTML='Další krok: <a href="#trenink/'+weak+'">'+G.TOPICS[weak]+'</a>.';
+    $('#exam-history').innerHTML=state.exams.length?'<h4>Poslední písemky</h4>'+state.exams.slice().reverse().map(x=>'<p class="small">'+new Date(x.date).toLocaleDateString('cs-CZ')+' · <b>'+x.pct+' %</b></p>').join(''):'';
+    if(!storageOK)$('#storage-status').textContent='Prohlížeč nepovoluje ukládání. Pokrok zůstane jen do obnovení této stránky.';
+  }
+  function circle(){
+    const slider=$('#circle-angle'), field=$('#circle-number');if(!slider)return;
+    function draw(a){
+      a=Math.max(-720,Math.min(720,Number.isFinite(a)?a:150));field.value=a;slider.value=a;
+      const x=Math.cos(G.rad(a)),y=Math.sin(G.rad(a)),px=220+x*155,py=220-y*155,m=G.mod(a,360),q=Number.isInteger(m/90)?'Na souřadnicové ose':Math.ceil(m/90)+'. kvadrant';
+      const s='<svg viewBox="0 0 440 440" role="img" aria-label="Bod na jednotkové kružnici pro úhel '+a+' stupňů"><line x1="20" y1="220" x2="420" y2="220" stroke="#8b9bb3"/><line x1="220" y1="20" x2="220" y2="420" stroke="#8b9bb3"/><circle cx="220" cy="220" r="155" fill="white" stroke="#6c7f9a" stroke-width="2"/><path d="M220 220 L'+px+' '+py+' L'+px+' 220" fill="#2456a611" stroke="#2456a6" stroke-width="2"/><line x1="220" y1="220" x2="'+px+'" y2="220" stroke="#2456a6" stroke-width="6"/><line x1="'+px+'" y1="220" x2="'+px+'" y2="'+py+'" stroke="#ad5600" stroke-width="6"/><line x1="220" y1="'+py+'" x2="'+px+'" y2="'+py+'" stroke="#ad5600" stroke-dasharray="5 5"/><circle cx="'+px+'" cy="'+py+'" r="6" fill="#17233a"/><g fill="#17233a" font-family="Barlow, sans-serif" font-size="22"><text x="400" y="247">x</text><text x="235" y="30">y</text><text x="381" y="211">1</text><text x="36" y="211">−1</text><text x="232" y="64">1</text><text x="231" y="395">−1</text><text x="232" y="245">0</text><text x="270" y="85">I.</text><text x="130" y="85">II.</text><text x="119" y="370">III.</text><text x="270" y="370">IV.</text></g></svg>';
+      $('#circle-diagram').innerHTML=s;
+      const val=f=>{const v=G.exact(f,a);return v.value===null?'nedef.':G.fmt(v.value,4);};
+      $('#circle-readout').textContent=a+'° · '+q+' · sin α = '+val('sin')+' · cos α = '+val('cos')+' · tg α = '+val('tan')+' · cotg α = '+val('cot');
+    }
+    slider.addEventListener('input',()=>draw(+slider.value));field.addEventListener('change',()=>draw(+field.value));draw(150);
+  }
+  function plot(fn, secret=false){
+    const W=660,H=330,L=48,R=22,T=24,B=50, x0=-2*G.PI,x1=2*G.PI,y0=-3,y1=3, xp=x=>L+(x-x0)/(x1-x0)*(W-L-R),yp=y=>T+(y1-y)/(y1-y0)*(H-T-B);
+    let s='<svg class="plot" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="'+(secret?'Graf funkce k rozpoznání':'Graf funkce '+G.FUN[fn])+'">';
+    for(let k=-4;k<=4;k++){const x=k*G.PI/2, xx=xp(x),label=k===0?'0':k===1?'π/2':k===-1?'−π/2':k===2?'π':k===-2?'−π':k===4?'2π':k===-4?'−2π':(k<0?'−':'')+'3π/2';s+='<line x1="'+xx+'" y1="'+T+'" x2="'+xx+'" y2="'+(H-B)+'" stroke="#ccd6e6"/><text x="'+xx+'" y="'+(H-17)+'" text-anchor="middle">'+label+'</text>';}
+    for(let y=-2;y<=2;y++){s+='<line x1="'+L+'" y1="'+yp(y)+'" x2="'+(W-R)+'" y2="'+yp(y)+'" stroke="#ccd6e6"/>';if(y)s+='<text x="'+(L-10)+'" y="'+(yp(y)+6)+'" text-anchor="end">'+y+'</text>';}
+    s+='<line x1="'+L+'" y1="'+yp(0)+'" x2="'+(W-R)+'" y2="'+yp(0)+'" stroke="#687b97" stroke-width="2"/><line x1="'+xp(0)+'" y1="'+T+'" x2="'+xp(0)+'" y2="'+(H-B)+'" stroke="#687b97" stroke-width="2"/>';
+    if(fn==='tan'||fn==='cot')for(let k=-3;k<=3;k++){const a=fn==='tan'?G.PI/2+k*G.PI:k*G.PI;if(a>=x0&&a<=x1)s+='<line x1="'+xp(a)+'" x2="'+xp(a)+'" y1="'+T+'" y2="'+(H-B)+'" stroke="#ad5600" stroke-dasharray="7 6" stroke-width="2"/>';}
+    let path='',started=false,old=null;
+    for(let i=0;i<=1300;i++){const x=x0+(x1-x0)*i/1300,y=G.val(fn,x);if(y===null||Math.abs(y)>3||old!==null&&Math.abs(y-old)>1){started=false;old=y;continue;}path+=(started?'L':'M')+xp(x).toFixed(2)+' '+yp(y).toFixed(2)+' ';started=true;old=y;}
+    return s+'<path d="'+path+'" fill="none" stroke="#2456a6" stroke-width="3"/><text x="'+(W-18)+'" y="'+(yp(0)-9)+'">x</text><text x="'+(xp(0)+12)+'" y="22">y</text></svg>';
+  }
+  function graphExplorer(){const sel=$('#graph-function');if(!sel)return;const draw=()=>{const fn=sel.value;$('#graph-diagram').innerHTML=plot(fn);$('#graph-readout').textContent={sin:'Sinus: perioda 2π, v nule 0, lichá funkce. Maximum 1, minimum −1.',cos:'Kosinus: perioda 2π, v nule 1, sudá funkce. Maximum 1, minimum −1.',tan:'Tangens: perioda π, každá větev roste. Oranžově jsou zakázaná x = π/2 + kπ.',cot:'Kotangens: perioda π, každá větev klesá. Oranžově jsou zakázaná x = kπ.'}[fn];};sel.addEventListener('change',draw);draw();}
+  let uid=0;
+  function mount(host,p,exam=false,index=0){
+    const id='q'+(++uid), fields=p.parts.map((f,i)=>{const fid=id+'-'+i,label=f.label+(f.unit?' <span class="unit">('+f.unit+')</span>':'');
+      if(f.type==='choice')return '<label for="'+fid+'">'+label+'<select id="'+fid+'" data-part="'+i+'"><option value="">Vyber odpověď</option>'+f.options.map(([v,t])=>'<option value="'+v+'">'+t+'</option>').join('')+'</select></label>';
+      if(f.type==='families')return '<fieldset class="families"><legend>'+label+'</legend><p>Větve mají tvar x = a + T·k, k ∈ ℤ. Zadej všechny různé výchozí úhly a; T = 360° (2π) pro sin/cos, 180° (π) pro tg/cotg.</p><label for="'+fid+'-seeds">Výchozí úhly a, oddělené středníkem<input id="'+fid+'-seeds" data-part="'+i+'" data-seeds autocomplete="off" spellcheck="false"></label><label for="'+fid+'-period">Společná perioda T<input id="'+fid+'-period" data-period autocomplete="off" spellcheck="false"></label></fieldset>';
+      return '<label for="'+fid+'">'+label+'<input id="'+fid+'" data-part="'+i+'" autocomplete="off" spellcheck="false" inputmode="text"></label>';
+    }).join('');
+    host.innerHTML='<article class="problem'+(exam?' exam-question':'')+'"><span class="tag">'+(exam?(index+1)+'. ÚLOHA / ':'')+G.TOPICS[p.topic]+' · '+['','ZÁKLAD','PÍSEMKA','VÝZVA'][p.difficulty]+'</span><h3 class="prompt">'+p.prompt+'</h3>'+(p.graphFn?plot(p.graphFn,true):'')+'<div class="answer-fields">'+fields+'</div>'+(exam?'':'<div class="actions"><button type="button" class="button primary" data-action="check">Zkontrolovat</button><button type="button" class="button" data-action="hint">Nápověda</button><button type="button" class="button" data-action="solution">Celý postup</button></div>')+'<div class="feedback" role="status" aria-live="polite"></div><div class="solution" hidden></div></article>';
+    const inputs=p.parts.map((f,i)=>host.querySelector('#'+id+'-'+i+(f.type==='families'?'-seeds':''))), solution=host.querySelector('.solution'),feedback=host.querySelector('.feedback');
+    const read=()=>p.parts.map((f,i)=>f.type==='families'?{seeds:inputs[i].value,period:host.querySelector('#'+id+'-'+i+'-period').value}:inputs[i].value);
+    function grade(){const a=read();return p.parts.map((f,i)=>G.verify(f,a[i]));}
+    function reveal(){solution.hidden=false;solution.innerHTML='<h4>Postup a výsledek</h4><ol>'+p.steps.map(s=>'<li>'+s+'</li>').join('')+'</ol>';typeset(solution);}
+    function mark(results){results.forEach((r,i)=>{inputs[i].classList.remove('answer-correct','answer-wrong');inputs[i].classList.add(r.ok?'answer-correct':'answer-wrong');inputs[i].setAttribute('aria-invalid',String(!r.ok));});}
+    let recorded=false,aid=false;
+    function store(ok){if(!recorded){record(p.topic,ok);recorded=true;}}
+    if(!exam){
+      const check=()=>{const res=grade(),ok=res.every(r=>r.ok);mark(res);if(!res.every(r=>r.invalid))store(ok&&!aid);feedback.className='feedback '+(ok?'good':'bad');feedback.innerHTML=ok?'<b>Správně.</b> '+(aid?'Teď zkus podobnou úlohu bez pomoci.':'Všechny odpovědi sedí. Zkus vysvětlit, proč výsledek vychází.') : res.map((r,i)=>r.ok?'':'<p><b>'+p.parts[i].label+':</b> '+r.message+'</p>').join('');if(ok){store(!aid);if(!host.querySelector('[data-action=next]')){const b=document.createElement('button');b.type='button';b.className='button primary';b.dataset.action='next';b.textContent='Další podobný příklad';b.onclick=()=>newPractice(p.topic);host.querySelector('.actions').appendChild(b);}}};
+      host.querySelector('[data-action=check]').onclick=check;
+      host.querySelector('[data-action=hint]').onclick=()=>{aid=true;feedback.className='feedback';feedback.textContent=p.hint;};
+      host.querySelector('[data-action=solution]').onclick=()=>{aid=true;store(false);reveal();};
+      inputs.forEach(el=>el.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();check();}}));
+    }
+    typeset(host);
+    return {p,grade,review(results){mark(results);feedback.className='feedback '+(results.every(r=>r.ok)?'good':'bad');feedback.textContent='Správných odpovědí: '+results.filter(r=>r.ok).length+' / '+results.length+'.';reveal();$$('input,select',host).forEach(el=>el.disabled=true);}};
+  }
+  let currentPractice=null;
+  function newPractice(force){
+    let topic=force||$('#practice-topic').value;if(topic==='mix')topic=new G.Rng().pick(topicIds);
+    try{currentPractice=G.generate(topic,+$('#practice-diff').value);mount($('#practice-host'),currentPractice);}catch(e){$('#practice-host').textContent='Příklad se nepodařilo vytvořit. Zvol téma a zkus nový příklad.';console.error(e);}
+  }
+  topicIds.forEach(t=>{$('#practice-topic').insertAdjacentHTML('beforeend','<option value="'+t+'">'+G.TOPICS[t]+'</option>');});
+  $('#new-practice').onclick=()=>newPractice();$('#practice-topic').onchange=()=>newPractice();$('#practice-diff').onchange=()=>newPractice();
+  let examRun=null,examTimer=null;
+  function finishExam(auto){
+    if(!examRun||examRun.finished)return;examRun.finished=true;clearInterval(examTimer);
+    let points=0;const per={};
+    examRun.mounts.forEach(m=>{const results=m.grade(),score=results.filter(r=>r.ok).length/results.length;points+=score;per[m.p.topic]??={points:0,count:0};per[m.p.topic].points+=score;per[m.p.topic].count++;m.review(results);record(m.p.topic,score===1);});
+    const pct=Math.round(points/examRun.mounts.length*100);state.exams.push({date:new Date().toISOString(),pct});state.exams=state.exams.slice(-5);save();renderProgress();
+    $('#submit-exam').hidden=true;$('#exam-clock').textContent=auto?'Čas vypršel':'Odevzdáno';
+    $('#exam-result').hidden=false;$('#exam-result').innerHTML='<div class="panel result-card"><p class="eyebrow">'+(auto?'ČAS VYPRŠEL · AUTOMATICKY ODEVZDÁNO':'ODEVZDÁNO')+'</p><h3>Výsledek písemky</h3><div class="result-score">'+pct+' %</div><p>'+G.fmt(points,2)+' / 12 bodů. '+(pct>=90?'Velmi dobrý výsledek. Zopakuj si chyby a zkus další den novou variantu.':'Vrať se k okruhům s chybami. Po procvičení zkus novou variantu.')+'</p><div class="table-scroll"><table class="result-table"><thead><tr><th>Okruh</th><th>Výsledek</th><th>Další krok</th></tr></thead><tbody>'+topicIds.map(t=>'<tr><td>'+G.TOPICS[t]+'</td><td>'+Math.round(per[t].points/per[t].count*100)+' %</td><td><a href="#trenink/'+t+'">Procvičit</a></td></tr>').join('')+'</tbody></table></div><button type="button" class="button" id="another-exam">Připravit další písemku</button><p class="small">Jde o cvičné hodnocení. Úspěch v jednom testu nenahrazuje samostatné zvládnutí jednotlivých témat. Níže jsou tvoje odpovědi a řešené postupy.</p></div>';
+    $('#another-exam').onclick=()=>{examRun=null;$('#exam-start').hidden=false;$('#exam-form').hidden=true;$('#exam-result').hidden=true;$('#exam-clock').hidden=true;};$('#exam-result').focus();
+  }
+  $('#start-exam').onclick=()=>{
+    const probs=G.exam();$('#exam-start').hidden=true;$('#exam-result').hidden=true;$('#exam-form').hidden=false;$('#submit-exam').hidden=false;$('#exam-clock').hidden=false;$('#exam-problems').innerHTML='';
+    examRun={finished:false,end:Date.now()+45*60*1000,mounts:probs.map((p,i)=>{const h=document.createElement('div');$('#exam-problems').appendChild(h);return mount(h,p,true,i);})};
+    const tick=()=>{const s=Math.max(0,Math.ceil((examRun.end-Date.now())/1000));$('#exam-clock').textContent=Math.floor(s/60)+':'+String(s%60).padStart(2,'0');$('#exam-clock').classList.toggle('urgent',s<300);if(!s)finishExam(true);};tick();examTimer=setInterval(tick,1000);
+  };
+  $('#exam-form').onsubmit=e=>{e.preventDefault();finishExam(false);};
+  window.addEventListener('beforeunload',e=>{if(examRun&&!examRun.finished){e.preventDefault();e.returnValue='';}});
+  $('#lesson-nav').innerHTML=topicIds.map((t,i)=>'<a href="#uceni/'+t+'" data-lesson="'+t+'"><span>'+String(i).padStart(2,'0')+'</span>'+G.TOPICS[t]+'</a>').join('');
+  let lastLesson=null;
+  function route(){
+    const [page,sub]=(location.hash.slice(1)||'uceni/trojuhelnik').split('/'),view=['uceni','trenink','pisemka'].includes(page)?page:'uceni';
+    $('#learning').hidden=view!=='uceni';$('#training').hidden=view!=='trenink';$('#exam').hidden=view!=='pisemka';
+    $$('.view-tabs a').forEach(a=>{a.classList.toggle('active',a.dataset.view===view);if(a.dataset.view===view)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
+    if(view==='uceni'){
+      const t=topicIds.includes(sub)?sub:'trojuhelnik';if(t!==lastLesson){lastLesson=t;$('#lesson').replaceChildren($('#lesson-'+t).content.cloneNode(true));const i=topicIds.indexOf(t);$('#lesson').insertAdjacentHTML('beforeend','<nav class="lesson-switch" aria-label="Další část">'+(i>0?'<a class="button" href="#uceni/'+topicIds[i-1]+'">Předchozí část</a>':'')+(i<topicIds.length-1?'<a class="button" href="#uceni/'+topicIds[i+1]+'">Další část</a>':'<a class="button" href="#pisemka">Zkusit písemku</a>')+'</nav>');circle();graphExplorer();typeset($('#lesson'));}
+      $$('#lesson-nav a').forEach(a=>{const active=a.dataset.lesson===t;a.classList.toggle('active',active);if(active)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
+    }else if(view==='trenink'){
+      if(topicIds.includes(sub)){$('#practice-topic').value=sub;newPractice(sub);}else if(!currentPractice)newPractice();renderProgress();
+    }
+  }
+  window.addEventListener('hashchange',route);route();renderProgress();
+  window.addEventListener('load',()=>typeset(document.body));
+})();
+</script>
+</body>
+</html>

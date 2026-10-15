@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Matematika – trénink na písemku | Radovan</title>
-<meta name="description" content="Procvičování: determinanty, Gaussova eliminace, lomené rovnice a nerovnice, výrazy, lineární a kvadratické funkce.">
+<meta name="description" content="Procvičování matematiky: goniometrie, determinanty, Gaussova eliminace, lomené rovnice a nerovnice, výrazy, lineární a kvadratické funkce.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Semi+Condensed:wght@600;700&display=swap" rel="stylesheet">
@@ -374,7 +374,7 @@ footer{max-width:1120px;margin:0 auto;padding:0 16px 30px;color:var(--ink2);font
 <header class="topbar"><div class="topbar-in">
   <a class="brand" href="#"><i aria-hidden="true"></i><span>Trénink na písemku</span></a>
   <nav class="nav" aria-label="Hlavní menu">
-    <a href="#">Přehled</a><a href="#dnes">Dnešní trénink</a><a href="#pisemka">Písemka</a><a href="#dril">Dril</a><a href="#teorie">Teorie</a><a href="#chyby">Moje chyby</a><a href="#tisk">Tisk</a>
+    <a href="#">Přehled</a><a href="goniometrie.html">Goniometrie I</a><a href="#dnes">Dnešní trénink</a><a href="#pisemka">Písemka</a><a href="#dril">Dril</a><a href="#teorie">Teorie</a><a href="#chyby">Moje chyby</a><a href="#tisk">Tisk</a>
   </nav>
 </div></header>
 <main id="app"></main>
@@ -2235,6 +2235,7 @@ const PAGES={
   kvadr:{title:'Kvadratické funkce',glyph:'x²',theory:'kvadr',modes:[{id:'kvadr',l:'Vlastnosti funkce'},{id:'prusecik',l:'Průsečíky dvou funkcí'}]}
 };
 const TILES=[
+  {h:'goniometrie.html',g:'sin α',n:'Goniometrie I',d:'trojúhelník, kružnice, grafy a rovnice',sp:true},
   {h:'#t/cramer',g:'|A|',n:'Determinanty a Cramerovo pravidlo',d:'Sarrus, D, Dₓ, D_y, D_z'},
   {h:'#t/gauss',g:'[ A | b ]',n:'Matice a Gaussova eliminace',d:'schodový tvar, počet řešení'},
   {h:'#t/rovnice',g:'a/b = c',n:'Lomené rovnice',d:'nejdřív podmínky'},
@@ -2269,7 +2270,7 @@ function pageHome(app){
   const pageOf=t=>t==='pocet'?'#t/gauss/pocet':t==='slovni'?'#t/linear/slovni':t==='prusecik'?'#t/kvadr/prusecik':t==='teorie'?'#teorie':'#t/'+t;
   app.innerHTML=
   '<section class="hero"><div class="hero-txt"><h1>MATEMATIKA – TRÉNINK NA PÍSEMKU</h1><p class="lead">Cíl: umět každý typ příkladu samostatně a bez nápovědy.</p>'+
-  '<div class="reco"><h2>Dnešní doporučení</h2><ol><li><a href="#t/gauss">Matice a Gauss</a></li><li><a href="#t/nerovnice">Lomené nerovnice</a></li><li><a href="#t/kvadr">Kvadratické funkce</a></li><li><a href="#pisemka">1 cvičná písemka</a></li></ol><p class="why">Tyhle složitější úlohy dávají v písemce nejvíc bodů.</p></div>'+
+  '<div class="reco"><h2>Teď procvičujeme: Goniometrie I</h2><ol><li><a href="goniometrie.html#uceni/trojuhelnik">Goniometrie v pravoúhlém trojúhelníku</a></li><li><a href="goniometrie.html#uceni/kruznice">Obecný úhel a jednotková kružnice</a></li><li><a href="goniometrie.html#uceni/grafy">Grafy a vlastnosti funkcí</a></li><li><a href="goniometrie.html#uceni/rovnice">Jednoduché goniometrické rovnice</a></li></ol><p class="why"><a href="goniometrie.html#trenink">Procvičovat novou kapitolu</a> · <a href="goniometrie.html#pisemka">Zkusit písemku z goniometrie</a></p></div>'+
   '<div class="cta-row"><a class="btn primary" href="#dnes">'+(daily?'Dnešní trénink ✓ ('+daily.pct+' %)':'Dnešní trénink')+'</a><a class="btn" href="#dril">10 minut drilu</a><a class="btn" href="#pisemka">Vygenerovat písemku</a><a class="btn" href="#tisk">Pracovní list k tisku</a></div></div>'+
   '<div class="hero-art" aria-hidden="true">'+HERO_SVG+'</div></section>'+
   '<section class="dash" aria-labelledby="dash-h"><div class="dash-head"><h2 id="dash-h">Příprava z matematiky</h2><button type="button" class="btn small ghost" data-a="reset">Vynulovat pokrok</button></div>'+
